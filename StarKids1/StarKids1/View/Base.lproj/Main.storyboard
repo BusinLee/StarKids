@@ -168,10 +168,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="Kpv-sL-bWt">
-                                <rect key="frame" x="110" y="217" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLH-Lh-o1D">
                                 <rect key="frame" x="106" y="352" width="107" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -183,6 +179,35 @@
                                     <action selector="btn_AddStudent:" destination="NcJ-og-WEt" eventType="touchUpInside" id="mKG-bT-aRo"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ngày không hợp lệ!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNN-ui-d3E">
+                                <rect key="frame" x="85" y="169" width="149" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0093617555430000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="Kpv-sL-bWt">
+                                <rect key="frame" x="110" y="217" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="vLf-Tq-hsa" appends="YES" id="vYd-ML-nor"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nv0-nZ-wiL">
+                                <rect key="frame" x="26" y="133" width="46" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wuS-lP-AmK">
+                                <rect key="frame" x="119" y="128" width="185" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="S9y-QK-gDE"/>
@@ -190,12 +215,19 @@
                     <connections>
                         <outlet property="btnAddStudent" destination="RLH-Lh-o1D" id="sBm-hn-r3w"/>
                         <outlet property="imgAvatar" destination="Kpv-sL-bWt" id="UfP-e4-E9v"/>
+                        <outlet property="lbValid" destination="TNN-ui-d3E" id="RwF-EW-Wcw"/>
                         <outlet property="pickerBirthDay" destination="xQs-qz-Ui7" id="u0F-2G-bad"/>
                         <outlet property="txtBirthYear" destination="dil-in-uDz" id="y7x-Gq-H0h"/>
+                        <outlet property="txtEmail" destination="wuS-lP-AmK" id="Drv-nK-av9"/>
                         <outlet property="txtFullName" destination="bYx-Ix-jDt" id="ngm-WL-Kwa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8f-64-c6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="vLf-Tq-hsa">
+                    <connections>
+                        <action selector="tap_Avata:" destination="NcJ-og-WEt" id="fid-e2-VUk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="603.75" y="29.577464788732396"/>
         </scene>

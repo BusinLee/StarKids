@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import Firebase
+
+
+let storage = Storage.storage()
+let storageRef = storage.reference(forURL: "gs://starkids1-fda2a.appspot.com")
 
 class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    @IBOutlet weak var lbValid: UILabel!
     @IBOutlet weak var txtBirthYear: UITextField!
     @IBOutlet weak var txtFullName: UITextField!
+    @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var btnAddStudent: UIButton!
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var pickerBirthDay: UIPickerView!
@@ -20,13 +27,13 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     var date:String = ""
     var day:String = "01"
     var month:String = "01"
-    //let year = Calendar.current.component(.year, from: Date()) - 5
+    var imgData:Data!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerBirthDay.delegate = self
         pickerBirthDay.dataSource = self
-        
+        imgData = UIImage(named: "camera")!.pngData()
         for i in 0...1 {
             var row = [Int]()
             for j in 0...30 {
@@ -39,25 +46,106 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         txtBirthYear.text = String(Calendar.current.component(.year, from: Date()) - 5)
         btnAddStudent.layer.cornerRadius = 5
+        lbValid.isHidden = true
         
         let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
     
+    @IBAction func tap_Avata(_ sender: UITapGestureRecognizer) {
+        let alert:UIAlertController = UIAlertController(title: "Thông báo", message: "Chọn", preferredStyle: .alert)
+        let btnPhoto:UIAlertAction = UIAlertAction(title: "Photo", style: .default) { (UIAlertAction) in
+            let imgPicker = UIImagePickerController()
+            imgPicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            imgPicker.delegate = self
+            imgPicker.allowsEditing = false
+            self.present(imgPicker, animated: true, completion: nil)
+        }
+        let btnCamera:UIAlertAction = UIAlertAction(title: "Camera", style: .default) { (UIAlertAction) in
+            let imgPicker = UIImagePickerController()
+            imgPicker.sourceType = UIImagePickerController.SourceType.camera
+            imgPicker.delegate = self
+            imgPicker.allowsEditing = false
+            self.present(imgPicker, animated: true, completion: nil)
+        }
+        alert.addAction(btnPhoto)
+        alert.addAction(btnCamera)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     @IBAction func btn_AddStudent(_ sender: Any) {
-        if ((month == "4" || month == "6" || month == "9" || month == "11") && day == "31") {
-            print("Invalid")
+        if ((month == "04" || month == "06" || month == "09" || month == "11") && day == "31") {
+            lbValid.isHidden = false
         } else {
-            if (month == "2" && (day == "30" || day == "31")) {
-                print("Invalid")
+            if (month == "02" && (day == "30" || day == "31")) {
+                lbValid.isHidden = false
             } else {
-                if (month == "2" && day == "29" && (Int(txtBirthYear.text!)! % 4) != 0) {
-                    print("Invalid")
+                if (month == "02" && day == "29" && (Int(txtBirthYear.text!)! % 4) != 0) {
+                    lbValid.isHidden = false
                 } else {
                     date = day + month + txtBirthYear.text!
-                    print("Final \(date)")
+                    lbValid.isHidden = true
                 }
+            }
+        }
+        let email:String = txtEmail.text!
+        let password:String = date
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if (error == nil)
+            {
+                Auth.auth().signIn(withEmail: email, password: password) { user, error in
+                    //guard let strongSelf = self else { return }
+                    if (error == nil)
+                    {
+                        print("Đăng nhập thành công")
+                    }
+                }
+                
+                let avatarRef = storageRef.child("avatars/\(email).jpg")
+//                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) {metadata, error in
+//                    if (error != nil){
+//                        print("Lỗi up avatar")
+//                    } else {
+//                        let downloadURL = metadata!.downloadURL()
+//                    }
+//                }
+                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
+                    guard let metadata = metadata else {
+                        print("Lỗi up avatar")
+                        return
+                    }
+                    let size = metadata.size
+                    storageRef.downloadURL { (url, error) in
+                        guard let downloadURL = url
+                            else {
+                            print("Lỗi up avatar")
+                            return
+                            }
+                        let user = Auth.auth().currentUser
+                        if let user = user {
+                            let changeRequest = user.createProfileChangeRequest()
+                            changeRequest.displayName = self.txtFullName.text!
+                            changeRequest.photoURL = downloadURL
+                            changeRequest.commitChanges(completion: { (error) in
+                                if (error == nil){
+                                    print("Update profile thành công")
+                                } else {
+                                    print("Lỗi update profile")
+                                }
+                            })
+                            
+//                            let uid = user.uid
+//                            let email = user.email
+//                            let photoURL = user.photoURL
+                        }
+                    }
+                }
+                uploadTask.resume()
+            }
+            else
+            {
+                print("Lỗi đăng ký!")
             }
         }
     }
@@ -76,8 +164,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        //var abc:String = String(arrDate[component][row])
-        
         if (component == 0) {
             if (arrDate[component][row] < 10) {
                 day = "0" + String(arrDate[component][row])
@@ -92,5 +178,38 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                 month = String(arrDate[component][row])
             }
         }
+    }
+}
+extension NewStudentController : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[.originalImage] as? UIImage {
+            let imgValue = max(image.size.width, image.size.height)
+            if (imgValue > 3000) {
+                imgData = image.jpegData(compressionQuality: 0.1)
+            } else
+                if (imgValue > 2000) {
+                    imgData = image.jpegData(compressionQuality: 0.3)
+                } else {
+                    imgData = image.pngData()
+            }
+            self.imgAvatar.image = UIImage(data:imgData)
+        }
+        else
+            if let image = info[.editedImage] as? UIImage {
+                let imgValue = max(image.size.width, image.size.height)
+                if (imgValue > 3000) {
+                    imgData = image.jpegData(compressionQuality: 0.1)
+                } else
+                    if (imgValue > 2000) {
+                        imgData = image.jpegData(compressionQuality: 0.3)
+                    } else {
+                        imgData = image.pngData()
+                }
+                self.imgAvatar.image = UIImage(data:imgData)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
