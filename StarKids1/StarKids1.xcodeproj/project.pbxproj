@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1202F66A225A323D00FA9666 /* NewStudentController.swift */; };
+		121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D722634E5C00DE3A47 /* ListChatController.swift */; };
+		121216DA22635B2A00DE3A47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D922635B2A00DE3A47 /* User.swift */; };
 		12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DB3DEC2247D1E2005F96DD /* AppDelegate.swift */; };
 		12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DB3DEE2247D1E2005F96DD /* ViewController.swift */; };
 		12DB3DF22247D1E2005F96DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF02247D1E2005F96DD /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		1202F66A225A323D00FA9666 /* NewStudentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudentController.swift; sourceTree = "<group>"; };
+		121216D722634E5C00DE3A47 /* ListChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatController.swift; sourceTree = "<group>"; };
+		121216D922635B2A00DE3A47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		12DB3DE92247D1E2005F96DD /* StarKids1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarKids1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DB3DEC2247D1E2005F96DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12DB3DEE2247D1E2005F96DD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 			children = (
 				12DB3DEE2247D1E2005F96DD /* ViewController.swift */,
 				1202F66A225A323D00FA9666 /* NewStudentController.swift */,
+				121216D722634E5C00DE3A47 /* ListChatController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -64,6 +69,7 @@
 		1202F669225A2FF100FA9666 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				121216D922635B2A00DE3A47 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -256,6 +262,8 @@
 				1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */,
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
 				12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */,
+				121216DA22635B2A00DE3A47 /* User.swift in Sources */,
+				121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

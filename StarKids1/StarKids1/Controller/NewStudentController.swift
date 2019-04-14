@@ -103,13 +103,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                 }
                 
                 let avatarRef = storageRef.child("avatars/\(email).jpg")
-//                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) {metadata, error in
-//                    if (error != nil){
-//                        print("Lỗi up avatar")
-//                    } else {
-//                        let downloadURL = metadata!.downloadURL()
-//                    }
-//                }
                 let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                     guard let metadata = metadata else {
                         print("Lỗi up avatar")
@@ -142,6 +135,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                     }
                 }
                 uploadTask.resume()
+                self.gotoScreen()
             }
             else
             {
