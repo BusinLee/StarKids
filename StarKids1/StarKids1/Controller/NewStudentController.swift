@@ -75,6 +75,15 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.present(alert, animated: true, completion: nil)
     }
     @IBAction func btn_AddStudent(_ sender: Any) {
+        
+        let alertActivity:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        activity.frame = CGRect(x: view.frame.size.width/2-20, y: 25, width: 0, height: 0)
+        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(229)/255, blue: CGFloat(139)/255, alpha: 1.0)
+        alertActivity.view.addSubview(activity)
+        activity.startAnimating()
+        self.present(alertActivity, animated: true, completion: nil)
+        
         if ((month == "04" || month == "06" || month == "09" || month == "11") && day == "31") {
             lbValid.isHidden = false
         } else {
@@ -95,7 +104,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             if (error == nil)
             {
                 Auth.auth().signIn(withEmail: email, password: password) { user, error in
-                    //guard let strongSelf = self else { return }
                     if (error == nil)
                     {
                         print("Đăng nhập thành công")
@@ -109,33 +117,23 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                         return
                     }
                     let size = metadata.size
-                    storageRef.downloadURL { (url, error) in
-                        guard let downloadURL = url
-                            else {
-                            print("Lỗi up avatar")
-                            return
+                    avatarRef.downloadURL { (url, error) in
+                        
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = self.txtFullName.text!
+                        changeRequest?.photoURL = url
+                        changeRequest?.commitChanges { (error) in
+                            if (error == nil){
+                                activity.stopAnimating()
+                                alertActivity.dismiss(animated: true, completion: nil)
+                                self.gotoScreen()
+                            } else {
+                                print("Lỗi update profile")
                             }
-                        let user = Auth.auth().currentUser
-                        if let user = user {
-                            let changeRequest = user.createProfileChangeRequest()
-                            changeRequest.displayName = self.txtFullName.text!
-                            changeRequest.photoURL = downloadURL
-                            changeRequest.commitChanges(completion: { (error) in
-                                if (error == nil){
-                                    print("Update profile thành công")
-                                } else {
-                                    print("Lỗi update profile")
-                                }
-                            })
-                            
-//                            let uid = user.uid
-//                            let email = user.email
-//                            let photoURL = user.photoURL
                         }
                     }
                 }
                 uploadTask.resume()
-                self.gotoScreen()
             }
             else
             {

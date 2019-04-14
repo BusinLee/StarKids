@@ -16,7 +16,23 @@ class ListChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let user = Auth.auth().currentUser
+        if let user = user {
+            
+            let uid = user.uid
+            let email = user.email
+            let photoURL = user.photoURL
+            let name = user.displayName
+            
+            currentUser = User(id: uid, email: email!, fullName: name!, linkAvatar: photoURL!.absoluteString)
+            
+            let tableName = ref.child("ListFriend")
+            let userId = tableName.child(currentUser.id)
+            let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar]
+            userId.setValue(user)
+        } else {
+            print("Không có user")
+        }
     }
     
 
