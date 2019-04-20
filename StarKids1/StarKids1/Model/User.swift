@@ -14,7 +14,7 @@ struct User {
     let email:String!
     let fullName:String!
     let linkAvatar:String!
-    let avatar:UIImage!
+    var avatar:UIImage!
     
     init() {
         id = ""
@@ -31,5 +31,34 @@ struct User {
         self.fullName = fullName
         self.linkAvatar = linkAvatar
         self.avatar = UIImage(named: "user")
+    }
+}
+extension UIImageView
+{
+    func loadAvatar(link:String)
+    {
+        let queue:DispatchQueue = DispatchQueue(label: "LoadImages", attributes: .concurrent, target: nil)
+        let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+        activity.frame = CGRect(x: self.frame.size.width/2+5, y: self.frame.size.height/2+5, width: 0, height: 0)
+        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(229)/255, blue: CGFloat(139)/255, alpha: 1.0)
+        self.addSubview(activity)
+        activity.startAnimating()
+        
+        queue.async {
+            let url:URL = URL(string: link)!
+            do
+            {
+                let data:Data = try Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    activity.stopAnimating()
+                    self.image = UIImage(data: data)
+                }
+            }
+            catch
+            {
+                activity.stopAnimating()
+                print("Lỗi load hình avatar")
+            }
+        }
     }
 }
