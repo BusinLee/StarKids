@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1202F66A225A323D00FA9666 /* NewStudentController.swift */; };
+		120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C3B90226E11300090C405 /* ScreenListChatTableViewCell.swift */; };
 		120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC3226B2A6900F25B53 /* ListFriendController.swift */; };
 		120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */; };
 		120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC9226B7EF600F25B53 /* ChatViewController.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		1202F66A225A323D00FA9666 /* NewStudentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudentController.swift; sourceTree = "<group>"; };
+		120C3B90226E11300090C405 /* ScreenListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListChatTableViewCell.swift; sourceTree = "<group>"; };
 		120D3FC3226B2A6900F25B53 /* ListFriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFriendController.swift; sourceTree = "<group>"; };
 		120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListFriendTableViewCell.swift; sourceTree = "<group>"; };
 		120D3FC9226B7EF600F25B53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */,
 				12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */,
 				12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */,
+				120C3B90226E11300090C405 /* ScreenListChatTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */,
 				120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */,
 				120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */,
+				120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */,
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,

@@ -70,14 +70,7 @@ extension ListFriendController : UITableViewDataSource, UITableViewDelegate
             
             let data:Data = try Data(contentsOf: url)
             visitor.avatar = UIImage(data: data)
-            //gotoScreen(idScreen: "scrChatView")
-            
-           
             gotoScreenWithBack(idScreen: "scrChatView")
-            
-            //let screen = storyboard?.instantiateViewController(withIdentifier: "scrChatView") as! ChatViewController
-            //let screen = ChatViewController()
-            //navigationController?.pushViewController(screen, animated: true)
         }
         catch
         {

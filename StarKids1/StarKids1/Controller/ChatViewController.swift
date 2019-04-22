@@ -59,6 +59,11 @@ class ChatViewController: UIViewController {
         let mess:Dictionary<String,String> = ["id":currentUser.id, "message":txtMess.text!]
         tableName.childByAutoId().setValue(mess)
         txtMess.text = ""
+        if (arrtxtChat.count == 0)
+        {
+            addListChat(user1: currentUser, user2: visitor)
+            addListChat(user1: visitor, user2: currentUser)
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -75,6 +80,12 @@ class ChatViewController: UIViewController {
         }
     }
     
+    func addListChat(user1:User, user2:User)
+    {
+        let tableName2 = ref.child("ListChat").child(user1.id).child(user2.id)
+        let user:Dictionary<String,String> = ["email":user2.email, "fullName":user2.fullName, "linkAvatar":user2.linkAvatar]
+        tableName2.setValue(user)
+    }
     
 }
 extension ChatViewController: UITableViewDelegate, UITableViewDataSource
