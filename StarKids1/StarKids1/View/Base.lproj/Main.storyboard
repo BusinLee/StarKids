@@ -388,28 +388,31 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="92.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="cIX-4w-3Iq">
-                                                    <rect key="frame" x="15" y="16" width="73" height="60.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="cIX-4w-3Iq" secondAttribute="height" multiplier="1:1" id="AFj-E2-z0a"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7R-fZ-wIC">
-                                                    <rect key="frame" x="112" y="36" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mln-q8-0V6">
+                                                    <rect key="frame" x="117" y="36" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="IBV-wp-ukX">
+                                                    <rect key="frame" x="15" y="16" width="72" height="60.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60.5" id="11x-2V-ygk"/>
+                                                        <constraint firstAttribute="width" constant="72" id="Txb-1j-D4E"/>
+                                                        <constraint firstAttribute="width" secondItem="IBV-wp-ukX" secondAttribute="height" multiplier="1:1" id="yuo-1A-0ID"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cIX-4w-3Iq" firstAttribute="centerY" secondItem="U5d-ch-n29" secondAttribute="centerY" id="GRf-wH-kkR"/>
-                                                <constraint firstItem="A7R-fZ-wIC" firstAttribute="centerY" secondItem="U5d-ch-n29" secondAttribute="centerY" id="NMJ-2p-c6H"/>
-                                                <constraint firstItem="cIX-4w-3Iq" firstAttribute="top" secondItem="U5d-ch-n29" secondAttribute="topMargin" constant="5" id="SlP-fG-018"/>
+                                                <constraint firstItem="IBV-wp-ukX" firstAttribute="centerY" secondItem="U5d-ch-n29" secondAttribute="centerY" id="XHb-uO-yJn"/>
+                                                <constraint firstItem="mln-q8-0V6" firstAttribute="leading" secondItem="IBV-wp-ukX" secondAttribute="trailing" constant="25" id="kRX-q1-dap"/>
+                                                <constraint firstItem="mln-q8-0V6" firstAttribute="centerY" secondItem="U5d-ch-n29" secondAttribute="centerY" id="viR-fc-WBB"/>
+                                                <constraint firstItem="IBV-wp-ukX" firstAttribute="top" secondItem="U5d-ch-n29" secondAttribute="topMargin" constant="5" id="x2s-Ho-Vhr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imgAvatar" destination="cIX-4w-3Iq" id="vrX-U9-hyK"/>
-                                            <outlet property="lblName" destination="A7R-fZ-wIC" id="2dG-zo-gVO"/>
+                                            <outlet property="imgAvatar" destination="IBV-wp-ukX" id="4Px-7M-GMa"/>
+                                            <outlet property="lblMessage" destination="mln-q8-0V6" id="YLf-An-MDR"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell2" rowHeight="92" id="Oz0-Ft-6UA" customClass="ScreenChat2TableViewCell" customModule="StarKids1" customModuleProvider="target">
@@ -445,7 +448,7 @@
                                         <color key="backgroundColor" red="0.99783831830000003" green="0.89898860449999995" blue="0.54696148629999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="imgAvatar" destination="56d-j0-wdL" id="alE-mO-Pu1"/>
-                                            <outlet property="lblMessage" destination="Fgs-5q-mgY" id="rPP-wI-Ykx"/>
+                                            <outlet property="lblMessage" destination="Fgs-5q-mgY" id="AFt-tP-aRH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

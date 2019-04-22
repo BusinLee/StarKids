@@ -11,6 +11,7 @@ import UIKit
 class ScreenChat2TableViewCell: UITableViewCell {
 
     @IBOutlet weak var imgAvatar: UIImageView!
+    
     @IBOutlet weak var lblMessage: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
