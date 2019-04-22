@@ -126,7 +126,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                             if (error == nil){
                                 activity.stopAnimating()
                                 alertActivity.dismiss(animated: true, completion: nil)
-                                self.gotoScreen(idScreen: "scrListChat")
+                                self.gotoScreenWithBack(idScreen: "scrListChat")
                             } else {
                                 print("Lỗi update profile")
                             }

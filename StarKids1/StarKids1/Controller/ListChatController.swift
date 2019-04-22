@@ -30,13 +30,21 @@ class ListChatController: UIViewController {
             let userId = tableName.child(currentUser.id)
             let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar]
             userId.setValue(user)
-            
+            do
+            {
+                let data:Data = try Data(contentsOf: photoURL!)
+                currentUser.avatar = UIImage(data: data)
+            }
+            catch
+            {
+                print("lỗi gán avatar current user")
+            }
         }
     }
     
     
     @IBAction func btn_Temp(_ sender: Any) {
-        self.gotoScreen(idScreen: "scrListFriend")
+        self.gotoScreenWithBack(idScreen: "scrListFriend")
     }
 
 }

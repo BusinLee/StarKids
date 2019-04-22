@@ -70,7 +70,8 @@ class ViewController: UIViewController {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
-                self.gotoScreen(idScreen: "scrListChat")
+                //self.gotoScreen(idScreen: "scrListChat")
+                self.gotoScreenWithBack(idScreen: "scrListChat")
             } else {
                 print("Chua dang nhap")
             }
@@ -97,7 +98,7 @@ extension UIViewController
         let screen = self.storyboard?.instantiateViewController(withIdentifier: idScreen)
         if (screen != nil)
         {
-            navigationController?.pushViewController(screen!, animated: true)
+            self.navigationController?.pushViewController(screen!, animated: true)
         }
         else
         {
