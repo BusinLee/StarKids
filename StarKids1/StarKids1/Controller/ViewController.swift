@@ -18,12 +18,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let firebaseAuth = Auth.auth()
-//        do {
-//            try firebaseAuth.signOut()
-//        } catch let signOutError as NSError {
-//            print ("Error signing out: %@", signOutError)
-//        }
+        //Log out
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
         
         btnLogIn.layer.cornerRadius = 5
         
@@ -51,7 +52,7 @@ class ViewController: UIViewController {
             {
                 activity.stopAnimating()
                 alertActivity.dismiss(animated: true, completion: nil)
-                self!.gotoScreen(idScreen: "scrListChat")
+                self!.gotoScreen(idScreen: "mainTabBarController")
             }
             else
             {
@@ -70,8 +71,7 @@ class ViewController: UIViewController {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
-                //self.gotoScreen(idScreen: "scrListChat")
-                self.gotoScreenWithBack(idScreen: "scrListChat")
+                self.gotoScreen(idScreen: "mainTabBarController")
             } else {
                 print("Chua dang nhap")
             }
