@@ -79,7 +79,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         let alertActivity:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
         let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
         activity.frame = CGRect(x: view.frame.size.width/2-20, y: 25, width: 0, height: 0)
-        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(229)/255, blue: CGFloat(139)/255, alpha: 1.0)
+        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         alertActivity.view.addSubview(activity)
         activity.startAnimating()
         self.present(alertActivity, animated: true, completion: nil)
