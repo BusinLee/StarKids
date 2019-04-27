@@ -59,11 +59,6 @@ class ListChatController: UIViewController {
             }
         })
     }
-    
-    
-    @IBAction func btn_Temp(_ sender: Any) {
-        self.gotoScreenWithBack(idScreen: "scrListFriend")
-    }
 
 }
 extension ListChatController : UITableViewDelegate, UITableViewDataSource

@@ -37,12 +37,14 @@ class ViewController: UIViewController {
 
     @IBAction func btn_LogIn(_ sender: Any) {
         
-        let alertActivity:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
         let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
-        activity.frame = CGRect(x: view.frame.size.width/2-20, y: 25, width: 0, height: 0)
+        activity.frame = CGRect(x: view.frame.size.width/2-20, y: 60, width: 0, height: 0)
         activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         alertActivity.view.addSubview(activity)
         activity.startAnimating()
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
+        alertActivity.view.addConstraint(height);
         self.present(alertActivity, animated: true, completion: nil)
 
         Auth.auth().signIn(withEmail: txtEmail.text!, password: txtPassword.text!) { [weak self] user, error in
