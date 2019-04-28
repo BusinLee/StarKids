@@ -8,8 +8,8 @@
 
 import UIKit
 import Firebase
-let ref = Database.database().reference()
-var currentUser:User!
+//let ref = Database.database().reference()
+//var currentUser:User!
 
 class ListChatController: UIViewController {
     
@@ -20,31 +20,7 @@ class ListChatController: UIViewController {
         tblListChat.dataSource = self
         tblListChat.delegate = self
         
-        let user = Auth.auth().currentUser
-        if let user = user {
-            
-            let uid = user.uid
-            let email = user.email
-            let photoURL = user.photoURL
-            let name = user.displayName
-            
-            currentUser = User(id: uid, email: email!, fullName: name!, linkAvatar: photoURL!.absoluteString)
-            
-            let tableName = ref.child("ListFriend")
-            let userId = tableName.child(currentUser.id)
-            let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar]
-            userId.setValue(user)
-            let url:URL = URL(string: currentUser.linkAvatar)!
-            do
-            {
-                let data:Data = try Data(contentsOf: url)
-                currentUser.avatar = UIImage(data: data)
-            }
-            catch
-            {
-                print("lỗi gán avatar current user")
-            }
-        }
+        //current user
         let tableName = ref.child("ListChat").child(currentUser.id)
         tableName.observe(.childAdded, with: { (snapshot) -> Void in
             let postDict = snapshot.value as? [String:AnyObject]
@@ -58,11 +34,6 @@ class ListChatController: UIViewController {
                 self.tblListChat.reloadData()
             }
         })
-    }
-    
-    
-    @IBAction func btn_Temp(_ sender: Any) {
-        self.gotoScreenWithBack(idScreen: "scrListFriend")
     }
 
 }

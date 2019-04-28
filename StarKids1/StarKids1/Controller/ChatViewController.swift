@@ -13,6 +13,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tblChat: UITableView!
     @IBOutlet weak var txtMess: UITextField!
     
+    
     var tableName:DatabaseReference!
     var arridChat:Array<String> = Array<String>()
     var arrtxtChat:Array<String> = Array<String>()
@@ -98,12 +99,31 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource
         return arrtxtChat.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (currentUser.id == arruserChat[indexPath.row].id)
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath) as! ScreenChat2TableViewCell
             cell.lblMessage.text = arrtxtChat[indexPath.row]
             cell.imgAvatar.image = currentUser.avatar
+            
+            cell.contentView.backgroundColor = UIColor.clear
+            
+            let whiteRoundedView : UIView = UIView(frame: CGRect(x: 30, y: 6, width: self.view.frame.size.width - 20, height: 48))
+            
+            let color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
+            whiteRoundedView.layer.backgroundColor = color.cgColor
+            
+            
+            whiteRoundedView.layer.masksToBounds = true
+            whiteRoundedView.layer.cornerRadius = 5
+            whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
+            whiteRoundedView.layer.shadowOpacity = 0.2
+            
+            cell.contentView.addSubview(whiteRoundedView)
+            cell.contentView.sendSubviewToBack(whiteRoundedView)
+            
+          //  cell.clipsToBounds = true
             return cell
         } else
         {
