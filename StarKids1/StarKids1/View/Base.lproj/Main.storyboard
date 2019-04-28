@@ -587,8 +587,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+<<<<<<< HEAD
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7G-pa-oHm">
                                                     <rect key="frame" x="265" y="11" width="35" height="35"/>
+=======
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J7G-pa-oHm">
+                                                    <rect key="frame" x="265" y="12" width="35" height="35"/>
+>>>>>>> a826e38c43762d5c86eacba43fe194193bb72ac4
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="J7G-pa-oHm" secondAttribute="height" multiplier="1:1" id="CmR-3U-vhC"/>
                                                         <constraint firstAttribute="width" constant="35" id="Ew7-zm-2hY"/>
