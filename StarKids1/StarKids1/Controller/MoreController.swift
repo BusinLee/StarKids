@@ -20,11 +20,11 @@ class MoreController: UIViewController {
 
         tblListMenu.dataSource = self
         tblListMenu.delegate = self
+        tblListMenu.alwaysBounceVertical = false
         
         lblName.text = currentUser.fullName
         imgAvatar.image = currentUser.avatar
     }
-    
 
 }
 
@@ -51,7 +51,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
             self.gotoScreenWithBack(idScreen: "scrListFriend")
             break
         default:
-            let alert = UIAlertController(title: "Thông báo", message: "Email hoặc Password không chính xác", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
             let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
             let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
                 let firebaseAuth = Auth.auth()
@@ -66,5 +66,14 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
             alert.addAction(btnCancel)
             present(alert, animated: true, completion: nil)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if let index = self.tblListMenu.indexPathForSelectedRow{
+//            self.tableView.deselectRowAtIndexPath(index, animated: true)
+//        }
+//    }
 }

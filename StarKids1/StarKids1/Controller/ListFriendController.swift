@@ -67,10 +67,10 @@ extension ListFriendController : UITableViewDataSource, UITableViewDelegate
         let url:URL = URL(string: visitor.linkAvatar)!
         do
         {
-            
             let data:Data = try Data(contentsOf: url)
             visitor.avatar = UIImage(data: data)
             gotoScreenWithBack(idScreen: "scrChatView")
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         catch
         {

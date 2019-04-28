@@ -31,12 +31,12 @@ class LoadingViewController: UIViewController {
         activity.startAnimating()
         
         UIView.animate(withDuration: 0.5, animations: {
-            self.imgLogo.frame.origin.y -= 70
-        }){_ in
+            self.imgLogo.frame.origin.y += 70
+        })
             UIView.animateKeyframes(withDuration: 0.5, delay: 0.1, options: [.autoreverse, .repeat], animations: {
-                self.imgLogo.frame.origin.y += 50
+                self.imgLogo.frame.origin.y -= 70
             })
-        }
+        
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {

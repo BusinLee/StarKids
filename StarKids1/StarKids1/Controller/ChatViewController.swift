@@ -24,6 +24,11 @@ class ChatViewController: UIViewController {
         
         tblChat.dataSource = self
         tblChat.delegate = self
+        tblChat.allowsSelection = false;
+        
+        let navigationBar = self.navigationController?.visibleViewController?.navigationItem
+       // customTitle?.title = "Some Title"
+        navigationBar?.title = visitor.fullName
         
         arridChat.append(currentUser.id)
         arridChat.append(visitor.id)
@@ -108,18 +113,13 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource
             cell.imgAvatar.image = currentUser.avatar
             
             cell.contentView.backgroundColor = UIColor.clear
-            
-            let whiteRoundedView : UIView = UIView(frame: CGRect(x: 30, y: 6, width: self.view.frame.size.width - 20, height: 48))
-            
+            let whiteRoundedView : UIView = UIView(frame: CGRect(x: 30, y: 6, width: self.view.frame.size.width - 33, height: 48))
             let color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
             whiteRoundedView.layer.backgroundColor = color.cgColor
-            
-            
             whiteRoundedView.layer.masksToBounds = true
             whiteRoundedView.layer.cornerRadius = 5
             whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
             whiteRoundedView.layer.shadowOpacity = 0.2
-            
             cell.contentView.addSubview(whiteRoundedView)
             cell.contentView.sendSubviewToBack(whiteRoundedView)
             
@@ -130,6 +130,18 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as! ScreenChat1TableViewCell
             cell.lblMessage.text = arrtxtChat[indexPath.row]
             cell.imgAvatar.image = visitor.avatar
+            
+            cell.contentView.backgroundColor = UIColor.clear
+            let whiteRoundedView : UIView = UIView(frame: CGRect(x: 0, y: 6, width: self.view.frame.size.width - 30, height: 48))
+            let color = UIColor.init(displayP3Red: CGFloat(239)/255, green: CGFloat(239)/255, blue: CGFloat(244)/255, alpha: 1.0)
+            whiteRoundedView.layer.backgroundColor = color.cgColor
+            whiteRoundedView.layer.masksToBounds = true
+            whiteRoundedView.layer.cornerRadius = 5
+            whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
+            whiteRoundedView.layer.shadowOpacity = 0.2
+            cell.contentView.addSubview(whiteRoundedView)
+            cell.contentView.sendSubviewToBack(whiteRoundedView)
+            
             return cell
         }
     }
