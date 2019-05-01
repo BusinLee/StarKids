@@ -44,7 +44,6 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
         cell.lblMenu.text = arrMenu[indexPath.row]
         return cell
     }
-    //self.gotoScreenWithBack(idScreen: "scrListFriend")
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:

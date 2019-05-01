@@ -29,7 +29,8 @@ class ListChatController: UIViewController {
                 let email:String = (postDict?["email"])! as! String
                 let fullName:String = (postDict?["fullName"])! as! String
                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
-                let user:User = User(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar)
+                
+                let user:User = User(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar, nickName: "", className: "", teacherName: "", birthDay: "", gender: "", hobby: "", fatherName: "", fatherPhone: "", motherName: "", motherPhone: "", weight: 0, height: 0, illness: "", dayLeave: 0, evaluation: "", note: "", ability: "")
                 self.arrUserChat.append(user)
                 self.tblListChat.reloadData()
             }
