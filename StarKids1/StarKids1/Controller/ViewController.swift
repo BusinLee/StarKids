@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+let defaultUser = UserDefaults.standard
 class ViewController: UIViewController {
 
     @IBOutlet weak var btnLogIn: UIButton!
@@ -52,6 +53,7 @@ class ViewController: UIViewController {
             
             if (error == nil)
             {
+                defaultUser.set(self!.txtPassword.text!, forKey: "password")
                 activity.stopAnimating()
                 alertActivity.dismiss(animated: true, completion: nil)
                 self!.gotoScreen(idScreen: "scrLoading")

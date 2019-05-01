@@ -19,7 +19,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var txtBirthYear: UITextField!
     @IBOutlet weak var txtFullName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
-    @IBOutlet weak var btnAddStudent: UIButton!
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var pickerBirthDay: UIPickerView!
     
@@ -45,12 +44,159 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             arrDate.append(row)
         }
         txtBirthYear.text = String(Calendar.current.component(.year, from: Date()) - 5)
-        btnAddStudent.layer.cornerRadius = 5
         lbValid.isHidden = true
+        
+        let navigationBar = self.navigationController?.visibleViewController?.navigationItem
+        // customTitle?.title = "Some Title"
+        navigationBar?.title = "Thêm học sinh"
+        navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(btnXong))
         
         let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func btnXong(sender: AnyObject) {
+        var emailFlag:String = currentUser.email
+        self.lbValid.isHidden = true
+        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thêm một học sinh mới?", preferredStyle: .alert)
+        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
+            let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            activity.frame = CGRect(x: self.view.frame.size.width/2-20, y: 60, width: 0, height: 0)
+            activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
+            alertActivity.view.addSubview(activity)
+            activity.startAnimating()
+            let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
+            alertActivity.view.addConstraint(height);
+            self.present(alertActivity, animated: true, completion: nil)
+
+            if ((self.month == "04" || self.month == "06" || self.month == "09" || self.month == "11") && self.day == "31") {
+                self.lbValid.isHidden = false
+                alertActivity.dismiss(animated: true, completion: nil)
+            } else {
+                if (self.month == "02" && (self.day == "30" || self.day == "31")) {
+                    self.lbValid.isHidden = false
+                    alertActivity.dismiss(animated: true, completion: nil)
+                } else {
+                    if (self.month == "02" && self.day == "29" && (Int(self.txtBirthYear.text!)! % 4) != 0) {
+                        self.lbValid.isHidden = false
+                        alertActivity.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.date = self.day + self.month + self.txtBirthYear.text!
+                        self.lbValid.isHidden = true
+                        let email:String = self.txtEmail.text!
+                        let password:String = self.date
+                        print("Đăng nhập....")
+                        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                            if (error == nil)
+                            {
+                                Auth.auth().signIn(withEmail: email, password: password) { user, error in
+                                    if (error == nil)
+                                    {
+                                        print("Đăng nhập thành công")
+                                        //alertActivity.dismiss(animated: true, completion: nil)
+
+                                    }
+                                }
+                                let avatarRef = storageRef.child("avatars/\(email).jpg")
+                                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
+                                    guard let metadata = metadata else {
+                                        print("Lỗi up avatar")
+                                        alertActivity.dismiss(animated: true, completion: nil)
+                                        return
+                                    }
+                                    let size = metadata.size
+                                    avatarRef.downloadURL { (url, error) in
+
+                                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                        changeRequest?.displayName = self.txtFullName.text!
+                                        changeRequest?.photoURL = url
+                                        changeRequest?.commitChanges { (error) in
+                                            if (error == nil){
+                                                //Set rtdb for user
+                                                let tableName = ref.child("ListFriend")
+                                                let userId = tableName.child(currentUser.id)
+                                                let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString]
+                                                userId.setValue(user)
+                                                
+                                                //Logout
+                                                let firebaseAuth = Auth.auth()
+                                                do {
+                                                    try firebaseAuth.signOut()
+                                                } catch let signOutError as NSError {
+                                                    print ("Error signing out: %@", signOutError)
+                                                }
+                                                //Login
+                                                Auth.auth().signIn(withEmail: emailFlag, password: defaultUser.value(forKey: "password") as! String) { [weak self] user, error in
+                                                    guard let strongSelf = self else { return }
+                                                    print("---------Email \(emailFlag)")
+                                                    print("---------Email \(defaultUser.value(forKey: "password"))")
+                                                    if (error == nil)
+                                                    {
+                                                        //Get current
+                                                        Auth.auth().addStateDidChangeListener { (auth, user) in
+                                                            if (user != nil)
+                                                            {
+                                                                let user = Auth.auth().currentUser
+                                                                if let user = user {
+                                                                    let uid = user.uid
+                                                                    let email = user.email
+                                                                    let photoURL = user.photoURL
+                                                                    let name = user.displayName
+                                                                    
+                                                                    currentUser = User(id: uid, email: email ?? "example@gmail.com", fullName: name ?? "example name", linkAvatar: photoURL?.absoluteString ?? "dfsfs")
+                                                                    let url:URL = URL(string: currentUser.linkAvatar)!
+                                                                    do
+                                                                    {
+                                                                        let data:Data = try Data(contentsOf: url)
+                                                                        currentUser.avatar = UIImage(data: data)
+                                                                        self!.gotoScreen(idScreen: "mainTabBarController")
+                                                                    }
+                                                                    catch
+                                                                    {
+                                                                        print("lỗi gán avatar current user")
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                    else
+                                                    {
+                                                        print("Không đăng nhập được")
+                                                    }
+                                                }
+                                                activity.stopAnimating()
+                                                alertActivity.dismiss(animated: true, completion: nil)
+                                                //////////
+                                                let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Tạo thành công", preferredStyle: .alert)
+                                                let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil)
+                                                alert1.addAction(btnOk1)
+                                                self.present(alert1, animated: true, completion: nil)
+                                            } else {
+                                                print("Lỗi update profile")
+                                                alertActivity.dismiss(animated: true, completion: nil)
+                                            }
+                                        }
+                                    }
+                                }
+                                uploadTask.resume()
+                            }
+                            else
+                            {
+                                print("Lỗi đăng ký!")
+                                alertActivity.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }
+          }
+        }
+        alert.addAction(btnOk)
+        alert.addAction(btnCancel)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func tap_Avata(_ sender: UITapGestureRecognizer) {
@@ -73,73 +219,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         alert.addAction(btnCamera)
         
         self.present(alert, animated: true, completion: nil)
-    }
-    @IBAction func btn_AddStudent(_ sender: Any) {
-        
-        let alertActivity:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
-        let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
-        activity.frame = CGRect(x: view.frame.size.width/2-20, y: 25, width: 0, height: 0)
-        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
-        alertActivity.view.addSubview(activity)
-        activity.startAnimating()
-        self.present(alertActivity, animated: true, completion: nil)
-        
-        if ((month == "04" || month == "06" || month == "09" || month == "11") && day == "31") {
-            lbValid.isHidden = false
-        } else {
-            if (month == "02" && (day == "30" || day == "31")) {
-                lbValid.isHidden = false
-            } else {
-                if (month == "02" && day == "29" && (Int(txtBirthYear.text!)! % 4) != 0) {
-                    lbValid.isHidden = false
-                } else {
-                    date = day + month + txtBirthYear.text!
-                    lbValid.isHidden = true
-                }
-            }
-        }
-        let email:String = txtEmail.text!
-        let password:String = date
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if (error == nil)
-            {
-                Auth.auth().signIn(withEmail: email, password: password) { user, error in
-                    if (error == nil)
-                    {
-                        print("Đăng nhập thành công")
-                    }
-                }
-                
-                let avatarRef = storageRef.child("avatars/\(email).jpg")
-                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
-                    guard let metadata = metadata else {
-                        print("Lỗi up avatar")
-                        return
-                    }
-                    let size = metadata.size
-                    avatarRef.downloadURL { (url, error) in
-                        
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = self.txtFullName.text!
-                        changeRequest?.photoURL = url
-                        changeRequest?.commitChanges { (error) in
-                            if (error == nil){
-                                activity.stopAnimating()
-                                alertActivity.dismiss(animated: true, completion: nil)
-                                self.gotoScreenWithBack(idScreen: "scrListChat")
-                            } else {
-                                print("Lỗi update profile")
-                            }
-                        }
-                    }
-                }
-                uploadTask.resume()
-            }
-            else
-            {
-                print("Lỗi đăng ký!")
-            }
-        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

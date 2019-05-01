@@ -50,6 +50,8 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
         case 0:
             self.gotoScreenWithBack(idScreen: "scrListFriend")
             break
+        case 4:
+            self.gotoScreenWithBack(idScreen: "scrAddStudent")
         default:
             let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
             let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
@@ -57,7 +59,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                 let firebaseAuth = Auth.auth()
                 do {
                     try firebaseAuth.signOut()
-                    self.gotoScreen(idScreen: "scrLogIn")
+                    self.gotoScreen(idScreen: "scrLogin")
                 } catch let signOutError as NSError {
                     print ("Error signing out: %@", signOutError)
                 }
@@ -68,12 +70,4 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        if let index = self.tblListMenu.indexPathForSelectedRow{
-//            self.tableView.deselectRowAtIndexPath(index, animated: true)
-//        }
-//    }
 }

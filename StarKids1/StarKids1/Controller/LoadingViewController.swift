@@ -48,12 +48,9 @@ class LoadingViewController: UIViewController {
                     let photoURL = user.photoURL
                     let name = user.displayName
                     
-                    currentUser = User(id: uid, email: email!, fullName: name!, linkAvatar: photoURL!.absoluteString)
+                    currentUser = User(id: uid, email: email ?? "example@gmail.com", fullName: name ?? "example name", linkAvatar: photoURL?.absoluteString ?? "dfsfs")
                     
-                    let tableName = ref.child("ListFriend")
-                    let userId = tableName.child(currentUser.id)
-                    let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar]
-                    userId.setValue(user)
+                    
                     let url:URL = URL(string: currentUser.linkAvatar)!
                     do
                     {
@@ -70,6 +67,7 @@ class LoadingViewController: UIViewController {
             } else {
                 activity.stopAnimating()
                 print("Chua dang nhap")
+                self.gotoScreen(idScreen: "scrLogin")
             }
         }
     }
