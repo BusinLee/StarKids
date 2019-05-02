@@ -15,23 +15,42 @@ let storageRef = storage.reference(forURL: "gs://starkids1-fda2a.appspot.com")
 
 class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var lbValid: UILabel!
     @IBOutlet weak var txtBirthYear: UITextField!
     @IBOutlet weak var txtFullName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var pickerBirthDay: UIPickerView!
+    @IBOutlet weak var btnMale: UIButton!
+    @IBOutlet weak var btnFemale: UIButton!
+    @IBOutlet weak var pickerClass: UIPickerView!
+    @IBOutlet weak var txtFatherName: UITextField!
+    @IBOutlet weak var txtFatherPhone: UITextField!
+    @IBOutlet weak var txtMotherName: UITextField!
+    @IBOutlet weak var txtMotherPhone: UITextField!
     
     var arrDate = [[Int]]()
+    var arrClasses = ["Item 1","Item 2","Item 3","Item 4","Item 5"]
     var date:String = ""
     var day:String = "01"
     var month:String = "01"
     var imgData:Data!
-    
+    var gender:String = "Nam"
+    var className:String = "Không có"
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnMale.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
+        btnMale.clipsToBounds = true
+        
+        btnFemale.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
+        btnFemale.clipsToBounds = true
+        
+        changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
+        
         pickerBirthDay.delegate = self
         pickerBirthDay.dataSource = self
+        pickerClass.delegate = self
+        pickerClass.dataSource = self
         imgData = UIImage(named: "camera")!.pngData()
         for i in 0...1 {
             var row = [Int]()
@@ -44,7 +63,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             arrDate.append(row)
         }
         txtBirthYear.text = String(Calendar.current.component(.year, from: Date()) - 5)
-        lbValid.isHidden = true
+        //-----------lbValid.isHidden = true
         
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         // customTitle?.title = "Some Title"
@@ -58,7 +77,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @objc func btnXong(sender: AnyObject) {
         var emailFlag:String = currentUser.email
-        self.lbValid.isHidden = true
+        //--------------self.lbValid.isHidden = true
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thêm một học sinh mới?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
@@ -73,19 +92,19 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             self.present(alertActivity, animated: true, completion: nil)
 
             if ((self.month == "04" || self.month == "06" || self.month == "09" || self.month == "11") && self.day == "31") {
-                self.lbValid.isHidden = false
+                //----------self.lbValid.isHidden = false
                 alertActivity.dismiss(animated: true, completion: nil)
             } else {
                 if (self.month == "02" && (self.day == "30" || self.day == "31")) {
-                    self.lbValid.isHidden = false
+                    //------------self.lbValid.isHidden = false
                     alertActivity.dismiss(animated: true, completion: nil)
                 } else {
                     if (self.month == "02" && self.day == "29" && (Int(self.txtBirthYear.text!)! % 4) != 0) {
-                        self.lbValid.isHidden = false
+                        //---------self.lbValid.isHidden = false
                         alertActivity.dismiss(animated: true, completion: nil)
                     } else {
                         self.date = self.day + self.month + self.txtBirthYear.text!
-                        self.lbValid.isHidden = true
+                        //-------self.lbValid.isHidden = true
                         let email:String = self.txtEmail.text!
                         let password:String = self.date
                         print("Đăng nhập....")
@@ -112,7 +131,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
                                                 print("\(userId)")
                                                 let none:String = "không có"
-                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":none, "teacherName":none, "birthDay":none, "gender":none, "hobby":none, "fatherName":none, "fatherPhone":none, "motherName":none, "motherPhone":none, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":100,"height":20,"dayLeave":0]
+                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":none, "birthDay":none, "gender":self.gender, "hobby":none, "fatherName":none, "fatherPhone":none, "motherName":none, "motherPhone":none, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":100,"height":20,"dayLeave":0]
                                                 userId.setValue(user)
                                                 
                                                 //Logout
@@ -218,6 +237,26 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func btn_Male(_ sender: Any) {
+        gender = "nam"
+        changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
+    }
+    
+    @IBAction func btn_Female(_ sender: Any) {
+        gender = "nữ"
+        changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
+    }
+    
+    @IBAction func tap_lblMale(_ sender: Any) {
+        gender = "nam"
+        changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
+    }
+    
+    @IBAction func tap_lblFemale(_ sender: Any) {
+        gender = "nữ"
+        changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
+    }
+    
     @IBAction func tap_Avata(_ sender: UITapGestureRecognizer) {
         let alert:UIAlertController = UIAlertController(title: "Thông báo", message: "Chọn", preferredStyle: .alert)
         let btnPhoto:UIAlertAction = UIAlertAction(title: "Photo", style: .default) { (UIAlertAction) in
@@ -241,33 +280,60 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return arrDate.count
+        if pickerView.tag == 1 {
+            return arrDate.count
+        } else {
+            return 1
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrDate[component].count
+        if pickerView.tag == 1 {
+            return arrDate[component].count
+        } else {
+            return arrClasses.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(arrDate[component][row])
+        if pickerView.tag == 1 {
+            return String(arrDate[component][row])
+        } else {
+            return String(arrClasses[row])
+        }
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 1 {
+            if (component == 0) {
+                if (arrDate[component][row] < 10) {
+                    day = "0" + String(arrDate[component][row])
+                } else {
+                    day = String(arrDate[component][row])
+                }
+            }
+            else {
+                if (arrDate[component][row] < 10) {
+                    month = "0" + String(arrDate[component][row])
+                } else {
+                    month = String(arrDate[component][row])
+                }
+            }
+        } else {
+            className = String(arrClasses[row])
+        }
+    }
+    
+    func changeColorOfRadioButton (btnYellow:UIButton, btnWhite:UIButton) {
+        btnYellow.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
+        btnYellow.clipsToBounds = true
+        btnYellow.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         
-        if (component == 0) {
-            if (arrDate[component][row] < 10) {
-                day = "0" + String(arrDate[component][row])
-            } else {
-                day = String(arrDate[component][row])
-            }
-        }
-        else {
-            if (arrDate[component][row] < 10) {
-                month = "0" + String(arrDate[component][row])
-            } else {
-                month = String(arrDate[component][row])
-            }
-        }
+        btnWhite.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
+        btnWhite.clipsToBounds = true
+        btnWhite.backgroundColor = UIColor.white
+        btnWhite.layer.borderWidth = 0.5
+        btnWhite.layer.borderColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0).cgColor
     }
 }
 extension NewStudentController : UIImagePickerControllerDelegate, UINavigationControllerDelegate
