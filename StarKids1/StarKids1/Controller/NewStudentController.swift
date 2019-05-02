@@ -92,14 +92,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                             if (error == nil)
                             {
-                                Auth.auth().signIn(withEmail: email, password: password) { user, error in
-                                    if (error == nil)
-                                    {
-                                        print("Đăng nhập thành công")
-                                        //alertActivity.dismiss(animated: true, completion: nil)
-
-                                    }
-                                }
                                 let avatarRef = storageRef.child("avatars/\(email).jpg")
                                 let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                                     guard let metadata = metadata else {
@@ -117,8 +109,10 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                             if (error == nil){
                                                 //Set rtdb for user
                                                 let tableName = ref.child("ListFriend")
-                                                let userId = tableName.child(currentUser.id)
-                                                let user:Dictionary<String,String> = ["email":currentUser.email,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString]
+                                                let userId = tableName.child((Auth.auth().currentUser?.uid)!)
+                                                print("\(userId)")
+                                                let none:String = "không có"
+                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":none, "teacherName":none, "birthDay":none, "gender":none, "hobby":none, "fatherName":none, "fatherPhone":none, "motherName":none, "motherPhone":none, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":100,"height":20,"dayLeave":0]
                                                 userId.setValue(user)
                                                 
                                                 //Logout
@@ -141,33 +135,35 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                 if let user = user {
                                                                     let uid = user.uid
                                                                     
-                                                                    let tableName = ref.child("ListFriend").child(uid)
+                                                                    let tableName = ref.child("ListFriend")
                                                                     tableName.observe(.childAdded, with: { (snapshot) -> Void in
                                                                         let postDict = snapshot.value as? [String:AnyObject]
                                                                         if (postDict != nil)
                                                                         {
-                                                                            let email:String = (postDict?["email"])! as! String
-                                                                            let fullName:String = (postDict?["fullName"])! as! String
-                                                                            let linkAvatar:String = (postDict?["linkAvatar"])! as! String
-                                                                            let nickName:String = (postDict?["nickName"])! as! String
-                                                                            let className:String = (postDict?["className"])! as! String
-                                                                            let teacherName:String = (postDict?["teacherName"])! as! String
-                                                                            let birthDay:String = (postDict?["birthDay"])! as! String
-                                                                            let gender:String = (postDict?["gender"])! as! String
-                                                                            let hobby:String = (postDict?["hobby"])! as! String
-                                                                            let fatherName:String = (postDict?["fatherName"])! as! String
-                                                                            let fatherPhone:String = (postDict?["fatherPhone"])! as! String
-                                                                            let motherName:String = (postDict?["motherName"])! as! String
-                                                                            let motherPhone:String = (postDict?["motherPhone"])! as! String
-                                                                            let weight:Int = (postDict?["weight"])! as! Int
-                                                                            let height:Int = (postDict?["height"])! as! Int
-                                                                            let illness:String = (postDict?["illness"])! as! String
-                                                                            let dayLeave:Int = (postDict?["dayLeave"])! as! Int
-                                                                            let evaluation:String = (postDict?["evaluation"])! as! String
-                                                                            let note:String = (postDict?["note"])! as! String
-                                                                            let ability:String = (postDict?["ability"])! as! String
-                                                                            
-                                                                            currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                                                            if (snapshot.key == uid) {
+                                                                                let email:String = (postDict?["email"])! as! String
+                                                                                let fullName:String = (postDict?["fullName"])! as! String
+                                                                                let linkAvatar:String = (postDict?["linkAvatar"])! as! String
+                                                                                let nickName:String = (postDict?["nickName"])! as! String
+                                                                                let className:String = (postDict?["className"])! as! String
+                                                                                let teacherName:String = (postDict?["teacherName"])! as! String
+                                                                                let birthDay:String = (postDict?["birthDay"])! as! String
+                                                                                let gender:String = (postDict?["gender"])! as! String
+                                                                                let hobby:String = (postDict?["hobby"])! as! String
+                                                                                let fatherName:String = (postDict?["fatherName"])! as! String
+                                                                                let fatherPhone:String = (postDict?["fatherPhone"])! as! String
+                                                                                let motherName:String = (postDict?["motherName"])! as! String
+                                                                                let motherPhone:String = (postDict?["motherPhone"])! as! String
+                                                                                let weight:Int = (postDict?["weight"])! as! Int
+                                                                                let height:Int = (postDict?["height"])! as! Int
+                                                                                let illness:String = (postDict?["illness"])! as! String
+                                                                                let dayLeave:Int = (postDict?["dayLeave"])! as! Int
+                                                                                let evaluation:String = (postDict?["evaluation"])! as! String
+                                                                                let note:String = (postDict?["note"])! as! String
+                                                                                let ability:String = (postDict?["ability"])! as! String
+                                                                                
+                                                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                                                            }
                                                                         }
                                                                     })
                                                                     let url:URL = URL(string: currentUser.linkAvatar)!
