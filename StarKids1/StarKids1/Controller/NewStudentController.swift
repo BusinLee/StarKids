@@ -13,7 +13,7 @@ import Firebase
 let storage = Storage.storage()
 let storageRef = storage.reference(forURL: "gs://starkids1-fda2a.appspot.com")
 
-class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var txtBirthYear: UITextField!
     @IBOutlet weak var txtFullName: UITextField!
@@ -28,8 +28,10 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var txtMotherName: UITextField!
     @IBOutlet weak var txtMotherPhone: UITextField!
     
+    var activeTextField:UITextField!
+    
     var arrDate = [[Int]]()
-    var arrClasses = ["Item 1","Item 2","Item 3","Item 4","Item 5"]
+    var arrClasses:Array<String> = Array<String>()
     var date:String = ""
     var day:String = "01"
     var month:String = "01"
@@ -38,6 +40,14 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     var className:String = "Không có"
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        txtFullName.delegate = self
+        txtBirthYear.delegate = self
+        txtEmail.delegate = self
+        txtFatherName.delegate = self
+        txtFatherPhone.delegate = self
+        txtMotherName.delegate = self
+        txtMotherPhone.delegate = self
         
         btnMale.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
         btnMale.clipsToBounds = true
@@ -51,6 +61,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         pickerBirthDay.dataSource = self
         pickerClass.delegate = self
         pickerClass.dataSource = self
+        
         imgData = UIImage(named: "camera")!.pngData()
         for i in 0...1 {
             var row = [Int]()
@@ -65,14 +76,60 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
         txtBirthYear.text = String(Calendar.current.component(.year, from: Date()) - 5)
         //-----------lbValid.isHidden = true
         
+        let tableName = ref.child("Classes")
+        tableName.observe(.childAdded, with: { (snapshot) -> Void in
+            let postDict = snapshot.value as? [String:AnyObject]
+            if (postDict != nil)
+            {
+                let className:String = (postDict?["className"])! as! String
+                self.arrClasses.append(className)
+                self.pickerClass.reloadAllComponents()
+            } else {
+                print("Không có class")
+            }
+        })
+        
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
-        // customTitle?.title = "Some Title"
         navigationBar?.title = "Thêm học sinh"
         navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(btnXong))
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func keyboardDidShow(notification: Notification) {
+        let info:NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let keyboardY =  self.view.frame.size.height - keyboardSize.height
+        let editTextY:CGFloat! = self.activeTextField?.frame.origin.y
+        if editTextY > keyboardY - 60 {
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+                self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextY! - (keyboardY - 60)), width: self.view.bounds.width, height: self.view.bounds.height)
+            }, completion: nil)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func btnXong(sender: AnyObject) {
@@ -131,7 +188,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
                                                 print("\(userId)")
                                                 let none:String = "không có"
-                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":none, "birthDay":none, "gender":self.gender, "hobby":none, "fatherName":none, "fatherPhone":none, "motherName":none, "motherPhone":none, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":100,"height":20,"dayLeave":0]
+                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":none, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
                                                 userId.setValue(user)
                                                 
                                                 //Logout
@@ -182,20 +239,38 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                                 let ability:String = (postDict?["ability"])! as! String
                                                                                 
                                                                                 currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                                                                let url:URL = URL(string: currentUser.linkAvatar)!
+                                                                                do
+                                                                                {
+                                                                                    let data:Data = try Data(contentsOf: url)
+                                                                                    currentUser.avatar = UIImage(data: data)
+                                                                                }
+                                                                                catch
+                                                                                {
+                                                                                    print("lỗi gán avatar current user")
+                                                                                }
+                                                                                
+                                                                                activity.stopAnimating()
+                                                                                alertActivity.dismiss(animated: true, completion: nil)
+                                                                                //////////
+                                                                                let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Tạo thành công", preferredStyle: .alert)
+                                                                                let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                                                                                    self!.txtFullName.text = ""
+                                                                                    self!.txtBirthYear.text = String(Calendar.current.component(.year, from: Date()) - 5)
+                                                                                    self!.txtEmail.text = ""
+                                                                                    self!.txtFatherName.text = ""
+                                                                                    self!.txtFatherPhone.text = ""
+                                                                                    self!.txtMotherName.text = ""
+                                                                                    self!.txtMotherPhone.text = ""
+                                                                                    self!.imgAvatar.image = UIImage(named: "camera")
+                                                                                    self!.changeColorOfRadioButton(btnYellow: self!.btnMale, btnWhite: self!.btnFemale)
+                                                                                })
+                                                                                alert1.addAction(btnOk1)
+                                                                                self?.present(alert1, animated: true, completion: nil)
                                                                             }
                                                                         }
                                                                     })
-                                                                    let url:URL = URL(string: currentUser.linkAvatar)!
-                                                                    do
-                                                                    {
-                                                                        let data:Data = try Data(contentsOf: url)
-                                                                        currentUser.avatar = UIImage(data: data)
-                                                                        self!.gotoScreen(idScreen: "mainTabBarController")
-                                                                    }
-                                                                    catch
-                                                                    {
-                                                                        print("lỗi gán avatar current user")
-                                                                    }
+                                                                    ///////
                                                                 }
                                                             }
                                                         }
@@ -206,13 +281,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                         print("Không đăng nhập được")
                                                     }
                                                 }
-                                                activity.stopAnimating()
-                                                alertActivity.dismiss(animated: true, completion: nil)
-                                                //////////
-                                                let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Tạo thành công", preferredStyle: .alert)
-                                                let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil)
-                                                alert1.addAction(btnOk1)
-                                                self.present(alert1, animated: true, completion: nil)
+                                                /////////
                                             } else {
                                                 print("Lỗi update profile")
                                                 alertActivity.dismiss(animated: true, completion: nil)
