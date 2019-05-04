@@ -46,7 +46,7 @@ class LoadingViewController: UIViewController {
                     
                     let uid = user.uid
                     print("\(uid)")
-                    self.tableName = ref.child("ListFriend")
+                    self.tableName = ref.child("Students")
                     self.tableName.observe(.childAdded, with: { (snapshot) -> Void in
                         print("vô trong rồi")
                         let postDict = snapshot.value as? [String:AnyObject]
@@ -109,7 +109,7 @@ class LoadingViewController: UIViewController {
     }
     
 }
-//self.tableName = ref.child("ListFriend").child(uid)
+//self.tableName = ref.child("Students").child(uid)
 //self.tableName.observeSingleEvent(of: .value, with: { (snapshot) in
 //    for child in snapshot.children {
 //        let snap = child as! DataSnapshot

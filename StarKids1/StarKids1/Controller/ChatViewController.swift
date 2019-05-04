@@ -27,7 +27,6 @@ class ChatViewController: UIViewController {
         tblChat.allowsSelection = false;
         
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
-       // customTitle?.title = "Some Title"
         navigationBar?.title = visitor.fullName
         
         arridChat.append(currentUser.id)

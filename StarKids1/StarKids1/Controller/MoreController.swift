@@ -25,6 +25,11 @@ class MoreController: UIViewController {
         lblName.text = currentUser.fullName
         imgAvatar.image = currentUser.avatar
     }
+    
+    @IBAction func tap_ViewDetailIfo(_ sender: Any) {
+        gotoScreenWithBack(idScreen: "scrDetailInfo")
+    }
+    
 
 }
 

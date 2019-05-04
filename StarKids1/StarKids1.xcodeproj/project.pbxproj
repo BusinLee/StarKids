@@ -12,6 +12,7 @@
 		120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC3226B2A6900F25B53 /* ListFriendController.swift */; };
 		120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */; };
 		120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC9226B7EF600F25B53 /* ChatViewController.swift */; };
+		120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FB684227D9BD7004E1B4E /* DetailInfoController.swift */; };
 		12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */; };
 		12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */; };
 		121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D722634E5C00DE3A47 /* ListChatController.swift */; };
@@ -38,6 +39,7 @@
 		120D3FC3226B2A6900F25B53 /* ListFriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFriendController.swift; sourceTree = "<group>"; };
 		120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListFriendTableViewCell.swift; sourceTree = "<group>"; };
 		120D3FC9226B7EF600F25B53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		120FB684227D9BD7004E1B4E /* DetailInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoController.swift; sourceTree = "<group>"; };
 		12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat1TableViewCell.swift; sourceTree = "<group>"; };
 		12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat2TableViewCell.swift; sourceTree = "<group>"; };
 		121216D722634E5C00DE3A47 /* ListChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				12A88C79226F6866002125BC /* MoreController.swift */,
 				12A88C7B226F68FD002125BC /* NoticeController.swift */,
 				12275E90227579BA001DBCAF /* LoadingViewController.swift */,
+				120FB684227D9BD7004E1B4E /* DetailInfoController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
 				12A88C7A226F6866002125BC /* MoreController.swift in Sources */,
 				12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */,
+				120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */,
 				12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */,
 				121216DA22635B2A00DE3A47 /* User.swift in Sources */,
 				121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */,

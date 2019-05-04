@@ -32,12 +32,14 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var arrDate = [[Int]]()
     var arrClasses:Array<String> = Array<String>()
+    var arrTeacherName:Array<String> = Array<String>()
     var date:String = ""
     var day:String = "01"
     var month:String = "01"
     var imgData:Data!
     var gender:String = "Nam"
     var className:String = "Không có"
+    var teacherName:String = "Không có"
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +84,8 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             if (postDict != nil)
             {
                 let className:String = (postDict?["className"])! as! String
+                let teacherName:String = (postDict?["teacherName"])! as! String
+                self.arrTeacherName.append(teacherName)
                 self.arrClasses.append(className)
                 self.pickerClass.reloadAllComponents()
             } else {
@@ -184,11 +188,11 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                         changeRequest?.commitChanges { (error) in
                                             if (error == nil){
                                                 //Set rtdb for user
-                                                let tableName = ref.child("ListFriend")
+                                                let tableName = ref.child("Students")
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
                                                 print("\(userId)")
                                                 let none:String = "không có"
-                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":none, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
+                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
                                                 userId.setValue(user)
                                                 
                                                 //Logout
@@ -211,7 +215,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                 if let user = user {
                                                                     let uid = user.uid
                                                                     
-                                                                    let tableName = ref.child("ListFriend")
+                                                                    let tableName = ref.child("Students")
                                                                     tableName.observe(.childAdded, with: { (snapshot) -> Void in
                                                                         let postDict = snapshot.value as? [String:AnyObject]
                                                                         if (postDict != nil)
@@ -390,6 +394,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
         } else {
             className = String(arrClasses[row])
+            teacherName = String(arrTeacherName[row])
         }
     }
     
