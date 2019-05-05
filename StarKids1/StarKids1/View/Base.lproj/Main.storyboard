@@ -542,7 +542,7 @@
                                                 <rect key="frame" x="121" y="241" width="109" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             </pickerView>
-                                            <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BdT-Hn-QbG">
+                                            <pickerView tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BdT-Hn-QbG">
                                                 <rect key="frame" x="121" y="276" width="109" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             </pickerView>
@@ -567,13 +567,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y2u-je-m9p">
-                                                <rect key="frame" x="121" y="321" width="185" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J3p-db-2hJ">
                                                 <rect key="frame" x="121" y="385" width="185" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -586,7 +579,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFP-In-72b">
                                                 <rect key="frame" x="121" y="462" width="185" height="30"/>
@@ -600,21 +593,21 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J4m-TT-wSe">
                                                 <rect key="frame" x="121" y="589" width="185" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-gx-sgn">
                                                 <rect key="frame" x="121" y="627" width="185" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LNg-6x-SEB">
                                                 <rect key="frame" x="121" y="665" width="185" height="30"/>
@@ -793,7 +786,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgS-SY-shK">
                                                 <rect key="frame" x="121" y="791" width="185" height="30"/>
@@ -945,6 +938,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Không thể sửa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25R-RH-T7w">
+                                                <rect key="frame" x="124" y="326" width="182" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ya-bz-Ry7">
                                                 <rect key="frame" x="124" y="388" width="182" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1036,36 +1036,23 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ra-xk-aYj">
-                                                <rect key="frame" x="277" y="563" width="22" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dH-jX-vFu">
+                                                <rect key="frame" x="190" y="128" width="22" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="done"/>
+                                                <state key="normal" image="camera"/>
                                                 <connections>
-                                                    <action selector="btn_DoneHeath:" destination="5GT-0x-FzR" eventType="touchUpInside" id="iLo-IN-1Xe"/>
+                                                    <action selector="btn_Camera:" destination="5GT-0x-FzR" eventType="touchUpInside" id="E4S-Jf-JQa"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BV2-42-vY2">
-                                                <rect key="frame" x="277" y="182" width="22" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kO7-Li-rc4">
+                                                <rect key="frame" x="242" y="8" width="70" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="done"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Huỷ">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="btn_DoneBasic:" destination="5GT-0x-FzR" eventType="touchUpInside" id="5Sx-fx-WZo"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1d-dC-dwC">
-                                                <rect key="frame" x="277" y="726" width="22" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="done"/>
-                                                <connections>
-                                                    <action selector="btn_DoneStudy:" destination="5GT-0x-FzR" eventType="touchUpInside" id="Cju-Zg-eVj"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0n-mt-eZ4">
-                                                <rect key="frame" x="277" y="853" width="22" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="done"/>
-                                                <connections>
-                                                    <action selector="btn_DoneMore:" destination="5GT-0x-FzR" eventType="touchUpInside" id="A0U-rL-Xdi"/>
+                                                    <action selector="btn_Cancle:" destination="5GT-0x-FzR" eventType="touchUpInside" id="z2l-x7-qNO"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1095,10 +1082,7 @@
                     </view>
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
-                        <outlet property="btnDoneBasic" destination="BV2-42-vY2" id="5tL-cS-SvB"/>
-                        <outlet property="btnDoneHeath" destination="4ra-xk-aYj" id="FCV-Wi-Zvf"/>
-                        <outlet property="btnDoneMore" destination="I0n-mt-eZ4" id="x7D-Ia-TOd"/>
-                        <outlet property="btnDoneStudy" destination="u1d-dC-dwC" id="ASH-6e-HMl"/>
+                        <outlet property="btnCancle" destination="kO7-Li-rc4" id="PKN-a1-BF0"/>
                         <outlet property="btnEditBasic" destination="33s-y3-j5Q" id="rFf-iP-J1B"/>
                         <outlet property="btnEditHeath" destination="9Rz-c7-FPH" id="wHj-JP-NCM"/>
                         <outlet property="btnEditMore" destination="YMi-Yq-cIl" id="9tq-P4-CWH"/>
@@ -1125,6 +1109,7 @@
                         <outlet property="lblNickName" destination="1cs-hY-zuR" id="NBr-Iy-5ib"/>
                         <outlet property="lblNote" destination="A7l-b0-NGz" id="Wen-Eh-hPu"/>
                         <outlet property="lblTeacher" destination="gom-TM-mHu" id="5em-4B-9OS"/>
+                        <outlet property="lblTeacherName" destination="25R-RH-T7w" id="4He-CV-rsF"/>
                         <outlet property="lblWeight" destination="PUp-0x-iJJ" id="YQj-2U-Z6O"/>
                         <outlet property="pickerBirthDay" destination="DtB-2N-SDQ" id="mne-Q4-Kpa"/>
                         <outlet property="pickerClass" destination="BdT-Hn-QbG" id="lqS-4u-1TS"/>
@@ -1141,7 +1126,6 @@
                         <outlet property="txtMotherPhone" destination="hxD-el-AjL" id="Msm-G6-moE"/>
                         <outlet property="txtNickName" destination="zac-AA-uD3" id="ngB-eu-n0f"/>
                         <outlet property="txtNote" destination="eE6-YD-irf" id="GSh-hT-B3T"/>
-                        <outlet property="txtTeacherName" destination="y2u-je-m9p" id="tAZ-oB-uaC"/>
                         <outlet property="txtWeight" destination="J4m-TT-wSe" id="kyO-jh-bYr"/>
                     </connections>
                 </viewController>
@@ -1511,7 +1495,6 @@
         <image name="background" width="460.79998779296875" height="288"/>
         <image name="camera" width="200" height="200"/>
         <image name="card" width="308" height="308"/>
-        <image name="done" width="36" height="36"/>
         <image name="edit" width="36" height="36"/>
         <image name="home_icon" width="36" height="36"/>
         <image name="logo" width="500" height="500"/>

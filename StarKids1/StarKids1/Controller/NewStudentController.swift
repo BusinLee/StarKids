@@ -311,22 +311,22 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBAction func btn_Male(_ sender: Any) {
-        gender = "nam"
+        gender = "Nam"
         changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
     }
     
     @IBAction func btn_Female(_ sender: Any) {
-        gender = "nữ"
+        gender = "Nữ"
         changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
     }
     
     @IBAction func tap_lblMale(_ sender: Any) {
-        gender = "nam"
+        gender = "Nam"
         changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
     }
     
     @IBAction func tap_lblFemale(_ sender: Any) {
-        gender = "nữ"
+        gender = "Nữ"
         changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
     }
     
