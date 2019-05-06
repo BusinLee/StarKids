@@ -30,6 +30,14 @@ class MoreController: UIViewController {
         gotoScreenWithBack(idScreen: "scrDetailInfo")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tblListMenu.dataSource = self
+        tblListMenu.delegate = self
+        tblListMenu.alwaysBounceVertical = false
+        
+        lblName.text = currentUser.fullName
+        imgAvatar.image = currentUser.avatar
+    }
 
 }
 

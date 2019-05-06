@@ -5,7 +5,7 @@
 //  Created by Thanh Lê on 5/4/19.
 //  Copyright © 2019 Thanh Le. All rights reserved.
 //
-
+import Firebase
 import UIKit
 
 class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
@@ -367,26 +367,88 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func btn_Cancle(_ sender: Any) {
-        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn huỷ thay đổi không?", preferredStyle: .alert)
-        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
-        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-            self.navigationItem.rightBarButtonItem = nil;
-            self.hideGroupBasicTxt(hide: true)
-            self.hideGroupBasicLbl(hide: false)
-            self.hideGroupHeathTxt(hide: true)
-            self.hideGroupHeathLbl(hide: false)
-            self.hideGroupStudyTxt(hide: true)
-            self.hideGroupStudyLbl(hide: false)
-            self.hideGroupMoreTxt(hide: true)
-            self.hideGroupMoreLbl(hide: false)
-            self.btnCancle.isHidden = true
+//        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn huỷ thay đổi không?", preferredStyle: .alert)
+//        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+//        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+//            self.navigationItem.rightBarButtonItem = nil;
+//            self.hideGroupBasicTxt(hide: true)
+//            self.hideGroupBasicLbl(hide: false)
+//            self.hideGroupHeathTxt(hide: true)
+//            self.hideGroupHeathLbl(hide: false)
+//            self.hideGroupStudyTxt(hide: true)
+//            self.hideGroupStudyLbl(hide: false)
+//            self.hideGroupMoreTxt(hide: true)
+//            self.hideGroupMoreLbl(hide: false)
+//            self.btnCancle.isHidden = true
+//        }
+//        alert.addAction(btnOk)
+//        alert.addAction(btnCancel)
+//        present(alert, animated: true, completion: nil)
+        
+        
+     //   let avatarRef = storageRef.child("avatars/\(currentUser.email).jpg")
+        
+        let url = currentUser.linkAvatar
+        let storageRefI = storage.reference(forURL: url!)
+        //Removes image from storage
+        storageRefI.delete { error in
+            if let error = error {
+                print(error)
+            } else {
+                
+                
+                let avatarRef = storageRef.child("avatars/\(currentUser.email!).jpg")
+                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
+                    guard let metadata = metadata else {
+                        print("Lỗi up avatar")
+                       // alertActivity.dismiss(animated: true, completion: nil)
+                        return
+                    }
+                    let size = metadata.size
+                    avatarRef.downloadURL { (url, error) in
+                        
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.photoURL = url
+                        changeRequest?.commitChanges { (error) in
+                            if (error == nil){
+                                //Set rtdb for user
+                               // let tableName = ref.child("Students")
+                               // let userId = tableName.child((Auth.auth().currentUser?.uid)!)
+                                ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
+                                
+                                currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
+                                let url:URL = URL(string: currentUser.linkAvatar)!
+                                do
+                                {
+                                    let data:Data = try Data(contentsOf: url)
+                                    currentUser.avatar = UIImage(data: data)
+                                }
+                                catch
+                                {
+                                    print("lỗi gán avatar current user")
+                                }
+                                
+                                self.setDefaultValueForComponet(user: currentUser)
+                                self.imgAvatar.image = currentUser.avatar
+//                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
+//                                userId.setValue(user)
+                                
+                                /////////
+                            } else {
+                                print("Lỗi update profile")
+                              //  alertActivity.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }
+                uploadTask.resume()
+            }
         }
-        alert.addAction(btnOk)
-        alert.addAction(btnCancel)
-        present(alert, animated: true, completion: nil)
+        
     }
     
     @IBAction func btn_Camera(_ sender: Any) {
+        btnCancle.isHidden = false
         let alert:UIAlertController = UIAlertController(title: "Thông báo", message: "Chọn", preferredStyle: .alert)
         let btnPhoto:UIAlertAction = UIAlertAction(title: "Photo", style: .default) { (UIAlertAction) in
             let imgPicker = UIImagePickerController()
