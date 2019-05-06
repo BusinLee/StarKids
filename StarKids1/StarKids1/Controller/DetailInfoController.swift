@@ -213,7 +213,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     }
     
     @objc func btnXong(sender: AnyObject) {
-        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thêm một học sinh mới?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn cập nhật thông tin không?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
             let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
@@ -367,88 +367,26 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     }
     
     @IBAction func btn_Cancle(_ sender: Any) {
-//        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn huỷ thay đổi không?", preferredStyle: .alert)
-//        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
-//        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-//            self.navigationItem.rightBarButtonItem = nil;
-//            self.hideGroupBasicTxt(hide: true)
-//            self.hideGroupBasicLbl(hide: false)
-//            self.hideGroupHeathTxt(hide: true)
-//            self.hideGroupHeathLbl(hide: false)
-//            self.hideGroupStudyTxt(hide: true)
-//            self.hideGroupStudyLbl(hide: false)
-//            self.hideGroupMoreTxt(hide: true)
-//            self.hideGroupMoreLbl(hide: false)
-//            self.btnCancle.isHidden = true
-//        }
-//        alert.addAction(btnOk)
-//        alert.addAction(btnCancel)
-//        present(alert, animated: true, completion: nil)
-        
-        
-     //   let avatarRef = storageRef.child("avatars/\(currentUser.email).jpg")
-        
-        let url = currentUser.linkAvatar
-        let storageRefI = storage.reference(forURL: url!)
-        //Removes image from storage
-        storageRefI.delete { error in
-            if let error = error {
-                print(error)
-            } else {
-                
-                
-                let avatarRef = storageRef.child("avatars/\(currentUser.email!).jpg")
-                let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
-                    guard let metadata = metadata else {
-                        print("Lỗi up avatar")
-                       // alertActivity.dismiss(animated: true, completion: nil)
-                        return
-                    }
-                    let size = metadata.size
-                    avatarRef.downloadURL { (url, error) in
-                        
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.photoURL = url
-                        changeRequest?.commitChanges { (error) in
-                            if (error == nil){
-                                //Set rtdb for user
-                               // let tableName = ref.child("Students")
-                               // let userId = tableName.child((Auth.auth().currentUser?.uid)!)
-                                ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
-                                
-                                currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
-                                let url:URL = URL(string: currentUser.linkAvatar)!
-                                do
-                                {
-                                    let data:Data = try Data(contentsOf: url)
-                                    currentUser.avatar = UIImage(data: data)
-                                }
-                                catch
-                                {
-                                    print("lỗi gán avatar current user")
-                                }
-                                
-                                self.setDefaultValueForComponet(user: currentUser)
-                                self.imgAvatar.image = currentUser.avatar
-//                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
-//                                userId.setValue(user)
-                                
-                                /////////
-                            } else {
-                                print("Lỗi update profile")
-                              //  alertActivity.dismiss(animated: true, completion: nil)
-                            }
-                        }
-                    }
-                }
-                uploadTask.resume()
-            }
+        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn huỷ thay đổi không?", preferredStyle: .alert)
+        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            self.navigationItem.rightBarButtonItem = nil;
+            self.hideGroupBasicTxt(hide: true)
+            self.hideGroupBasicLbl(hide: false)
+            self.hideGroupHeathTxt(hide: true)
+            self.hideGroupHeathLbl(hide: false)
+            self.hideGroupStudyTxt(hide: true)
+            self.hideGroupStudyLbl(hide: false)
+            self.hideGroupMoreTxt(hide: true)
+            self.hideGroupMoreLbl(hide: false)
+            self.btnCancle.isHidden = true
         }
-        
+        alert.addAction(btnOk)
+        alert.addAction(btnCancel)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func btn_Camera(_ sender: Any) {
-        btnCancle.isHidden = false
         let alert:UIAlertController = UIAlertController(title: "Thông báo", message: "Chọn", preferredStyle: .alert)
         let btnPhoto:UIAlertAction = UIAlertAction(title: "Photo", style: .default) { (UIAlertAction) in
             let imgPicker = UIImagePickerController()
@@ -696,5 +634,77 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                 self.imgAvatar.image = UIImage(data:imgData)
         }
         self.dismiss(animated: true, completion: nil)
+        
+        let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thay đổi ảnh đại diện không?", preferredStyle: .alert)
+        let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel) { (UIAlertAction) in
+            self.imgAvatar.image = currentUser.avatar
+        }
+        let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
+            let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            activity.frame = CGRect(x: self.view.frame.size.width/2-20, y: 60, width: 0, height: 0)
+            activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
+            alertActivity.view.addSubview(activity)
+            activity.startAnimating()
+            let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
+            alertActivity.view.addConstraint(height);
+            self.present(alertActivity, animated: true, completion: nil)
+            
+            let url = currentUser.linkAvatar
+            let storageRefI = storage.reference(forURL: url!)
+            storageRefI.delete { error in
+                if let error = error {
+                    print(error)
+                } else {
+                    
+                    let avatarRef = storageRef.child("avatars/\(currentUser.email!).jpg")
+                    let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
+                        guard let metadata = metadata else {
+                            print("Lỗi up avatar")
+                            alertActivity.dismiss(animated: true, completion: nil)
+                            return
+                        }
+                        let size = metadata.size
+                        avatarRef.downloadURL { (url, error) in
+                            
+                            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                            changeRequest?.photoURL = url
+                            changeRequest?.commitChanges { (error) in
+                                if (error == nil){
+                                    ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
+                                    
+                                    currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
+                                    let url:URL = URL(string: currentUser.linkAvatar)!
+                                    do
+                                    {
+                                        let data:Data = try Data(contentsOf: url)
+                                        currentUser.avatar = UIImage(data: data)
+                                        alertActivity.dismiss(animated: true, completion: {
+                                            let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Cập nhật thành công", preferredStyle: .alert)
+                                            let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil)
+                                            alert1.addAction(btnOk1)
+                                            self.present(alert1, animated: true, completion: nil)
+                                        })
+                                    }
+                                    catch
+                                    {
+                                        print("lỗi gán avatar current user")
+                                    }
+                                    self.setDefaultValueForComponet(user: currentUser)
+                                    self.imgAvatar.image = currentUser.avatar
+                                } else {
+                                    print("Lỗi update profile")
+                                    alertActivity.dismiss(animated: true, completion: nil)
+                                }
+                            }
+                        }
+                    }
+                    uploadTask.resume()
+                }
+            }
+        }
+        alert.addAction(btnOk)
+        alert.addAction(btnCancel)
+        present(alert, animated: true, completion: nil)
     }
 }
