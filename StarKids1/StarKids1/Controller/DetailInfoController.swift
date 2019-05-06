@@ -463,7 +463,6 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         day = daySplit[0]
         month = daySplit[1]
         if (arrDate.count != 0) {
-            print("Arr \(arrDate)")
             for j in 0...30 {
                 if (arrDate[0][j] == dayInt) {
                     dayP = j
@@ -479,6 +478,17 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             pickerBirthDay.selectRow(dayP!, inComponent: 0, animated: false)
             pickerBirthDay.selectRow(monthP!, inComponent: 1, animated: false)
         }
+        
+        if (arrClasses.count != 0) {
+            for i in 0...arrClasses.count {
+                if (arrClasses[i] == user.className) {
+                    className = user.className
+                    pickerClass.selectRow(i, inComponent: 0, animated: false)
+                    break
+                }
+            }
+        }
+        
         txtBirthYear.text = daySplit[2]
         txtNickName.text = user.nickName
         txtFatherName.text = user.fatherName
