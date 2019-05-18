@@ -12,9 +12,11 @@
 		120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC3226B2A6900F25B53 /* ListFriendController.swift */; };
 		120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */; };
 		120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC9226B7EF600F25B53 /* ChatViewController.swift */; };
+		120E87BA229028A200D528C7 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E87B9229028A200D528C7 /* Post.swift */; };
 		120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FB684227D9BD7004E1B4E /* DetailInfoController.swift */; };
 		12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */; };
 		12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */; };
+		1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */; };
 		121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D722634E5C00DE3A47 /* ListChatController.swift */; };
 		121216DA22635B2A00DE3A47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D922635B2A00DE3A47 /* User.swift */; };
 		1213E9322270B21D000B7C1E /* ScreenMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */; };
@@ -39,9 +41,11 @@
 		120D3FC3226B2A6900F25B53 /* ListFriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFriendController.swift; sourceTree = "<group>"; };
 		120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListFriendTableViewCell.swift; sourceTree = "<group>"; };
 		120D3FC9226B7EF600F25B53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		120E87B9229028A200D528C7 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		120FB684227D9BD7004E1B4E /* DetailInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoController.swift; sourceTree = "<group>"; };
 		12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat1TableViewCell.swift; sourceTree = "<group>"; };
 		12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat2TableViewCell.swift; sourceTree = "<group>"; };
+		1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPostTableViewCell.swift; sourceTree = "<group>"; };
 		121216D722634E5C00DE3A47 /* ListChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatController.swift; sourceTree = "<group>"; };
 		121216D922635B2A00DE3A47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 				12A88C73226F640D002125BC /* MainNavigationController.swift */,
 				12A88C7D226F69C4002125BC /* MainTabBarController.swift */,
 				1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */,
+				1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				121216D922635B2A00DE3A47 /* User.swift */,
+				120E87B9229028A200D528C7 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -312,8 +318,10 @@
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12A88C76226F6834002125BC /* HomeController.swift in Sources */,
+				1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */,
 				12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */,
 				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,
+				120E87BA229028A200D528C7 /* Post.swift in Sources */,
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
 				12A88C7A226F6866002125BC /* MoreController.swift in Sources */,
 				12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */,
