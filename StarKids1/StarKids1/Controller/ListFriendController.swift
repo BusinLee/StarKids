@@ -22,7 +22,7 @@ class ListFriendController: UIViewController {
         tblListFriend.dataSource = self
         tblListFriend.delegate = self
         
-        let tableName = ref.child("Students")
+        let tableName = ref.child("Users")
         tableName.observe(.childAdded, with: { (snapshot) in
             let postDict = snapshot.value as? [String: AnyObject]
             if (postDict != nil) {

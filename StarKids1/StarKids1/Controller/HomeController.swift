@@ -27,6 +27,7 @@ class HomeController: UIViewController {
             let postDict = snapshot.value as? [String: AnyObject]
             if (postDict != nil) {
                 let userPost:String = (postDict?["userPost"])! as! String
+                var nameUser: String = ""
                 let date:String = (postDict?["date"])! as! String
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
@@ -68,6 +69,11 @@ class HomeController: UIViewController {
                     }
                 })
                 
+                let tableNameUser = ref.child("Users").child(userPost).child("fullName")
+                tableNameUser.observe(.value, with: { (snapshot1) in
+                    nameUser = (snapshot1.value as? String)!
+                })
+                
                 let tableNamePictures = ref.child("Pictures").child(snapshot.key)
                 tableNamePictures.observe(.childAdded, with: { (snapshot1) in
                     let postDict1 = snapshot1.value as? [String:AnyObject]
@@ -77,15 +83,15 @@ class HomeController: UIViewController {
                         pictures.append(picture)
                         print("picture----- \(picture)")
                         
-                        
-                        let post:Post = Post(id: snapshot.key,userPost: userPost, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
+                        let post:Post = Post(id: snapshot.key,userPost: nameUser, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
                         print("------ \(post)")
                         self.listPost.append(post)
                         self.tblListPost.reloadData()
+                        
                     }
                     else
                     {
-                        print("Không có comments")
+                        print("Không có hình")
                     }
                 })
             }
@@ -115,7 +121,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate
         cell.lblStar.text = String(listPost[indexPath.row].likes.count)
         cell.imgAvatar.image = UIImage(named: "camera")
         cell.imgPost.image = UIImage(named: "camera")
-        cell.lblTimePost.text = listPost[indexPath.row].time
+        cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
         cell.lblComment.text = String(listPost[indexPath.row].comments.count) + " bình luận"

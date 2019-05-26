@@ -188,7 +188,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                         changeRequest?.commitChanges { (error) in
                                             if (error == nil){
                                                 //Set rtdb for user
-                                                let tableName = ref.child("Students")
+                                                let tableName = ref.child("Users")
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
                                                 print("\(userId)")
                                                 let none:String = "không có"
@@ -215,7 +215,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                 if let user = user {
                                                                     let uid = user.uid
                                                                     
-                                                                    let tableName = ref.child("Students")
+                                                                    let tableName = ref.child("Users")
                                                                     tableName.observe(.childAdded, with: { (snapshot) -> Void in
                                                                         let postDict = snapshot.value as? [String:AnyObject]
                                                                         if (postDict != nil)

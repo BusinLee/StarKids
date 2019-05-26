@@ -238,7 +238,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                         //---------self.lbValid.isHidden = false
                         alertActivity.dismiss(animated: true, completion: nil)
                     } else {
-                        let tableName = ref.child("Students")
+                        let tableName = ref.child("Users")
                         let userId = tableName.child(currentUser.id)
                         let user:Dictionary<String,Any> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar,"nickName":self.txtNickName.text!, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
                         userId.setValue(user)
@@ -671,7 +671,7 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                             changeRequest?.photoURL = url
                             changeRequest?.commitChanges { (error) in
                                 if (error == nil){
-                                    ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
+                                    ref.child("Users/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
                                     
                                     currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
                                     let url:URL = URL(string: currentUser.linkAvatar)!
