@@ -13,6 +13,9 @@ class HomeController: UIViewController {
     @IBOutlet weak var tblListPost: UITableView!
     
     var listPost:Array<Post> = Array<Post>()
+    var isStar:Bool = false
+    //var quantityArray:[Int] = []
+    var text:Array<String> = Array<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,9 @@ class HomeController: UIViewController {
         tblListPost.delegate = self
         tblListPost.allowsSelection = false;
 
+//        for i in 0 ..< 10 {
+//            quantityArray.append(1)
+//        }
         
         let tableName = ref.child("Posts")
         tableName.observe(.childAdded) { (snapshot) in
@@ -28,6 +34,7 @@ class HomeController: UIViewController {
             if (postDict != nil) {
                 let userPost:String = (postDict?["userPost"])! as! String
                 var nameUser: String = ""
+                var linkAvatarPost:String = ""
                 let date:String = (postDict?["date"])! as! String
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
@@ -50,7 +57,6 @@ class HomeController: UIViewController {
                         print("Không có likes")
                     }
                 })
-                
                 let tableNameComment = ref.child("Comments").child(snapshot.key)
                 tableNameComment.observe(.childAdded, with: { (snapshot1) in
                     let postDict1 = snapshot1.value as? [String:AnyObject]
@@ -74,6 +80,11 @@ class HomeController: UIViewController {
                     nameUser = (snapshot1.value as? String)!
                 })
                 
+                let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
+                tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
+                    linkAvatarPost = (snapshot1.value as? String)!
+                })
+                
                 let tableNamePictures = ref.child("Pictures").child(snapshot.key)
                 tableNamePictures.observe(.childAdded, with: { (snapshot1) in
                     let postDict1 = snapshot1.value as? [String:AnyObject]
@@ -83,9 +94,10 @@ class HomeController: UIViewController {
                         pictures.append(picture)
                         print("picture----- \(picture)")
                         
-                        let post:Post = Post(id: snapshot.key,userPost: nameUser, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
+                        let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
                         print("------ \(post)")
                         self.listPost.append(post)
+                        self.text.append("abc")
                         self.tblListPost.reloadData()
                         
                     }
@@ -99,6 +111,43 @@ class HomeController: UIViewController {
             {
                 print("Không có post")
             }
+        }
+    }
+    
+    @objc func likePost(_ sender: UIButton){
+        if (isStar)
+        {
+            sender.setImage(UIImage(named: "star"), for: .normal)
+            isStar = false
+            
+            var temp:Int = sender.tag + 1
+            text[sender.tag] = "def \(temp)"
+            
+            
+            let indexPath = NSIndexPath(row: sender.tag, section: 0)
+            let cell = tblListPost.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
+            cell.lblComment.text = "def \(temp)"
+             cell.lblComment.setNeedsDisplay()
+//let increasedQty = [sender.tag]+1
+//self.quantityArray.replaceSubrange(sender.tag, with: increasedQty)
+            
+            
+            //self.tblListPost.reloadData()
+        }
+        else
+        {
+            sender.setImage(UIImage(named: "starYellow"), for: .normal)
+            isStar = true
+            
+            var temp:Int = sender.tag - 1
+            text[sender.tag] = "def \(temp)"
+            
+            let indexPath = NSIndexPath(row: sender.tag, section: 0)
+            let cell = tblListPost.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
+            cell.lblComment.text = "def \(temp)"
+            cell.lblComment.setNeedsDisplay()
+            
+            //self.tblListPost.reloadData()
         }
     }
     
@@ -119,13 +168,32 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate
         cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
         cell.lblStar.clipsToBounds = true
         cell.lblStar.text = String(listPost[indexPath.row].likes.count)
+        
         cell.imgAvatar.image = UIImage(named: "camera")
         cell.imgPost.image = UIImage(named: "camera")
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
-        cell.lblComment.text = String(listPost[indexPath.row].comments.count) + " bình luận"
+      //  cell.lblComment.text = String(listPost[indexPath.row].comments.count) + " bình luận"
+        cell.lblComment.text = text[indexPath.row]
+        cell.lblPicture.text = "1/" + String(listPost[indexPath.row].pictures.count)
+        cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)
+        
+        let pictureRef = storageRef.child("avatars/\(listPost[indexPath.row].pictures[0])")
+        pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("Không load được hình từ bài post")
+            } else {
+                cell.imgPost.image = UIImage(data: data!)
+            }
+        }
+        
+        cell.btnStar.tag = indexPath.row;
+        cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
+        
         return cell
     }
-    
 }
+
+
+

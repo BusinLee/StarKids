@@ -18,9 +18,7 @@ class ScreenPostTableViewCell: UITableViewCell {
     @IBOutlet weak var btnStar: UIButton!
     @IBOutlet weak var lblStar: UILabel!
     @IBOutlet weak var lblComment: UILabel!
-    
-    //Replace by
-   var isStar:Bool = false
+    @IBOutlet weak var lblPicture: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,16 +31,21 @@ class ScreenPostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @IBAction func btn_Star(_ sender: Any) {
-        if (isStar)
-        {
-            btnStar.setImage(UIImage(named: "star"), for: .normal)
-            isStar = false
-        }
-        else
-        {
-            btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
-            isStar = true
-        }
+ //   @IBAction func btn_Star(_ sender: Any) {
+//        if (isStar)
+//        {
+//            btnStar.setImage(UIImage(named: "star"), for: .normal)
+//            isStar = false
+//        }
+//        else
+//        {
+//            btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
+//            isStar = true
+//        }
+//    }
+    @IBAction func btnPrevious(_ sender: Any) {
+    }
+    
+    @IBAction func btn_Next(_ sender: Any) {
     }
 }

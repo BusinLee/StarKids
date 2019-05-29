@@ -12,6 +12,7 @@ import UIKit
 struct Post {
     let id:String!
     let userPost:String!
+    let linkAvatarPost:String!
     let date:String!
     let time:String!
     let content:String!
@@ -23,6 +24,7 @@ struct Post {
     init() {
         id = ""
         userPost = ""
+        linkAvatarPost = ""
         date = ""
         time = ""
         content = ""
@@ -32,10 +34,11 @@ struct Post {
         pictures = [""]
     }
     
-    init(id:String, userPost:String, date:String, time:String, content:String, likes:Array<String>, comments:Array<String>, userComments:Array<String>, pictures:Array<String>)
+    init(id:String, userPost:String,linkAvatarPost:String, date:String, time:String, content:String, likes:Array<String>, comments:Array<String>, userComments:Array<String>, pictures:Array<String>)
     {
         self.id = id
         self.userPost = userPost
+        self.linkAvatarPost = linkAvatarPost
         self.date = date
         self.time = time
         self.content = content
