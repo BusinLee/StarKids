@@ -21,6 +21,8 @@
 		121216DA22635B2A00DE3A47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D922635B2A00DE3A47 /* User.swift */; };
 		1213E9322270B21D000B7C1E /* ScreenMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */; };
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
+		127B5DC022A028A2007CC200 /* PostPictureCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B5DBF22A028A2007CC200 /* PostPictureCollection.swift */; };
+		127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */; };
 		12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C73226F640D002125BC /* MainNavigationController.swift */; };
 		12A88C76226F6834002125BC /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C75226F6834002125BC /* HomeController.swift */; };
 		12A88C7A226F6866002125BC /* MoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C79226F6866002125BC /* MoreController.swift */; };
@@ -50,6 +52,8 @@
 		121216D922635B2A00DE3A47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMoreTableViewCell.swift; sourceTree = "<group>"; };
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		127B5DBF22A028A2007CC200 /* PostPictureCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPictureCollection.swift; sourceTree = "<group>"; };
+		127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		12A88C73226F640D002125BC /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		12A88C75226F6834002125BC /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		12A88C79226F6866002125BC /* MoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				12A88C7D226F69C4002125BC /* MainTabBarController.swift */,
 				1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */,
 				1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */,
+				127B5DBF22A028A2007CC200 /* PostPictureCollection.swift */,
+				127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 				120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */,
 				120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */,
 				12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */,
+				127B5DC022A028A2007CC200 /* PostPictureCollection.swift in Sources */,
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12A88C76226F6834002125BC /* HomeController.swift in Sources */,
@@ -329,6 +336,7 @@
 				12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */,
 				121216DA22635B2A00DE3A47 /* User.swift in Sources */,
 				121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */,
+				127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */,
 				1213E9322270B21D000B7C1E /* ScreenMoreTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

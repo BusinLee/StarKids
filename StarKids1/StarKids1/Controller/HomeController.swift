@@ -155,6 +155,7 @@ class HomeController: UIViewController {
 
 extension HomeController: UITableViewDataSource, UITableViewDelegate
 {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -168,9 +169,6 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate
         cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
         cell.lblStar.clipsToBounds = true
         cell.lblStar.text = String(listPost[indexPath.row].likes.count)
-        
-        cell.imgAvatar.image = UIImage(named: "camera")
-        cell.imgPost.image = UIImage(named: "camera")
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
@@ -179,20 +177,23 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate
         cell.lblPicture.text = "1/" + String(listPost[indexPath.row].pictures.count)
         cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)
         
-        let pictureRef = storageRef.child("avatars/\(listPost[indexPath.row].pictures[0])")
-        pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("Không load được hình từ bài post")
-            } else {
-                cell.imgPost.image = UIImage(data: data!)
-            }
-        }
+//        let pictureRef = storageRef.child("avatars/\(listPost[indexPath.row].pictures[0])")
+//        pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//            if let error = error {
+//                print("Không load được hình từ bài post")
+//            } else {
+//                cell.imgPost.image = UIImage(data: data!)
+//            }
+//        }
         
         cell.btnStar.tag = indexPath.row;
         cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
         
         return cell
     }
+    ///////////////////
+    
+    
 }
 
 
