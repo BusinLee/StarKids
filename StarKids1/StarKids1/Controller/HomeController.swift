@@ -153,7 +153,7 @@ class HomeController: UIViewController {
     
 }
 
-extension HomeController: UITableViewDataSource, UITableViewDelegate
+extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource
 {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -192,8 +192,18 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate
         return cell
     }
     ///////////////////
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
+        return cell
+    }
 }
 
 

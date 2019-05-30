@@ -253,7 +253,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2Rp-hQ-Jmx" customClass="PostPictureCollection" customModule="StarKids1" customModuleProvider="target">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2Rp-hQ-Jmx">
                                                     <rect key="frame" x="0.0" y="84" width="320" height="115"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -279,6 +279,10 @@
                                                             </view>
                                                         </collectionViewCell>
                                                     </cells>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="GDT-f0-pqv" id="Ezm-TG-s1D"/>
+                                                        <outlet property="delegate" destination="GDT-f0-pqv" id="Ae9-J3-frv"/>
+                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -291,6 +295,7 @@
                                             <outlet property="lblStar" destination="Rds-CX-bzf" id="Udc-Iq-y6B"/>
                                             <outlet property="lblTimePost" destination="LbR-tJ-LwB" id="VTX-Dd-2La"/>
                                             <outlet property="lblUserName" destination="P8B-7t-TzL" id="tvR-YW-SWW"/>
+                                            <outlet property="pictureCollectionView" destination="2Rp-hQ-Jmx" id="mkG-Vi-fJZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

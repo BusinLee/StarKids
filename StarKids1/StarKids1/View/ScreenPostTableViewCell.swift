@@ -14,11 +14,11 @@ class ScreenPostTableViewCell: UITableViewCell {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblTimePost: UILabel!
     @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var imgPost: UIImageView!
     @IBOutlet weak var btnStar: UIButton!
     @IBOutlet weak var lblStar: UILabel!
     @IBOutlet weak var lblComment: UILabel!
     @IBOutlet weak var lblPicture: UILabel!
+    @IBOutlet weak var pictureCollectionView: UICollectionView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,25 +27,21 @@ class ScreenPostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
- //   @IBAction func btn_Star(_ sender: Any) {
-//        if (isStar)
-//        {
-//            btnStar.setImage(UIImage(named: "star"), for: .normal)
-//            isStar = false
-//        }
-//        else
-//        {
-//            btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
-//            isStar = true
-//        }
-//    }
     @IBAction func btnPrevious(_ sender: Any) {
     }
     
     @IBAction func btn_Next(_ sender: Any) {
     }
+}
+extension ScreenPostTableViewCell
+{
+    func setCollectionViewDatasoureDelegate
+        <D: UICollectionViewDelegate & UICollectionViewDataSource> (_ dataSourceDelegate: D, forRow row:Int)
+    {
+        pictureCollectionView.dataSource = dataSourceDelegate
+        pictureCollectionView.delegate = dataSourceDelegate
+        pictureCollectionView.reloadData()
+    }
+    
 }
