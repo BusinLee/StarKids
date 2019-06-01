@@ -9,10 +9,9 @@ import Firebase
 import UIKit
 
 class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    
 
     @IBOutlet weak var imgAvatar: UIImageView!
-    
+
     @IBOutlet weak var btnCancle: UIButton!
     @IBOutlet weak var txtNickName: UITextField!
     @IBOutlet weak var pickerBirthDay: UIPickerView!
@@ -36,7 +35,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var txtHobby: UITextField!
     @IBOutlet weak var txtAbility: UITextField!
     @IBOutlet weak var txtNote: UITextField!
-    
+
     @IBOutlet weak var lblNickName: UILabel!
     @IBOutlet weak var lblBirthday: UILabel!
     @IBOutlet weak var lblClass: UILabel!
@@ -54,12 +53,12 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var lblHobby: UILabel!
     @IBOutlet weak var lblAbility: UILabel!
     @IBOutlet weak var lblNote: UILabel!
-    
+
     @IBOutlet weak var btnEditBasic: UIButton!
     @IBOutlet weak var btnEditHeath: UIButton!
     @IBOutlet weak var btnEditStudy: UIButton!
     @IBOutlet weak var btnEditMore: UIButton!
-    
+
     var imgData:Data!
     var activeTextField:UITextField!
     var arrDate = [[Int]]()
@@ -73,24 +72,24 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     var teacherName:String = currentUser.teacherName
     var itemAtDefaultPosition: String?
     var defaultRowIndex:Int?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setDefaultValueForComponet(user: currentUser)
-        
+
         imgData = UIImage(named: "camera")!.pngData()
         imgAvatar.layer.cornerRadius = 0.5 * imgAvatar.bounds.size.width
         imgAvatar.clipsToBounds = true
         imgAvatar.layer.borderWidth = 1
         imgAvatar.layer.borderColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0).cgColor
-        
+
         btnMale.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
         btnMale.clipsToBounds = true
-        
+
         btnFemale.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
         btnFemale.clipsToBounds = true
-        
+
         btnCancle.layer.cornerRadius = 5
         btnCancle.isHidden = true
         changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
@@ -112,12 +111,12 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         pickerBirthDay.dataSource = self
         pickerClass.delegate = self
         pickerClass.dataSource = self
-        
+
         hideGroupBasicTxt(hide: true)
         hideGroupHeathTxt(hide: true)
         hideGroupStudyTxt(hide: true)
         hideGroupMoreTxt(hide: true)
-        
+
         let tableName = ref.child("Classes")
         tableName.observe(.childAdded, with: { (snapshot) -> Void in
             let postDict = snapshot.value as? [String:AnyObject]
@@ -135,7 +134,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             if(defaultRowIndex1 == nil) { defaultRowIndex1 = 0 }
             self.pickerClass.selectRow(defaultRowIndex1!, inComponent: 0, animated: false)
         })
-        
+
         var dayP:Int?
         var monthP:Int?
         let daySplit = currentUser.birthDay.components(separatedBy: "/")
@@ -164,23 +163,23 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         if (monthP == nil) {monthP = 0}
         pickerBirthDay.selectRow(dayP!, inComponent: 0, animated: false)
         pickerBirthDay.selectRow(monthP!, inComponent: 1, animated: false)
-        
-        
-        
+
+
+
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = currentUser.fullName
         navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(btnXong))
         rightButton = (navigationBar?.rightBarButtonItem)!
         self.navigationItem.rightBarButtonItem = nil;
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+
         let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
-    
+
     @objc func keyboardDidShow(notification: Notification) {
         let info:NSDictionary = notification.userInfo! as NSDictionary
         let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
@@ -192,7 +191,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             }, completion: nil)
         }
     }
-    
+
     @objc func keyboardWillHide(notification: Notification) {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
@@ -201,17 +200,17 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     @objc func btnXong(sender: AnyObject) {
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn cập nhật thông tin không?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
@@ -225,7 +224,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
             alertActivity.view.addConstraint(height);
             self.present(alertActivity, animated: true, completion: nil)
-            
+
             if ((self.month == "04" || self.month == "06" || self.month == "09" || self.month == "11") && self.day == "31") {
                 //----------self.lbValid.isHidden = false
                 alertActivity.dismiss(animated: true, completion: nil)
@@ -242,7 +241,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                         let userId = tableName.child(currentUser.id)
                         let user:Dictionary<String,Any> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar,"nickName":self.txtNickName.text!, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
                         userId.setValue(user)
-                
+
                         tableName.observe(.childAdded, with: { (snapshot) -> Void in
                             let postDict = snapshot.value as? [String:AnyObject]
                             if (postDict != nil)
@@ -268,7 +267,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                     let evaluation:String = (postDict?["evaluation"])! as! String
                                     let note:String = (postDict?["note"])! as! String
                                     let ability:String = (postDict?["ability"])! as! String
-                                    
+
                                     currentUser = User(id: currentUser.id, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
                                     let url:URL = URL(string: currentUser.linkAvatar)!
                                     do
@@ -283,10 +282,10 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                 }
                             }
                         })
-                        
+
                         self.setDefaultValueForComponet(user: currentUser)
                         self.imgAvatar.image = currentUser.avatar
-                        
+
                         alertActivity.dismiss(animated: true, completion: {
                             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Cập nhật thành công", preferredStyle: .alert)
                             let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
@@ -314,27 +313,27 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         alert.addAction(btnCancel)
         present(alert, animated: true, completion: nil)
     }
-    
+
     @IBAction func btn_Male(_ sender: Any) {
         gender = "Nam"
         changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
     }
-    
+
     @IBAction func btn_Female(_ sender: Any) {
         gender = "Nữ"
         changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
     }
-    
+
     @IBAction func tap_lblMale(_ sender: Any) {
         gender = "Nam"
         changeColorOfRadioButton(btnYellow: btnMale, btnWhite: btnFemale)
     }
-    
+
     @IBAction func tap_lblFemale(_ sender: Any) {
         gender = "Nữ"
         changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
     }
-    
+
     @IBAction func btn_EditBasic(_ sender: Any) {
         self.navigationItem.rightBarButtonItem = rightButton;
         self.btnCancle.isHidden = false
@@ -344,28 +343,28 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             self.changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
         }
     }
-    
+
     @IBAction func btn_EditHeath(_ sender: Any) {
         self.navigationItem.rightBarButtonItem = rightButton;
         self.btnCancle.isHidden = false
         hideGroupHeathTxt(hide: false)
         hideGroupHeathLbl(hide: true)
     }
-    
+
     @IBAction func btn_EditStudy(_ sender: Any) {
         self.navigationItem.rightBarButtonItem = rightButton;
         self.btnCancle.isHidden = false
         hideGroupStudyTxt(hide: false)
         hideGroupStudyLbl(hide: true)
     }
-    
+
     @IBAction func btn_EditMore(_ sender: Any) {
         self.navigationItem.rightBarButtonItem = rightButton;
         self.btnCancle.isHidden = false
         hideGroupMoreTxt(hide: false)
         hideGroupMoreLbl(hide: true)
     }
-    
+
     @IBAction func btn_Cancle(_ sender: Any) {
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn huỷ thay đổi không?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
@@ -385,7 +384,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         alert.addAction(btnCancel)
         present(alert, animated: true, completion: nil)
     }
-    
+
     @IBAction func btn_Camera(_ sender: Any) {
         let alert:UIAlertController = UIAlertController(title: "Thông báo", message: "Chọn", preferredStyle: .alert)
         let btnPhoto:UIAlertAction = UIAlertAction(title: "Photo", style: .default) { (UIAlertAction) in
@@ -404,10 +403,10 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         }
         alert.addAction(btnPhoto)
         alert.addAction(btnCamera)
-        
+
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView.tag == 1 {
             return arrDate.count
@@ -415,7 +414,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             return 1
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return arrDate[component].count
@@ -423,7 +422,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             return arrClasses.count
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1 {
             return String(arrDate[component][row])
@@ -431,7 +430,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             return String(arrClasses[row])
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
             if (component == 0) {
@@ -453,7 +452,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             teacherName = String(arrTeacherName[row])
         }
     }
-    
+
     func setDefaultValueForComponet(user:User) {
         var dayP:Int?
         var monthP:Int?
@@ -478,7 +477,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             pickerBirthDay.selectRow(dayP!, inComponent: 0, animated: false)
             pickerBirthDay.selectRow(monthP!, inComponent: 1, animated: false)
         }
-        
+
         if (arrClasses.count != 0) {
             for i in 0...arrClasses.count {
                 if (arrClasses[i] == user.className) {
@@ -488,7 +487,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                 }
             }
         }
-        
+
         txtBirthYear.text = daySplit[2]
         txtNickName.text = user.nickName
         txtFatherName.text = user.fatherName
@@ -503,7 +502,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         txtHobby.text = user.hobby
         txtAbility.text = user.ability
         txtNote.text = user.note
-        
+
         imgAvatar.image = user.avatar
         lblNickName.text = user.nickName
         lblBirthday.text = user.birthDay
@@ -523,7 +522,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         lblAbility.text = user.ability
         lblNote.text = user.note
     }
-    
+
     func hideGroupBasicTxt(hide:Bool) {
         txtNickName.isHidden = hide
         pickerBirthDay.isHidden = hide
@@ -540,24 +539,24 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         txtMotherName.isHidden = hide
         txtMotherPhone.isHidden = hide
     }
-    
+
     func hideGroupHeathTxt(hide:Bool) {
         txtWeight.isHidden = hide
         txtHeight.isHidden = hide
         txtIllness.isHidden = hide
     }
-    
+
     func hideGroupStudyTxt(hide:Bool) {
         txtLeaveDay.isHidden = hide
         txtEvaluation.isHidden = hide
     }
-    
+
     func hideGroupMoreTxt(hide:Bool) {
         txtHobby.isHidden = hide
         txtAbility.isHidden = hide
         txtNote.isHidden = hide
     }
-    
+
     func hideGroupBasicLbl(hide:Bool) {
         btnEditBasic.isHidden = hide
         lblNickName.isHidden = hide
@@ -570,32 +569,32 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         lblMotherName.isHidden = hide
         lblMotherPhone.isHidden = hide
     }
-    
+
     func hideGroupHeathLbl(hide:Bool) {
         btnEditHeath.isHidden = hide
         lblWeight.isHidden = hide
         lblHeight.isHidden = hide
         lblIllness.isHidden = hide
     }
-    
+
     func hideGroupStudyLbl(hide:Bool) {
         btnEditStudy.isHidden = hide
         lblDayLeave.isHidden = hide
         lblEvaluation.isHidden = hide
     }
-    
+
     func hideGroupMoreLbl(hide:Bool) {
         btnEditMore.isHidden = hide
         lblHobby.isHidden = hide
         lblAbility.isHidden = hide
         lblNote.isHidden = hide
     }
-    
+
     func changeColorOfRadioButton (btnYellow:UIButton, btnWhite:UIButton) {
         btnYellow.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
         btnYellow.clipsToBounds = true
         btnYellow.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
-        
+
         btnWhite.layer.cornerRadius = 0.5 * btnMale.bounds.size.width
         btnWhite.clipsToBounds = true
         btnWhite.backgroundColor = UIColor.white
@@ -607,7 +606,7 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
 {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+
         if let image = info[.originalImage] as? UIImage {
             let imgValue = max(image.size.width, image.size.height)
             if (imgValue > 3000) {
@@ -634,7 +633,7 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                 self.imgAvatar.image = UIImage(data:imgData)
         }
         self.dismiss(animated: true, completion: nil)
-        
+
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thay đổi ảnh đại diện không?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel) { (UIAlertAction) in
             self.imgAvatar.image = currentUser.avatar
@@ -649,14 +648,14 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
             let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
             alertActivity.view.addConstraint(height);
             self.present(alertActivity, animated: true, completion: nil)
-            
+
             let url = currentUser.linkAvatar
             let storageRefI = storage.reference(forURL: url!)
             storageRefI.delete { error in
                 if let error = error {
                     print(error)
                 } else {
-                    
+
                     let avatarRef = storageRef.child("avatars/\(currentUser.email!).jpg")
                     let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                         guard let metadata = metadata else {
@@ -666,13 +665,13 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                         }
                         let size = metadata.size
                         avatarRef.downloadURL { (url, error) in
-                            
+
                             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                             changeRequest?.photoURL = url
                             changeRequest?.commitChanges { (error) in
                                 if (error == nil){
                                     ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
-                                    
+
                                     currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
                                     let url:URL = URL(string: currentUser.linkAvatar)!
                                     do

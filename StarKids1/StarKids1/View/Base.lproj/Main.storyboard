@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAR-cU-1D0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAR-cU-1D0">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="55"/>
+            <point key="canvasLocation" x="328" y="55"/>
         </scene>
         <!--Loading View Controller-->
         <scene sceneID="Opl-Of-g7b">
@@ -141,7 +141,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2I-Cz-YbO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1710" y="54.929577464788736"/>
+            <point key="canvasLocation" x="1161" y="55"/>
         </scene>
         <!--Trang chủ-->
         <scene sceneID="IM7-6M-Fp5">
@@ -396,7 +396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uh6-hc-osR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3450" y="1591"/>
+            <point key="canvasLocation" x="3450" y="1590.8450704225352"/>
         </scene>
         <!-- Menu-->
         <scene sceneID="Yif-aw-zgB">
@@ -1309,7 +1309,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="IBV-wp-ukX">
-                                                    <rect key="frame" x="9" y="16" width="200" height="200"/>
+                                                    <rect key="frame" x="9" y="16" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="34" id="C09-IQ-BfJ"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="lJO-F8-kZD"/>
@@ -1317,7 +1317,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mln-q8-0V6">
-                                                    <rect key="frame" x="214" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="114" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1490,17 +1490,167 @@
             </objects>
             <point key="canvasLocation" x="2628.75" y="2361.9718309859154"/>
         </scene>
+        <!--Add New Menu Controller-->
+        <scene sceneID="vKh-37-MQW">
+            <objects>
+                <viewController storyboardIdentifier="newmenu" title="Add New Menu Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nrU-lY-Mef" customClass="AddNewMenuController" customModule="StarKids1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CN0-JU-vUx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Món Chính 2:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-dS-AwN">
+                                <rect key="frame" x="25" y="253" width="102" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Món Xào:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBJ-lS-cGO">
+                                <rect key="frame" x="23" y="317" width="73" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Món Canh:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peL-Jq-kRw">
+                                <rect key="frame" x="25" y="386" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqP-hn-DLd">
+                                <rect key="frame" x="23" y="468" width="117" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92746113989637302" green="0.83103662566977488" blue="0.3761100389489655" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Xác Nhận">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_Confirm:" destination="nrU-lY-Mef" eventType="touchUpInside" id="pHU-Sg-N4X"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nhập tên món ăn..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tWE-qT-if3">
+                                <rect key="frame" x="23" y="415" width="220" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nhập tên món ăn..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UDQ-Hn-6Nb">
+                                <rect key="frame" x="25" y="346" width="220" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nhập tên món ăn..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FPj-79-8xw">
+                                <rect key="frame" x="23" y="282" width="221" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nhập tên món ăn..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nel-5y-Xjr">
+                                <rect key="frame" x="22" y="211" width="221" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ngày:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEj-Av-9n7">
+                                <rect key="frame" x="22" y="96" width="45" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOw-qy-nsU">
+                                <rect key="frame" x="192" y="468" width="109" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92746113989637302" green="0.83103662566977488" blue="0.3761100389489655" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Huỷ">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btn_Cancel:" destination="nrU-lY-Mef" eventType="touchUpInside" id="X5v-rU-T6P"/>
+                                </connections>
+                            </button>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gnn-qF-9R9">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Thực Đơn" id="ze3-Qr-tRR"/>
+                                </items>
+                            </navigationBar>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="TF2-zL-ePM">
+                                <rect key="frame" x="248" y="208" width="53" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="X2q-lV-hC6">
+                                <rect key="frame" x="250" y="279" width="53" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="xaW-r2-ZcS">
+                                <rect key="frame" x="251" y="341" width="50" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="hgj-Jw-nOA">
+                                <rect key="frame" x="251" y="411" width="50" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ktW-4r-KSV">
+                                <rect key="frame" x="23" y="125" width="262" height="58"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="580384327.49231899">
+                                    <!--2019-05-24 09:52:07 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="nrU-lY-Mef" eventType="valueChanged" id="F2T-FR-T6j"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Món Chính 1:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-vE-TKf">
+                                <rect key="frame" x="25" y="182" width="124" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="bXZ-Bo-5zy"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnCancel" destination="qOw-qy-nsU" id="7dx-1a-nxy"/>
+                        <outlet property="btnConfirm" destination="UqP-hn-DLd" id="eb8-MC-FRv"/>
+                        <outlet property="dtpDate" destination="ktW-4r-KSV" id="JXr-IE-2F8"/>
+                        <outlet property="imgDish1" destination="TF2-zL-ePM" id="beX-u7-cA7"/>
+                        <outlet property="imgDish2" destination="X2q-lV-hC6" id="oig-Vo-vMe"/>
+                        <outlet property="imgSauteDish" destination="xaW-r2-ZcS" id="DKT-1C-aOg"/>
+                        <outlet property="imgSoup" destination="hgj-Jw-nOA" id="lmq-kI-cXD"/>
+                        <outlet property="txtMainDish1" destination="nel-5y-Xjr" id="EYO-K2-app"/>
+                        <outlet property="txtMainDish2" destination="FPj-79-8xw" id="hhP-tB-rTD"/>
+                        <outlet property="txtSauteDish" destination="UDQ-Hn-6Nb" id="EU1-lA-BaC"/>
+                        <outlet property="txtSoup" destination="tWE-qT-if3" id="nQG-jn-LAk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6zW-DQ-1dt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="872" y="-733"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="background" width="460.79998779296875" height="288"/>
-        <image name="camera" width="200" height="200"/>
-        <image name="card" width="308" height="308"/>
-        <image name="edit" width="36" height="36"/>
-        <image name="home_icon" width="36" height="36"/>
-        <image name="logo" width="500" height="500"/>
-        <image name="mail_icon" width="36" height="36"/>
-        <image name="more_icon" width="36" height="36"/>
-        <image name="notice_icon" width="36" height="36"/>
-        <image name="send" width="428.65115356445312" height="428.65115356445312"/>
+        <image name="background" width="960" height="600"/>
+        <image name="camera" width="100" height="100"/>
+        <image name="card" width="154" height="154"/>
+        <image name="edit" width="18" height="18"/>
+        <image name="home_icon" width="18" height="18"/>
+        <image name="logo" width="250" height="250"/>
+        <image name="mail_icon" width="18" height="18"/>
+        <image name="more_icon" width="18" height="18"/>
+        <image name="notice_icon" width="18" height="18"/>
+        <image name="send" width="512" height="512"/>
     </resources>
 </document>
