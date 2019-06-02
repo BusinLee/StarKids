@@ -28,11 +28,6 @@ class ScreenPostTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    @IBAction func btnPrevious(_ sender: Any) {
-    }
-    
-    @IBAction func btn_Next(_ sender: Any) {
-    }
 }
 extension ScreenPostTableViewCell
 {
