@@ -122,7 +122,6 @@ class HomeController: UIViewController {
                     print("picture----- \(like)")
                     if (likes.count == Int(self.flagLike[i])) {
                         self.listPost[i].likes = likes
-
                         print("picture+++++ \(self.listPost)")
                         self.text.append("abc")
                         self.tblListPost.reloadData()
@@ -135,8 +134,6 @@ class HomeController: UIViewController {
             })
         }
     }
-
-    
 //    func getLikesForPosts() {
 //        for i in 0 ... self.listPost.count - 1 {
 //            var likes:Array<String> = Array<String>()
@@ -276,7 +273,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         } else {
             cell.btnStar.setImage(UIImage(named: "star"), for: .normal)
         }
-       cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
+        cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
         
         cell.pictureCollectionView.tag = indexPath.row
         return cell
