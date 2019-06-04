@@ -7,6 +7,7 @@
 //
 
 import UIKit
+var selectPost:Post!
 
 class HomeController: UIViewController {
     
@@ -25,7 +26,7 @@ class HomeController: UIViewController {
         
         tblListPost.dataSource = self
         tblListPost.delegate = self
-        tblListPost.allowsSelection = false;
+        //tblListPost.allowsSelection = false;
         
         //        for i in 0 ..< 10 {
         //            quantityArray.append(1)
@@ -34,22 +35,24 @@ class HomeController: UIViewController {
         
         let tableNamePicture = ref.child("Pictures")
         tableNamePicture.observe(.childAdded, with: { (snapshot1) in
-            //print("countSnap \(snapshot1.childrenCount)")
             self.flagPicture.append("\(snapshot1.childrenCount)")
+            print("picturecountSnap \(self.flagPicture)")
         })
         
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in
             self.flagLike.append("\(snapshot1.childrenCount)")
+            print("likecountSnap \(self.flagLike)")
         })
         
         let tableNameComment = ref.child("Comments")
         tableNameComment.observe(.childAdded, with: { (snapshot1) in
             self.flagComment.append("\(snapshot1.childrenCount)")
+            print("commentcountSnap \(self.flagComment)")
         })
         
         let tableName = ref.child("Posts")
-        tableName.observe(.childAdded) { (snapshot) in
+        tableName.observe(.childAdded, with: { (snapshot) in
             let postDict = snapshot.value as? [String: AnyObject]
             if (postDict != nil) {
                 let userPost:String = (postDict?["userPost"])! as! String
@@ -74,65 +77,27 @@ class HomeController: UIViewController {
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvatarPost = (snapshot1.value as? String)!
                 })
-                
-                let tableNameLikes = ref.child("Likes").child(snapshot.key)
-                tableNameLikes.observe(.childAdded, with: { (snapshot1) in
+                let tableNamePictures = ref.child("Pictures").child(snapshot.key)
+                tableNamePictures.observe(.childAdded, with: { (snapshot1) in
                     let postDict1 = snapshot1.value as? [String:AnyObject]
                     if (postDict1 != nil)
                     {
-                        let like:String = (postDict1?["userId"])! as! String
-                        print("like----- \(like)")
-                        likes.append(like)
-                        
-                        if (likes.count == Int(self.flagLike[self.listPost.count])) {
-                        
-                            let tableNameComment = ref.child("Comments").child(snapshot.key)
-                            tableNameComment.observe(.childAdded, with: { (snapshot1) in
-                                let postDict1 = snapshot1.value as? [String:AnyObject]
-                                if (postDict1 != nil)
-                                {
-                                    let comment :String = (postDict1?["content"])! as! String
-                                    let userId :String = (postDict1?["userId"])! as! String
-                                    comments.append(comment)
-                                    print("comment----- \(comment)")
-                                    print("userId----- \(userId)")
-                                    userComments.append(userId)
-                                    
-                                    if (comments.count == Int(self.flagComment[self.listPost.count])) {
-                                        
-                                        let tableNamePictures = ref.child("Pictures").child(snapshot.key)
-                                        tableNamePictures.observe(.childAdded, with: { (snapshot1) in
-                                            let postDict1 = snapshot1.value as? [String:AnyObject]
-                                            if (postDict1 != nil)
-                                            {
-                                                let picture :String = (postDict1?["picture"])! as! String
-                                                pictures.append(picture)
-                                                print("picture----- \(picture)")
-                                                if (pictures.count == Int(self.flagPicture[self.listPost.count])) {
-                                                    let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
-                                                    print("------ \(post)")
-                                                    self.listPost.append(post)
-                                                    self.text.append("abc")
-                                                    self.tblListPost.reloadData()
-                                                }
-                                            }
-                                            else
-                                            {
-                                                print("Không có hình")
-                                            }
-                                        })
-                                    }
-                                }
-                                else
-                                {
-                                    print("Không có comments")
-                                }
-                            })
+                        let picture :String = (postDict1?["picture"])! as! String
+                        pictures.append(picture)
+                        print("picture----- \(picture)")
+                        if (pictures.count == Int(self.flagPicture[self.listPost.count])) {
+                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
+                            print("------ \(post)")
+                            self.listPost.append(post)
+                            self.getLikesForPosts()
+                            self.getCommentsForPosts()
+                            self.text.append("abc")
+                            self.tblListPost.reloadData()
                         }
                     }
                     else
                     {
-                        print("Không có likes")
+                        print("Không có hình")
                     }
                 })
             }
@@ -140,15 +105,112 @@ class HomeController: UIViewController {
             {
                 print("Không có post")
             }
+        })
+        
+    }
+    
+    func getLikesForPosts() {
+        for i in 0 ... self.listPost.count - 1 {
+            var likes:Array<String> = Array<String>()
+            let tableNameLikes = ref.child("Likes").child(self.listPost[i].id)
+            tableNameLikes.observe(.childAdded, with: { (snapshot1) in
+                let postDict1 = snapshot1.value as? [String:AnyObject]
+                if (postDict1 != nil)
+                {
+                    let like :String = (postDict1?["userId"])! as! String
+                    likes.append(like)
+                    print("picture----- \(like)")
+                    if (likes.count == Int(self.flagLike[i])) {
+                        self.listPost[i].likes = likes
+
+                        print("picture+++++ \(self.listPost)")
+                        self.text.append("abc")
+                        self.tblListPost.reloadData()
+                    }
+                }
+                else
+                {
+                    print("Không có hình")
+                }
+            })
+        }
+    }
+
+    
+//    func getLikesForPosts() {
+//        for i in 0 ... self.listPost.count - 1 {
+//            var likes:Array<String> = Array<String>()
+//            let tableNameLikes = ref.child("Likes").child(self.listPost[i].id)
+//            tableNameLikes.observeSingleEvent(of: .value, with: { (snapshot1) in
+//                let postDict1 = snapshot1.value as? [String:AnyObject]
+//                if (postDict1 != nil)
+//                {
+//                    for each in postDict1! {
+//                        let like :String = each.value as! String
+//                        likes.append(like)
+//                        print("picture----- \(like)")
+//                        if (likes.count == Int(self.flagLike[i])) {
+//                            self.listPost[i].likes = likes
+//
+//                            print("picture+++++ \(self.listPost)")
+//                            self.text.append("abc")
+//                            self.tblListPost.reloadData()
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    print("Không có hình")
+//                }
+//            })
+//        }
+//    }
+    
+//    if let participantsDict = snapshot.value as? [String : AnyObject] {
+//        for each in participantsDict {
+//            let employeeIDNum = each.key
+//            self.getName(forUID: employeeIDNum)
+//            self.employeeID.append(employeeIDNum)
+//        }
+    
+    func getCommentsForPosts() {
+        for i in 0 ... self.listPost.count - 1 {
+            var comments:Array<String> = Array<String>()
+            var userComments:Array<String> = Array<String>()
+            let tableNameComments = ref.child("Comments").child(self.listPost[i].id)
+            tableNameComments.observe(.childAdded, with: { (snapshot1) in
+                let postDict1 = snapshot1.value as? [String:AnyObject]
+                if (postDict1 != nil)
+                {
+                    let comment :String = (postDict1?["content"])! as! String
+                    let userId :String = (postDict1?["userId"])! as! String
+                    comments.append(comment)
+                    print("comment----- \(comment)")
+                    print("userId----- \(userId)")
+                    userComments.append(userId)
+                    
+                    if (comments.count == Int(self.flagComment[i])) {
+                        self.listPost[i].comments = comments
+                        self.listPost[i].userComments = userComments
+                        
+                        print("picture+++++ \(self.listPost)")
+                        self.text.append("abc")
+                        self.tblListPost.reloadData()
+                    }
+                }
+                else
+                {
+                    print("Không có hình")
+                }
+            })
         }
     }
     
     @objc func likePost(_ sender: UIButton){
-        if (isStar)
+        if (sender.currentImage == UIImage(named: "starYellow"))
         {
             sender.setImage(UIImage(named: "star"), for: .normal)
-            isStar = false
-            
+            // isStar = false
             var temp:Int = sender.tag + 1
             text[sender.tag] = "def \(temp)"
             
@@ -166,7 +228,7 @@ class HomeController: UIViewController {
         else
         {
             sender.setImage(UIImage(named: "starYellow"), for: .normal)
-            isStar = true
+            // isStar = true
             
             var temp:Int = sender.tag - 1
             text[sender.tag] = "def \(temp)"
@@ -206,20 +268,25 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         cell.lblPicture.text = String(listPost[indexPath.row].pictures.count) + " ảnh"
         cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)
         
-        //        let pictureRef = storageRef.child("avatars/\(listPost[indexPath.row].pictures[0])")
-        //        pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-        //            if let error = error {
-        //                print("Không load được hình từ bài post")
-        //            } else {
-        //                cell.imgPost.image = UIImage(data: data!)
-        //            }
-        //        }
-        
         cell.btnStar.tag = indexPath.row;
-        cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
+        if (listPost[indexPath.row].likes.contains(currentUser.id))
+        {
+            cell.btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
+            // isStar = true
+        } else {
+            cell.btnStar.setImage(UIImage(named: "star"), for: .normal)
+        }
+       cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
         
         cell.pictureCollectionView.tag = indexPath.row
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectPost = listPost[indexPath.row]
+        print("++++++++++++\(selectPost)")
+        gotoScreenWithBack(idScreen: "scrPostDetail")
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     ///////////////////
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -241,7 +308,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
                 cell.imgPicturePost.image = UIImage(data: data!)
             }
         }
-
+        
         return cell
     }
 }
