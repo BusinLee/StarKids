@@ -23,6 +23,7 @@
 		122263EF22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */; };
 		122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263F022A6C2E700F251FE /* CommentViewCell.swift */; };
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
+		12724B8022A80E07007A6A40 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12724B7F22A80E07007A6A40 /* Comment.swift */; };
 		127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */; };
 		12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C73226F640D002125BC /* MainNavigationController.swift */; };
 		12A88C76226F6834002125BC /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C75226F6834002125BC /* HomeController.swift */; };
@@ -56,6 +57,7 @@
 		122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPicPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		122263F022A6C2E700F251FE /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		12724B7F22A80E07007A6A40 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		12A88C73226F640D002125BC /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		12A88C75226F6834002125BC /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				121216D922635B2A00DE3A47 /* User.swift */,
 				120E87B9229028A200D528C7 /* Post.swift */,
+				12724B7F22A80E07007A6A40 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */,
 				120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */,
 				12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */,
+				12724B8022A80E07007A6A40 /* Comment.swift in Sources */,
 				121216DA22635B2A00DE3A47 /* User.swift in Sources */,
 				121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */,
 				127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */,

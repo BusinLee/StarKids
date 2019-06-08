@@ -16,7 +16,7 @@ class HomeController: UIViewController {
     var listPost:Array<Post> = Array<Post>()
     var flagPicture:Array<String> = Array<String>()
     var flagLike:Array<String> = Array<String>()
-    var flagComment:Array<String> = Array<String>()
+    var flagComment:Array<Int> = Array<Int>()
     var isStar:Bool = false
     //var quantityArray:[Int] = []
     var text:Array<String> = Array<String>()
@@ -47,7 +47,7 @@ class HomeController: UIViewController {
         
         let tableNameComment = ref.child("Comments")
         tableNameComment.observe(.childAdded, with: { (snapshot1) in
-            self.flagComment.append("\(snapshot1.childrenCount)")
+            self.flagComment.append(Int(snapshot1.childrenCount))
             print("commentcountSnap \(self.flagComment)")
         })
         
@@ -62,8 +62,6 @@ class HomeController: UIViewController {
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
                 var likes:Array<String> = Array<String>()
-                var comments:Array<String> = Array<String>()
-                var userComments:Array<String> = Array<String>()
                 var pictures:Array<String> = Array<String>()
                 
                 
@@ -86,11 +84,10 @@ class HomeController: UIViewController {
                         pictures.append(picture)
                         print("picture----- \(picture)")
                         if (pictures.count == Int(self.flagPicture[self.listPost.count])) {
-                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comments: comments, userComments: userComments, pictures: pictures)
+                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comment: self.flagComment[self.listPost.count], pictures: pictures)
                             print("------ \(post)")
                             self.listPost.append(post)
                             self.getLikesForPosts()
-                            self.getCommentsForPosts()
                             self.text.append("abc")
                             self.tblListPost.reloadData()
                         }
@@ -170,38 +167,6 @@ class HomeController: UIViewController {
 //            self.employeeID.append(employeeIDNum)
 //        }
     
-    func getCommentsForPosts() {
-        for i in 0 ... self.listPost.count - 1 {
-            var comments:Array<String> = Array<String>()
-            var userComments:Array<String> = Array<String>()
-            let tableNameComments = ref.child("Comments").child(self.listPost[i].id)
-            tableNameComments.observe(.childAdded, with: { (snapshot1) in
-                let postDict1 = snapshot1.value as? [String:AnyObject]
-                if (postDict1 != nil)
-                {
-                    let comment :String = (postDict1?["content"])! as! String
-                    let userId :String = (postDict1?["userId"])! as! String
-                    comments.append(comment)
-                    print("comment----- \(comment)")
-                    print("userId----- \(userId)")
-                    userComments.append(userId)
-                    
-                    if (comments.count == Int(self.flagComment[i])) {
-                        self.listPost[i].comments = comments
-                        self.listPost[i].userComments = userComments
-                        
-                        print("picture+++++ \(self.listPost)")
-                        self.text.append("abc")
-                        self.tblListPost.reloadData()
-                    }
-                }
-                else
-                {
-                    print("Không có hình")
-                }
-            })
-        }
-    }
     
     @objc func likePost(_ sender: UIButton){
         if (sender.currentImage == UIImage(named: "starYellow"))
@@ -260,7 +225,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
-        cell.lblComment.text = String(listPost[indexPath.row].comments.count) + " bình luận"
+        cell.lblComment.text = String(listPost[indexPath.row].comment) + " bình luận"
         //cell.lblComment.text = text[indexPath.row]
         cell.lblPicture.text = String(listPost[indexPath.row].pictures.count) + " ảnh"
         cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)

@@ -13,6 +13,7 @@ class CommentViewCell: UITableViewCell {
     @IBOutlet weak var imgAvatarComment: UIImageView!
     @IBOutlet weak var lblNameComment: UILabel!
     @IBOutlet weak var lblContent: UILabel!
+    @IBOutlet weak var lblTime: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
