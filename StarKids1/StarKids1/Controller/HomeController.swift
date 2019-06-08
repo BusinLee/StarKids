@@ -15,7 +15,7 @@ class HomeController: UIViewController {
     
     var listPost:Array<Post> = Array<Post>()
     var flagPicture:Array<String> = Array<String>()
-    var flagLike:Array<String> = Array<String>()
+    var flagLike:Array<Int> = Array<Int>()
     var flagComment:Array<Int> = Array<Int>()
     var isStar:Bool = false
     //var quantityArray:[Int] = []
@@ -41,7 +41,7 @@ class HomeController: UIViewController {
         
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in
-            self.flagLike.append("\(snapshot1.childrenCount)")
+            self.flagLike.append(Int(snapshot1.childrenCount))
             print("likecountSnap \(self.flagLike)")
         })
         
@@ -61,9 +61,22 @@ class HomeController: UIViewController {
                 let date:String = (postDict?["date"])! as! String
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
-                var likes:Array<String> = Array<String>()
                 var pictures:Array<String> = Array<String>()
+                var isLikeStr:String = "none"
                 
+                let tableIsLike = ref.child("Likes").child(snapshot.key)
+                tableIsLike.observeSingleEvent(of: .childAdded, with: { (snapshot1) in
+                    let postDict1 = snapshot1.value as? [String: Any]
+                    if (postDict1 != nil) {
+                        let userIdLike = (postDict1?["userId"]) as! String
+                        if (userIdLike == currentUser.id) {
+                            isLikeStr = snapshot1.key as! String
+                        }
+                    }
+                    else {
+                        print("Không có thông tin")
+                    }
+                })
                 
                 
                 let tableNameUser = ref.child("Users").child(userPost).child("fullName")
@@ -84,10 +97,10 @@ class HomeController: UIViewController {
                         pictures.append(picture)
                         print("picture----- \(picture)")
                         if (pictures.count == Int(self.flagPicture[self.listPost.count])) {
-                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: likes, comment: self.flagComment[self.listPost.count], pictures: pictures)
+                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: pictures)
                             print("------ \(post)")
                             self.listPost.append(post)
-                            self.getLikesForPosts()
+                            //self.getLikesForPosts()
                             self.text.append("abc")
                             self.tblListPost.reloadData()
                         }
@@ -106,50 +119,22 @@ class HomeController: UIViewController {
         
     }
     
-    func getLikesForPosts() {
-        for i in 0 ... self.listPost.count - 1 {
-            var likes:Array<String> = Array<String>()
-            let tableNameLikes = ref.child("Likes").child(self.listPost[i].id)
-            tableNameLikes.observe(.childAdded, with: { (snapshot1) in
-                let postDict1 = snapshot1.value as? [String:AnyObject]
-                if (postDict1 != nil)
-                {
-                    let like :String = (postDict1?["userId"])! as! String
-                    likes.append(like)
-                    print("picture----- \(like)")
-                    if (likes.count == Int(self.flagLike[i])) {
-                        self.listPost[i].likes = likes
-                        print("picture+++++ \(self.listPost)")
-                        self.text.append("abc")
-                        self.tblListPost.reloadData()
-                    }
-                }
-                else
-                {
-                    print("Không có hình")
-                }
-            })
-        }
-    }
 //    func getLikesForPosts() {
 //        for i in 0 ... self.listPost.count - 1 {
 //            var likes:Array<String> = Array<String>()
 //            let tableNameLikes = ref.child("Likes").child(self.listPost[i].id)
-//            tableNameLikes.observeSingleEvent(of: .value, with: { (snapshot1) in
+//            tableNameLikes.observe(.childAdded, with: { (snapshot1) in
 //                let postDict1 = snapshot1.value as? [String:AnyObject]
 //                if (postDict1 != nil)
 //                {
-//                    for each in postDict1! {
-//                        let like :String = each.value as! String
-//                        likes.append(like)
-//                        print("picture----- \(like)")
-//                        if (likes.count == Int(self.flagLike[i])) {
-//                            self.listPost[i].likes = likes
-//
-//                            print("picture+++++ \(self.listPost)")
-//                            self.text.append("abc")
-//                            self.tblListPost.reloadData()
-//                        }
+//                    let like :String = (postDict1?["userId"])! as! String
+//                    likes.append(like)
+//                    print("picture----- \(like)")
+//                    if (likes.count == Int(self.flagLike[i])) {
+//                        self.listPost[i].likes = likes
+//                        print("picture+++++ \(self.listPost)")
+//                        self.text.append("abc")
+//                        self.tblListPost.reloadData()
 //                    }
 //                }
 //                else
@@ -159,46 +144,33 @@ class HomeController: UIViewController {
 //            })
 //        }
 //    }
-    
-//    if let participantsDict = snapshot.value as? [String : AnyObject] {
-//        for each in participantsDict {
-//            let employeeIDNum = each.key
-//            self.getName(forUID: employeeIDNum)
-//            self.employeeID.append(employeeIDNum)
-//        }
-    
+
     
     @objc func likePost(_ sender: UIButton){
         if (sender.currentImage == UIImage(named: "starYellow"))
         {
             sender.setImage(UIImage(named: "star"), for: .normal)
-            // isStar = false
-            var temp:Int = sender.tag + 1
-            text[sender.tag] = "def \(temp)"
             
             
             let indexPath = NSIndexPath(row: sender.tag, section: 0)
             let cell = tblListPost.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
-            cell.lblComment.text = "def \(temp)"
             cell.lblComment.setNeedsDisplay()
-            //let increasedQty = [sender.tag]+1
-            //self.quantityArray.replaceSubrange(sender.tag, with: increasedQty)
             
-            
-            //self.tblListPost.reloadData()
         }
         else
         {
             sender.setImage(UIImage(named: "starYellow"), for: .normal)
-            // isStar = true
             
-            var temp:Int = sender.tag - 1
-            text[sender.tag] = "def \(temp)"
+            let tableLike = ref.child("Likes").child(listPost[sender.tag].id)
+            let like:Dictionary<String,String> = ["userId":currentUser.id]
+            tableLike.childByAutoId().setValue(like)
             
             let indexPath = NSIndexPath(row: sender.tag, section: 0)
             let cell = tblListPost.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
-            cell.lblComment.text = "def \(temp)"
-            cell.lblComment.setNeedsDisplay()
+            cell.lblStar.text = String("\(listPost[sender.tag].likes + 1)")
+            cell.lblStar.setNeedsDisplay()
+            listPost[sender.tag].likes = listPost[sender.tag].likes + 1
+            listPost[sender.tag].isLike = currentUser.id
             
             //self.tblListPost.reloadData()
         }
@@ -221,7 +193,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         let cell:ScreenPostTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScreenPostTableViewCell
         cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
         cell.lblStar.clipsToBounds = true
-        cell.lblStar.text = String(listPost[indexPath.row].likes.count)
+        cell.lblStar.text = String(listPost[indexPath.row].likes)
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
@@ -231,10 +203,9 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)
         
         cell.btnStar.tag = indexPath.row;
-        if (listPost[indexPath.row].likes.contains(currentUser.id))
+        if (listPost[indexPath.row].isLike != "none")
         {
             cell.btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
-            // isStar = true
         } else {
             cell.btnStar.setImage(UIImage(named: "star"), for: .normal)
         }

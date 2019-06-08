@@ -38,9 +38,8 @@ class DetailPostController: UIViewController {
         lblNumberPicture.text = String(selectPost.pictures.count) + " ảnh "
         lblNumberStar.layer.cornerRadius = 0.5 * lblNumberStar.bounds.size.width
         lblNumberStar.clipsToBounds = true
-        lblNumberStar.text = String(selectPost.likes.count)
-        lblComment.text = String(selectPost.comment) + " bình luận"
-        if (selectPost.likes.contains(currentUser.id))
+        lblNumberStar.text = String(selectPost.likes)
+        if (selectPost.isLike != "none")
         {
             btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
             // isStar = true
@@ -62,13 +61,6 @@ class DetailPostController: UIViewController {
                 
                 let tableUsers = ref.child("Users").child(userId)
                 tableUsers.observeSingleEvent(of: .value, with: { (snapshot1) in
-                    //for child in snapshot1.children {
-//                    print("ahihi\(self.comments.count)")
-//                    print("vooooo2222")
-//                    print("child \(self.comments[i].userId)")
-                    //                        let snap = child as! DataSnapshot
-                    //                        let nameComment:String = snap.value(forKey: "fullName") as! String
-                    //                        let linkAvatar:String = snap.value(forKey: "linkAvatar") as! String
                     let postDict1 = snapshot1.value as? [String: Any]
                     if (postDict1 != nil) {
                         let nameComment = (postDict1?["fullName"]) as! String
@@ -79,6 +71,7 @@ class DetailPostController: UIViewController {
                         self.comments.append(comment)
                         print("affffffff\(self.comments)")
                         self.tblComment.reloadData()
+                        self.lblComment.text = String(self.comments.count) + " bình luận"
                     }
                     else {
                         print("Không có thông tin")

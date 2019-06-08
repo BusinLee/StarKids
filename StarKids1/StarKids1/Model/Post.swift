@@ -16,8 +16,9 @@ struct Post {
     let date:String!
     let time:String!
     let content:String!
-    var likes:Array<String> = Array<String>()
+    var likes:Int!
     var comment:Int!
+    var isLike:String!
     var pictures:Array<String> = Array<String>()
     
     init() {
@@ -27,12 +28,13 @@ struct Post {
         date = ""
         time = ""
         content = ""
-        likes = [""]
+        likes = 0
         comment = 0
+        isLike = ""
         pictures = [""]
     }
     
-    init(id:String, userPost:String,linkAvatarPost:String, date:String, time:String, content:String, likes:Array<String>, comment:Int, pictures:Array<String>)
+    init(id:String, userPost:String,linkAvatarPost:String, date:String, time:String, content:String, likes:Int, comment:Int, isLike:String, pictures:Array<String>)
     {
         self.id = id
         self.userPost = userPost
@@ -41,6 +43,7 @@ struct Post {
         self.time = time
         self.content = content
         self.likes = likes
+        self.isLike = isLike
         self.comment = comment
         self.pictures = pictures
     }
