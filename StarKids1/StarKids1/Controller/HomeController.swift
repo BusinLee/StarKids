@@ -12,6 +12,7 @@ var selectPost:Post!
 class HomeController: UIViewController {
     
     @IBOutlet weak var tblListPost: UITableView!
+    @IBOutlet weak var imgUserAvatar: UIImageView!
     
     var listPost:Array<Post> = Array<Post>()
     var flagPicture:Array<String> = Array<String>()
@@ -31,6 +32,7 @@ class HomeController: UIViewController {
         isStar = false
         tblListPost.dataSource = self
         tblListPost.delegate = self
+        imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
         let tableNamePicture = ref.child("Pictures")
         tableNamePicture.observe(.childAdded, with: { (snapshot1) in

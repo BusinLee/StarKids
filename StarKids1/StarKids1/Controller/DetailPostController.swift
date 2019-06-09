@@ -11,42 +11,17 @@ import Firebase
 
 class DetailPostController: UIViewController {
 
-    @IBOutlet weak var imgAvatarPost: UIImageView!
-    @IBOutlet weak var lblNamePost: UILabel!
-    @IBOutlet weak var lblTimePost: UILabel!
-    @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var collectionPicture: UICollectionView!
-    @IBOutlet weak var lblNumberPicture: UILabel!
-    @IBOutlet weak var btnStar: UIButton!
-    @IBOutlet weak var lblNumberStar: UILabel!
-    @IBOutlet weak var lblComment: UILabel!
     @IBOutlet weak var tblComment: UITableView!
+    @IBOutlet weak var txtComment: UITextField!
     
     var comments:Array<Comment> = Array<Comment>()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionPicture.delegate = self
-        collectionPicture.dataSource = self
+        
         tblComment.delegate = self
         tblComment.dataSource = self
+        tblComment.allowsSelection = false;
         tblComment.separatorStyle = UITableViewCell.SeparatorStyle.none
-        imgAvatarPost.loadAvatar(link: selectPost.linkAvatarPost)
-        lblNamePost.text = selectPost.userPost
-        lblTimePost.text = selectPost.date + " "+selectPost.time
-        lblContent.text = selectPost.content
-        lblNumberPicture.text = String(selectPost.pictures.count) + " ảnh "
-        lblNumberStar.layer.cornerRadius = 0.5 * lblNumberStar.bounds.size.width
-        lblNumberStar.clipsToBounds = true
-        lblNumberStar.text = String(selectPost.likes)
-        if (selectPost.isLike != "none")
-        {
-            btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
-            // isStar = true
-        } else {
-            btnStar.setImage(UIImage(named: "star"), for: .normal)
-        }
-        
         
         let tableNameComments = ref.child("Comments").child(selectPost.id)
         tableNameComments.observe(.childAdded, with: { (snapshot) in
@@ -71,48 +46,97 @@ class DetailPostController: UIViewController {
                         self.comments.append(comment)
                         print("affffffff\(self.comments)")
                         self.tblComment.reloadData()
-                        self.lblComment.text = String(self.comments.count) + " bình luận"
+                        //self.lblComment.text = String(self.comments.count) + " bình luận"
                     }
                     else {
                         print("Không có thông tin")
                     }
                 })
-                
-                
-//                let comment:Comment = Comment(content: content,userId:userId, nameUser: "", linkAvatar: "")
-//                self.comments.append(comment)
-//                if (self.comments.count == selectPost.comment) {
-//                    let element = self.comments.count - 1
-//                    for i in 0 ... element {
-//                        self.getInfoUserComment(i: i)
-//                        if (i == element) {
-//                            self.tblComment.reloadData()
-//                        }
-//                    }
-//                }
             }
             else
             {
                 print("Không có bình luận")
             }
         })
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    @IBAction func btn_Comment(_ sender: Any) {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        let day = formatter.string(from: date)
+        
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
+        let comment:Dictionary<String,String> = ["content":txtComment.text!, "date":day, "time": "\(hour)"+":"+"\(minute)", "userId":currentUser.id]
+        let tableNameComments = ref.child("Comments").child(selectPost.id)
+        tableNameComments.childByAutoId().setValue(comment)
+        txtComment.text = ""
     }
 }
 extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource
 {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return comments.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:CommentViewCell = tableView.dequeueReusableCell(withIdentifier: "CellComment", for: indexPath) as! CommentViewCell
-        print("cell \(indexPath.row)")
-        cell.imgAvatarComment.loadAvatar(link: comments[indexPath.row].linkAvatar)
-        cell.lblNameComment.text = comments[indexPath.row].nameUser
-        cell.lblContent.text = comments[indexPath.row].content
-        cell.lblTime.text = comments[indexPath.row].day + " " + comments[indexPath.row].time
-        return cell
+        if (indexPath.row == 0) {
+            tableView.rowHeight = 268
+            let cell:ScreenPostTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScreenPostTableViewCell
+            cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
+            cell.lblStar.clipsToBounds = true
+            cell.lblStar.text = String(selectPost.likes)
+            cell.lblTimePost.text = selectPost.date + "  " + selectPost.time
+            cell.lblUserName.text = selectPost.userPost
+            cell.lblContent.text = selectPost.content
+            cell.lblComment.text = String(selectPost.comment) + " bình luận"
+            cell.lblPicture.text = String(selectPost.pictures.count) + " ảnh"
+            cell.imgAvatar.loadAvatar(link: selectPost.linkAvatarPost)
+            
+            cell.btnStar.tag = indexPath.row;
+            if (selectPost.isLike != "none")
+            {
+                cell.btnStar.setImage(UIImage(named: "starYellow"), for: .normal)
+            } else {
+                cell.btnStar.setImage(UIImage(named: "star"), for: .normal)
+            }
+            //cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
+            return cell
+        }
+        else
+        {
+            tableView.rowHeight = 99
+            let cell:CommentViewCell = tableView.dequeueReusableCell(withIdentifier: "CellComment", for: indexPath) as! CommentViewCell
+            print("cell \(indexPath.row)")
+            cell.imgAvatarComment.loadAvatar(link: comments[indexPath.row-1].linkAvatar)
+            cell.lblNameComment.text = comments[indexPath.row-1].nameUser
+            cell.lblContent.text = comments[indexPath.row-1].content
+            cell.lblTime.text = comments[indexPath.row-1].day + " " + comments[indexPath.row-1].time
+            return cell
+        }
     }
     
     ////////////
@@ -125,16 +149,18 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! DetailPicPostCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
         
         let pictureRef = storageRef.child("avatars/\(selectPost.pictures[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình từ bài post")
             } else {
-                cell.imgPicture.image = UIImage(data: data!)
+                cell.imgPicturePost.image = UIImage(data: data!)
+                print("Vao collectionpost")
             }
         }
+        
         return cell
     }
 }
