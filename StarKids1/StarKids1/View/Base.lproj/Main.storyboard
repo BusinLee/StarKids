@@ -272,12 +272,20 @@
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Thêm bài viết mới..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5r2-Dm-VAU">
                                         <rect key="frame" x="8" y="8" width="255" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="cw8-Ic-mdt" appends="YES" id="HJP-7X-jPb"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99783831830000003" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="oyW-Xc-jTI" appends="YES" id="ryg-if-l5I"/>
+                                </connections>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="tuM-J6-WGy">
                                 <rect key="frame" x="3" y="67" width="41" height="41"/>
@@ -294,6 +302,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X8V-Zg-HCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="oyW-Xc-jTI">
+                    <connections>
+                        <action selector="tap_View:" destination="GDT-f0-pqv" id="g6N-gh-n6M"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="cw8-Ic-mdt">
+                    <connections>
+                        <action selector="tap_txtPost:" destination="GDT-f0-pqv" id="uEa-j3-fTr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3450" y="54.929577464788736"/>
         </scene>
@@ -512,47 +530,98 @@
             </objects>
             <point key="canvasLocation" x="4211.25" y="54.929577464788736"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Post Controller-->
         <scene sceneID="OpI-K6-8Ke">
             <objects>
-                <viewController id="nPu-Q4-ZQe" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scrCreatePost" id="nPu-Q4-ZQe" customClass="CreatePostController" customModule="StarKids1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XRI-4t-fRi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kR7-kv-Moc">
-                                <rect key="frame" x="0.0" y="20" width="320" height="256"/>
+                                <rect key="frame" x="0.0" y="69" width="320" height="323"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-TO-OLh">
-                                        <rect key="frame" x="15" y="75" width="97" height="30"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-Gc-JTm">
+                                        <rect key="frame" x="8" y="8" width="41" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lê Mỹ Thiên Thanh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MxD-Ph-fu0">
+                                        <rect key="frame" x="57" y="18" width="238" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Nội dung bài viết mới..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BjV-Qg-olb">
+                                        <rect key="frame" x="8" y="47" width="304" height="119"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="ZSU-H4-Jry">
+                                        <rect key="frame" x="117" y="181" width="87" height="101"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="R4g-we-Xgf" appends="YES" id="E64-15-EFp"/>
+                                        </connections>
+                                    </imageView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V2G-OU-5vz">
+                                        <rect key="frame" x="0.0" y="176" width="320" height="115"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eOy-rY-HsP">
+                                            <size key="itemSize" width="110" height="110"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PicturePostCell" id="spA-3W-sUe" customClass="PicturePostCollectionViewCell" customModule="StarKids1" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="2.5" width="110" height="110"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="cdk-IK-xrH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </view>
+                                                <connections>
+                                                    <outlet property="imgPicturePost" destination="cdk-IK-xrH" id="eHQ-jO-yx3"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="jtR-FQ-kGm" id="UsN-pK-ixI"/>
+                                            <outlet property="delegate" destination="jtR-FQ-kGm" id="08Z-kR-SrC"/>
+                                        </connections>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="wyC-KD-gcK">
-                                <rect key="frame" x="10" y="30" width="41" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lê Mỹ Thiên Thanh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vc1-hM-CE3">
-                                <rect key="frame" x="59" y="40" width="238" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.96855849029999996" green="0.96879726649999998" blue="0.97244769330000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mz4-g5-R0g"/>
                     </view>
+                    <connections>
+                        <outlet property="btnPicture" destination="ZSU-H4-Jry" id="eRr-JW-cY0"/>
+                        <outlet property="txtContent" destination="BjV-Qg-olb" id="4DQ-VX-vve"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3SE-i2-UcE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="R4g-we-Xgf">
+                    <connections>
+                        <action selector="tap_Picture:" destination="nPu-Q4-ZQe" id="cXD-mv-AZl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5049.375" y="54.929577464788736"/>
+            <point key="canvasLocation" x="4833.75" y="54.929577464788736"/>
         </scene>
         <!--New Student Controller-->
         <scene sceneID="0HJ-Tg-de7">

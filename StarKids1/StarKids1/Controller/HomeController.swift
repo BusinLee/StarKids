@@ -118,7 +118,13 @@ class HomeController: UIViewController {
         })
     }
 
+    @IBAction func tap_View(_ sender: Any) {
+        gotoScreenWithBack(idScreen: "scrCreatePost")
+    }
     
+    @IBAction func tap_txtPost(_ sender: Any) {
+        gotoScreenWithBack(idScreen: "scrCreatePost")
+    }
     @objc func likePost(_ sender: UIButton){
         if (sender.currentImage == UIImage(named: "starYellow"))
         {

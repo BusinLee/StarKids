@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1202F66A225A323D00FA9666 /* NewStudentController.swift */; };
+		120ABB9F22AD5FBE001B72E3 /* CreatePostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120ABB9E22AD5FBE001B72E3 /* CreatePostController.swift */; };
 		120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C3B90226E11300090C405 /* ScreenListChatTableViewCell.swift */; };
 		120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC3226B2A6900F25B53 /* ListFriendController.swift */; };
 		120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		1202F66A225A323D00FA9666 /* NewStudentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStudentController.swift; sourceTree = "<group>"; };
+		120ABB9E22AD5FBE001B72E3 /* CreatePostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostController.swift; sourceTree = "<group>"; };
 		120C3B90226E11300090C405 /* ScreenListChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListChatTableViewCell.swift; sourceTree = "<group>"; };
 		120D3FC3226B2A6900F25B53 /* ListFriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFriendController.swift; sourceTree = "<group>"; };
 		120D3FC5226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenListFriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				12275E90227579BA001DBCAF /* LoadingViewController.swift */,
 				120FB684227D9BD7004E1B4E /* DetailInfoController.swift */,
 				12F81D6D22A56AEA00EF636F /* DetailPostController.swift */,
+				120ABB9E22AD5FBE001B72E3 /* CreatePostController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */,
 				12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */,
 				122263EF22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift in Sources */,
+				120ABB9F22AD5FBE001B72E3 /* CreatePostController.swift in Sources */,
 				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,
 				120E87BA229028A200D528C7 /* Post.swift in Sources */,
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
