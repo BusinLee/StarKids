@@ -18,6 +18,7 @@ class CreatePostController: UIViewController {
     var rightButton:UIBarButtonItem!
     var selectedAssets = [PHAsset]()
     var photoArray:Array<UIImage> = Array<UIImage>()
+    var dataImg:Array<Data> = Array<Data>()
     
     @IBOutlet weak var img0: UIImageView!
     @IBOutlet weak var img1: UIImageView!
@@ -79,6 +80,17 @@ class CreatePostController: UIViewController {
         }, completion: nil)
     }
     @objc func btnDone(sender: AnyObject) {
+        let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
+        let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        activity.frame = CGRect(x: view.frame.size.width/2-20, y: 60, width: 0, height: 0)
+        activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
+        alertActivity.view.addSubview(activity)
+        activity.startAnimating()
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
+        alertActivity.view.addConstraint(height);
+        self.present(alertActivity, animated: true, completion: nil)
+
+        /////////////////////////
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
@@ -92,11 +104,54 @@ class CreatePostController: UIViewController {
         
         let tableName = ref.child("Posts")
         let refRandom = tableName.childByAutoId()
-        refRandom.setValue(post)
+        print("Lấy trước \(refRandom.key)")
+        
         txtContent.text = "Nội dung bài viết..."
         txtContent.textColor = UIColor.lightGray
         self.navigationItem.rightBarButtonItem = nil;
         let randomChild = refRandom.key
+        
+        let tableNamePicture = ref.child("Pictures").child(randomChild!)
+        let tableComment = ref.child("Comments").child(randomChild!)
+        let tableLike = ref.child("Likes").child(randomChild!)
+        let comment:Dictionary<String,String> = ["content":"abc", "date":day,"time":"\(hour):\(minute)", "userId":"abc"]
+        let like:Dictionary<String,String> = ["userId":"abc"]
+
+        for i in 0..<dataImg.count
+        {
+            print("vo for roi")
+            let avatarRef = storageRef.child("posts/\(randomChild!)\(i).jpg")
+            let uploadTask = avatarRef.putData(self.dataImg[i], metadata: nil) { metadata, error in
+                guard let metadata = metadata else {
+                    print("Lỗi up avatar")
+                    return
+                }
+                print("posts/\(randomChild!)\(i).jpg")
+                let picture:Dictionary<String,String> = ["picture":"\(randomChild!)\(i).jpg"]
+                tableNamePicture.childByAutoId().setValue(picture)
+                
+                if (i == (self.dataImg.count - 1)){
+                    tableComment.child("temp").setValue(comment)
+                    tableLike.child("temp").setValue(like)
+                    refRandom.setValue(post)
+                }
+            }
+            uploadTask.resume()
+//            if (i == (dataImg.count - 1)){
+//                for j in 0..<dataImg.count {
+//                    let picture:Dictionary<String,String> = ["picture":"\(randomChild!)\(j).jpg"]
+//                    tableNamePicture.childByAutoId().setValue(picture)
+//                    if (j == (dataImg.count - 1)) {
+//                        refRandom.setValue(post)
+//
+//                        activity.stopAnimating()
+//                        alertActivity.dismiss(animated: true, completion: nil)
+//                    }
+//                }
+//            }
+        }
+        alertActivity.dismiss(animated: true, completion: nil)
+        
     }
     
     func convertAssetToImages() -> Void {
@@ -115,7 +170,7 @@ class CreatePostController: UIViewController {
                 let newImage = UIImage(data: data!)
                 print("picture đây \(i)")
                 self.photoArray.append(newImage! as UIImage)
-                
+                self.dataImg.append(data!)
                 self.uiimgView[i].image = newImage
             }
             for i in selectedAssets.count..<10

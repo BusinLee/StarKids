@@ -15,7 +15,7 @@ class HomeController: UIViewController {
     @IBOutlet weak var imgUserAvatar: UIImageView!
     
     var listPost:Array<Post> = Array<Post>()
-    var flagPicture:Array<String> = Array<String>()
+    var flagPicture:Array<Int> = Array<Int>()
     var flagLike:Array<Int> = Array<Int>()
     var flagComment:Array<Int> = Array<Int>()
     var isStar:Bool = false
@@ -34,22 +34,24 @@ class HomeController: UIViewController {
         tblListPost.delegate = self
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
-        let tableNamePicture = ref.child("Pictures")
-        tableNamePicture.observe(.childAdded, with: { (snapshot1) in
-            self.flagPicture.append("\(snapshot1.childrenCount)")
-            print("picturecountSnap \(self.flagPicture)")
-        })
         
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in
-            self.flagLike.append(Int(snapshot1.childrenCount))
+            self.flagLike.append(Int(snapshot1.childrenCount) - 1)
             print("likecountSnap \(self.flagLike)")
         })
         
         let tableNameComment = ref.child("Comments")
         tableNameComment.observe(.childAdded, with: { (snapshot1) in
-            self.flagComment.append(Int(snapshot1.childrenCount))
+            self.flagComment.append(Int(snapshot1.childrenCount) - 1)
             print("commentcountSnap \(self.flagComment)")
+        })
+        
+        
+        let tableNamePicture = ref.child("Pictures")
+        tableNamePicture.observe(.childAdded, with: { (snapshot1) in
+            self.flagPicture.append(Int(snapshot1.childrenCount))
+            print("picturecountSnap \(self.flagPicture)")
         })
         
         let tableName = ref.child("Posts")
@@ -97,7 +99,7 @@ class HomeController: UIViewController {
                         let picture :String = (postDict1?["picture"])! as! String
                         pictures.append(picture)
                         print("picture----- \(picture)")
-                        if (pictures.count == Int(self.flagPicture[self.listPost.count])) {
+                        if (pictures.count == self.flagPicture[self.listPost.count]) {
                             let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: pictures)
                             print("------ \(post)")
                             self.listPost.append(post)
@@ -220,7 +222,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
         
-        let pictureRef = storageRef.child("avatars/\(listPost[collectionView.tag].pictures[indexPath.row])")
+        let pictureRef = storageRef.child("posts/\(listPost[collectionView.tag].pictures[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình từ bài post")
