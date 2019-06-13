@@ -100,15 +100,12 @@ class CreatePostController: UIViewController {
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
         
-        let post:Dictionary<String,String> = ["content":txtContent.text!, "date":day,"time":"\(hour):\(minute)", "userPost":currentUser.id]
+        
         
         let tableName = ref.child("Posts")
         let refRandom = tableName.childByAutoId()
         print("Lấy trước \(refRandom.key)")
         
-        txtContent.text = "Nội dung bài viết..."
-        txtContent.textColor = UIColor.lightGray
-        self.navigationItem.rightBarButtonItem = nil;
         let randomChild = refRandom.key
         
         let tableNamePicture = ref.child("Pictures").child(randomChild!)
@@ -116,23 +113,26 @@ class CreatePostController: UIViewController {
         let tableLike = ref.child("Likes").child(randomChild!)
         let comment:Dictionary<String,String> = ["content":"abc", "date":day,"time":"\(hour):\(minute)", "userId":"abc"]
         let like:Dictionary<String,String> = ["userId":"abc"]
-
+        var pictureArr:String! = ""
         for i in 0..<dataImg.count
         {
             print("vo for roi")
-            let avatarRef = storageRef.child("posts/\(randomChild!)\(i).jpg")
+            var pictureName:String = "\(randomChild!)\(i).jpg"
+            let avatarRef = storageRef.child("posts/\(pictureName)")
+            pictureArr = pictureArr + pictureName + ";"
             let uploadTask = avatarRef.putData(self.dataImg[i], metadata: nil) { metadata, error in
                 guard let metadata = metadata else {
                     print("Lỗi up avatar")
                     return
                 }
                 print("posts/\(randomChild!)\(i).jpg")
-                let picture:Dictionary<String,String> = ["picture":"\(randomChild!)\(i).jpg"]
-                tableNamePicture.childByAutoId().setValue(picture)
                 
                 if (i == (self.dataImg.count - 1)){
                     tableComment.child("temp").setValue(comment)
                     tableLike.child("temp").setValue(like)
+                    print("mảng hình/\(pictureArr)")
+                    let post:Dictionary<String,String> = ["content":self.txtContent.text!, "date":day,"time":"\(hour):\(minute)", "userPost":currentUser.id, "picture":
+                        String(pictureArr.dropLast())]
                     refRandom.setValue(post)
                 }
             }
@@ -151,7 +151,7 @@ class CreatePostController: UIViewController {
 //            }
         }
         alertActivity.dismiss(animated: true, completion: nil)
-        
+        gotoScreen(idScreen: "scrHome")
     }
     
     func convertAssetToImages() -> Void {

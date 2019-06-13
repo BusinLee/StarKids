@@ -145,13 +145,18 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectPost.pictures.count
+        var picArr:Array<String> = Array<String>()
+        picArr = selectPost.pictures.components(separatedBy: ";")
+        return picArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
         
-        let pictureRef = storageRef.child("avatars/\(selectPost.pictures[indexPath.row])")
+        var picArr:Array<String> = Array<String>()
+        picArr = selectPost.pictures.components(separatedBy: ";")
+        
+        let pictureRef = storageRef.child("avatars/\(picArr[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình từ bài post")

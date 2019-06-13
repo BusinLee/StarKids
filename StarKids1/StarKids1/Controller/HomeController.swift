@@ -15,21 +15,17 @@ class HomeController: UIViewController {
     @IBOutlet weak var imgUserAvatar: UIImageView!
     
     var listPost:Array<Post> = Array<Post>()
-    var flagPicture:Array<Int> = Array<Int>()
     var flagLike:Array<Int> = Array<Int>()
     var flagComment:Array<Int> = Array<Int>()
     var isStar:Bool = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        listPost.removeAll()
-        flagPicture.removeAll()
-        flagLike.removeAll()
-        flagComment.removeAll()
-        isStar = false
+//        listPost.removeAll()
+//        flagLike.removeAll()
+//        flagComment.removeAll()
+//        isStar = false
         tblListPost.dataSource = self
         tblListPost.delegate = self
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
@@ -47,13 +43,6 @@ class HomeController: UIViewController {
             print("commentcountSnap \(self.flagComment)")
         })
         
-        
-        let tableNamePicture = ref.child("Pictures")
-        tableNamePicture.observe(.childAdded, with: { (snapshot1) in
-            self.flagPicture.append(Int(snapshot1.childrenCount))
-            print("picturecountSnap \(self.flagPicture)")
-        })
-        
         let tableName = ref.child("Posts")
         tableName.observe(.childAdded, with: { (snapshot) in
             let postDict = snapshot.value as? [String: AnyObject]
@@ -64,7 +53,7 @@ class HomeController: UIViewController {
                 let date:String = (postDict?["date"])! as! String
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
-                var pictures:Array<String> = Array<String>()
+                var picture:String = (postDict?["picture"])! as! String
                 var isLikeStr:String = "none"
                 
                 let tableIsLike = ref.child("Likes").child(snapshot.key)
@@ -90,27 +79,11 @@ class HomeController: UIViewController {
                 let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvatarPost = (snapshot1.value as? String)!
-                })
-                let tableNamePictures = ref.child("Pictures").child(snapshot.key)
-                tableNamePictures.observe(.childAdded, with: { (snapshot1) in
-                    let postDict1 = snapshot1.value as? [String:AnyObject]
-                    if (postDict1 != nil)
-                    {
-                        let picture :String = (postDict1?["picture"])! as! String
-                        pictures.append(picture)
-                        print("picture----- \(picture)")
-                        if (pictures.count == self.flagPicture[self.listPost.count]) {
-                            let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: pictures)
-                            print("------ \(post)")
-                            self.listPost.append(post)
-                            //self.getLikesForPosts()
-                            self.tblListPost.reloadData()
-                        }
-                    }
-                    else
-                    {
-                        print("Không có hình")
-                    }
+                    let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: picture)
+                    print("------ \(post)")
+                    self.listPost.append(post)
+                    //self.getLikesForPosts()
+                    self.tblListPost.reloadData()
                 })
             }
             else
@@ -152,14 +125,15 @@ class HomeController: UIViewController {
             
             let tableLike = ref.child("Likes").child(listPost[sender.tag].id)
             let like:Dictionary<String,String> = ["userId":currentUser.id]
-            tableLike.childByAutoId().setValue(like)
+            let refRandom = tableLike.childByAutoId()
+            refRandom.setValue(like)
             
             let indexPath = NSIndexPath(row: sender.tag, section: 0)
             let cell = tblListPost.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
             cell.lblStar.text = String("\(listPost[sender.tag].likes + 1)")
             cell.lblStar.setNeedsDisplay()
             listPost[sender.tag].likes = listPost[sender.tag].likes + 1
-            listPost[sender.tag].isLike = currentUser.id
+            listPost[sender.tag].isLike = refRandom.key
             
             //self.tblListPost.reloadData()
         }
@@ -175,6 +149,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Bên trong số cell nha\(listPost.count)")
         return listPost.count
     }
     
@@ -182,13 +157,15 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         let cell:ScreenPostTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScreenPostTableViewCell
         cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
         cell.lblStar.clipsToBounds = true
+        print("Bên trong cell nha\(listPost)")
         cell.lblStar.text = String(listPost[indexPath.row].likes)
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].userPost
         cell.lblContent.text = listPost[indexPath.row].content
         cell.lblComment.text = String(listPost[indexPath.row].comment) + " bình luận"
-        //cell.lblComment.text = text[indexPath.row]
-        cell.lblPicture.text = String(listPost[indexPath.row].pictures.count) + " ảnh"
+        var picArr:Array<String> = Array<String>()
+        picArr = listPost[indexPath.row].pictures.components(separatedBy: ";")
+        cell.lblPicture.text = String(picArr.count) + " ảnh"
         cell.imgAvatar.loadAvatar(link: listPost[indexPath.row].linkAvatarPost)
         
         cell.btnStar.tag = indexPath.row;
@@ -216,13 +193,20 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listPost[collectionView.tag].pictures.count
+        var picArr:Array<String> = Array<String>()
+        picArr = listPost[collectionView.tag].pictures.components(separatedBy: ";")
+        
+        return picArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
         
-        let pictureRef = storageRef.child("posts/\(listPost[collectionView.tag].pictures[indexPath.row])")
+        var picArr:Array<String> = Array<String>()
+        picArr = listPost[collectionView.tag].pictures.components(separatedBy: ";")
+        
+        
+        let pictureRef = storageRef.child("posts/\(picArr[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình từ bài post")
