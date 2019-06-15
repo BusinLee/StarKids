@@ -117,7 +117,7 @@ class CreatePostController: UIViewController {
         for i in 0..<dataImg.count
         {
             print("vo for roi")
-            var pictureName:String = "\(randomChild!)\(i).jpg"
+            var pictureName:String = "\(randomChild!)/\(i).jpg"
             let avatarRef = storageRef.child("posts/\(pictureName)")
             pictureArr = pictureArr + pictureName + ";"
             let uploadTask = avatarRef.putData(self.dataImg[i], metadata: nil) { metadata, error in
@@ -125,7 +125,7 @@ class CreatePostController: UIViewController {
                     print("Lỗi up avatar")
                     return
                 }
-                print("posts/\(randomChild!)\(i).jpg")
+                print("posts/\(randomChild!)/\(i).jpg")
                 
                 if (i == (self.dataImg.count - 1)){
                     tableComment.child("temp").setValue(comment)
@@ -134,24 +134,13 @@ class CreatePostController: UIViewController {
                     let post:Dictionary<String,String> = ["content":self.txtContent.text!, "date":day,"time":"\(hour):\(minute)", "userPost":currentUser.id, "picture":
                         String(pictureArr.dropLast())]
                     refRandom.setValue(post)
+                    alertActivity.dismiss(animated: true, completion: nil)
+                    self.gotoScreen(idScreen: "mainTabBarController")
                 }
             }
             uploadTask.resume()
-//            if (i == (dataImg.count - 1)){
-//                for j in 0..<dataImg.count {
-//                    let picture:Dictionary<String,String> = ["picture":"\(randomChild!)\(j).jpg"]
-//                    tableNamePicture.childByAutoId().setValue(picture)
-//                    if (j == (dataImg.count - 1)) {
-//                        refRandom.setValue(post)
-//
-//                        activity.stopAnimating()
-//                        alertActivity.dismiss(animated: true, completion: nil)
-//                    }
-//                }
-//            }
         }
-        alertActivity.dismiss(animated: true, completion: nil)
-        gotoScreen(idScreen: "scrHome")
+        
     }
     
     func convertAssetToImages() -> Void {

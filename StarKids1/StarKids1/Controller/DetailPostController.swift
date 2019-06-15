@@ -94,6 +94,44 @@ class DetailPostController: UIViewController {
         tableNameComments.childByAutoId().setValue(comment)
         txtComment.text = ""
     }
+    @objc func likePost(_ sender: UIButton){
+        if (sender.currentImage == UIImage(named: "starYellow"))
+        {
+            sender.setImage(UIImage(named: "star"), for: .normal)
+            
+            let tableLike = ref.child("Likes").child(selectPost.id).child(selectPost.isLike)
+            
+            tableLike.removeValue { error, _ in
+                print(error)
+            }
+            
+            let indexPath = NSIndexPath(row: sender.tag, section: 0)
+            let cell = tblComment.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
+            cell.lblStar.text = String("\(selectPost.likes - 1)")
+            cell.lblStar.setNeedsDisplay()
+            selectPost.likes = selectPost.likes - 1
+            selectPost.isLike = "none"
+            
+        }
+        else
+        {
+            sender.setImage(UIImage(named: "starYellow"), for: .normal)
+            
+            let tableLike = ref.child("Likes").child(selectPost.id)
+            let like:Dictionary<String,String> = ["userId":currentUser.id]
+            let refRandom = tableLike.childByAutoId()
+            refRandom.setValue(like)
+            
+            let indexPath = NSIndexPath(row: sender.tag, section: 0)
+            let cell = tblComment.cellForRow(at: indexPath as IndexPath) as! ScreenPostTableViewCell
+            cell.lblStar.text = String("\(selectPost.likes + 1)")
+            cell.lblStar.setNeedsDisplay()
+            selectPost.likes = selectPost.likes + 1
+            selectPost.isLike = refRandom.key
+            
+            //self.tblListPost.reloadData()
+        }
+    }
 }
 extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource
 {
@@ -104,6 +142,8 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
+            var picArr:Array<String> = Array<String>()
+            picArr = selectPost.pictures.components(separatedBy: ";")
             tableView.rowHeight = 268
             let cell:ScreenPostTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScreenPostTableViewCell
             cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
@@ -113,7 +153,7 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
             cell.lblUserName.text = selectPost.userPost
             cell.lblContent.text = selectPost.content
             cell.lblComment.text = String(selectPost.comment) + " bình luận"
-            cell.lblPicture.text = String(selectPost.pictures.count) + " ảnh"
+            cell.lblPicture.text = String(picArr.count) + " ảnh"
             cell.imgAvatar.loadAvatar(link: selectPost.linkAvatarPost)
             
             cell.btnStar.tag = indexPath.row;
@@ -123,7 +163,7 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
             } else {
                 cell.btnStar.setImage(UIImage(named: "star"), for: .normal)
             }
-            //cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
+            cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
             return cell
         }
         else
@@ -156,7 +196,7 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
         var picArr:Array<String> = Array<String>()
         picArr = selectPost.pictures.components(separatedBy: ";")
         
-        let pictureRef = storageRef.child("avatars/\(picArr[indexPath.row])")
+        let pictureRef = storageRef.child("posts/\(picArr[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình từ bài post")

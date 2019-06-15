@@ -22,12 +22,9 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        listPost.removeAll()
-//        flagLike.removeAll()
-//        flagComment.removeAll()
-//        isStar = false
         tblListPost.dataSource = self
         tblListPost.delegate = self
+        tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
         
@@ -53,7 +50,7 @@ class HomeController: UIViewController {
                 let date:String = (postDict?["date"])! as! String
                 let time:String = (postDict?["time"])! as! String
                 let content:String = (postDict?["content"])! as! String
-                var picture:String = (postDict?["picture"])! as! String
+                let picture:String = (postDict?["picture"])! as! String
                 var isLikeStr:String = "none"
                 
                 let tableIsLike = ref.child("Likes").child(snapshot.key)
@@ -178,6 +175,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         cell.btnStar.addTarget(self, action: #selector(self.likePost(_:)), for: .touchUpInside)
         
         cell.pictureCollectionView.tag = indexPath.row
+        cell.contentView.transform = CGAffineTransform (scaleX: 1,y: -1);
         return cell
     }
     
@@ -195,7 +193,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var picArr:Array<String> = Array<String>()
         picArr = listPost[collectionView.tag].pictures.components(separatedBy: ";")
-        
+        print("Số cell của ảnh trong post \(picArr.count)")
         return picArr.count
     }
     
@@ -205,7 +203,6 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         var picArr:Array<String> = Array<String>()
         picArr = listPost[collectionView.tag].pictures.components(separatedBy: ";")
         
-        
         let pictureRef = storageRef.child("posts/\(picArr[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
@@ -214,7 +211,6 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
                 cell.imgPicturePost.image = UIImage(data: data!)
             }
         }
-        
         return cell
     }
 }
