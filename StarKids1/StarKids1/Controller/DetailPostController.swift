@@ -93,6 +93,11 @@ class DetailPostController: UIViewController {
         let tableNameComments = ref.child("Comments").child(selectPost.id)
         tableNameComments.childByAutoId().setValue(comment)
         txtComment.text = ""
+        if (currentUser.id != selectPost.userPost) {
+            let notice:Dictionary<String, Any> = ["userComment":currentUser.id,"seen": false]
+            let tableNameNotice = ref.child("Notices").child(selectPost.userPost).child(selectPost.id)
+            tableNameNotice.childByAutoId().setValue(notice)
+        }
     }
     @objc func likePost(_ sender: UIButton){
         if (sender.currentImage == UIImage(named: "starYellow"))
@@ -150,7 +155,7 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
             cell.lblStar.clipsToBounds = true
             cell.lblStar.text = String(selectPost.likes)
             cell.lblTimePost.text = selectPost.date + "  " + selectPost.time
-            cell.lblUserName.text = selectPost.userPost
+            cell.lblUserName.text = selectPost.nameuserPost
             cell.lblContent.text = selectPost.content
             cell.lblComment.text = String(selectPost.comment) + " bình luận"
             cell.lblPicture.text = String(picArr.count) + " ảnh"
