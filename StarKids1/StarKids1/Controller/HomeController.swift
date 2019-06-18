@@ -33,6 +33,11 @@ class HomeController: UIViewController {
 //            let tabItem = tabItems[2]
 //            tabItem.badgeValue = "1"
 //        }
+        if let tabItems = tabBarController?.tabBar.items {
+            // In this case we want to modify the badge number of the third tab:
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = "1"
+        }
         
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in

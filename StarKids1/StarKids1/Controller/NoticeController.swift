@@ -33,7 +33,6 @@ class NoticeController: UIViewController {
 //        })
         tblNotice.dataSource = self
         tblNotice.delegate = self
-        
         let tableName = ref.child("Notices").child(currentUser.id)
         tableName.observe(.childAdded) { (snapshot) in
             let postDict = snapshot.value as? [String:AnyObject]
