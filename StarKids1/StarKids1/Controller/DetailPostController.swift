@@ -15,6 +15,9 @@ class DetailPostController: UIViewController {
     @IBOutlet weak var txtComment: UITextField!
     
     var comments:Array<Comment> = Array<Comment>()
+    var selectPost:Post = Post()
+    var like:Int = 0
+    var cmt:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +26,71 @@ class DetailPostController: UIViewController {
         tblComment.allowsSelection = false;
         tblComment.separatorStyle = UITableViewCell.SeparatorStyle.none
         
-        let tableNameComments = ref.child("Comments").child(selectPost.id)
+        let tableNameLike = ref.child("Likes")
+        tableNameLike.observe(.childAdded, with: { (snapshot1) in
+            if (snapshot1.key == selectPostId)
+            {
+                self.like = Int(snapshot1.childrenCount) - 1
+            }
+        })
+        
+        let tableNameComment = ref.child("Comments")
+        tableNameComment.observe(.childAdded, with: { (snapshot1) in
+            if (snapshot1.key == selectPostId)
+            {
+                self.cmt = Int(snapshot1.childrenCount) - 1
+            }
+        })
+        
+        let tableName = ref.child("Posts")
+        tableName.observe(.childAdded, with: { (snapshot) in
+            let postDict = snapshot.value as? [String: AnyObject]
+            if (postDict != nil) {
+                if (snapshot.key == selectPostId) {
+                    let userPost:String = (postDict?["userPost"])! as! String
+                    var nameUser: String = ""
+                    var linkAvatarPost:String = ""
+                    let date:String = (postDict?["date"])! as! String
+                    let time:String = (postDict?["time"])! as! String
+                    let content:String = (postDict?["content"])! as! String
+                    let picture:String = (postDict?["picture"])! as! String
+                    var isLikeStr:String = "none"
+                    
+                    let tableIsLike = ref.child("Likes").child(snapshot.key)
+                    tableIsLike.observe(.childAdded, with: { (snapshot1) in
+                        let postDict1 = snapshot1.value as? [String: Any]
+                        if (postDict1 != nil) {
+                            let userIdLike = (postDict1?["userId"]) as! String
+                            if (userIdLike == currentUser.id) {
+                                isLikeStr = snapshot1.key
+                            }
+                        }
+                        else {
+                            print("Không có thông tin")
+                        }
+                    })
+                    
+                    
+                    let tableNameUser = ref.child("Users").child(userPost).child("fullName")
+                    tableNameUser.observe(.value, with: { (snapshot1) in
+                        nameUser = (snapshot1.value as? String)!
+                    })
+                    
+                    let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
+                    tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
+                        linkAvatarPost = (snapshot1.value as? String)!
+                        self.selectPost = Post(id: selectPostId,userPost: userPost,nameuserPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.like, comment: self.cmt, isLike: isLikeStr, pictures: picture)
+                        self.tblComment.reloadData()
+                    })
+                }
+            }
+            else
+            {
+                print("Không có post")
+            }
+        })
+        
+        let tableNameComments = ref.child("Comments").child(selectPostId)
         tableNameComments.observe(.childAdded, with: { (snapshot) in
             let postDict = snapshot.value as? [String:AnyObject]
             if (postDict != nil)
@@ -93,6 +160,11 @@ class DetailPostController: UIViewController {
         let tableNameComments = ref.child("Comments").child(selectPost.id)
         tableNameComments.childByAutoId().setValue(comment)
         txtComment.text = ""
+        if (currentUser.id != selectPost.userPost) {
+            let notice:Dictionary<String, Any> = ["userComment":currentUser.id,"seen": false, "date":day, "time": "\(hour)"+":"+"\(minute)","postId":selectPost.id]
+            let tableNameNotice = ref.child("Notices").child(selectPost.userPost)
+            tableNameNotice.childByAutoId().setValue(notice)
+        }
     }
     @objc func likePost(_ sender: UIButton){
         if (sender.currentImage == UIImage(named: "starYellow"))
@@ -128,8 +200,6 @@ class DetailPostController: UIViewController {
             cell.lblStar.setNeedsDisplay()
             selectPost.likes = selectPost.likes + 1
             selectPost.isLike = refRandom.key
-            
-            //self.tblListPost.reloadData()
         }
     }
 }
@@ -137,7 +207,16 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
 {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count + 1
+        if (selectPostId == selectPost.id)
+        {
+            print("Đang ở đây")
+            return comments.count + 1
+        }
+        else
+        {
+            print("Đang ở đây này \(comments.count)")
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,12 +229,12 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
             cell.lblStar.clipsToBounds = true
             cell.lblStar.text = String(selectPost.likes)
             cell.lblTimePost.text = selectPost.date + "  " + selectPost.time
-            cell.lblUserName.text = selectPost.userPost
+            cell.lblUserName.text = selectPost.nameuserPost
             cell.lblContent.text = selectPost.content
             cell.lblComment.text = String(selectPost.comment) + " bình luận"
             cell.lblPicture.text = String(picArr.count) + " ảnh"
             cell.imgAvatar.loadAvatar(link: selectPost.linkAvatarPost)
-            
+
             cell.btnStar.tag = indexPath.row;
             if (selectPost.isLike != "none")
             {
@@ -195,7 +274,7 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
         
         var picArr:Array<String> = Array<String>()
         picArr = selectPost.pictures.components(separatedBy: ";")
-        
+
         let pictureRef = storageRef.child("posts/\(picArr[indexPath.row])")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {

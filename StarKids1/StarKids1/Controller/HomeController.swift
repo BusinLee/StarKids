@@ -7,7 +7,7 @@
 //
 
 import UIKit
-var selectPost:Post!
+var selectPostId:String!
 
 class HomeController: UIViewController {
     
@@ -21,12 +21,18 @@ class HomeController: UIViewController {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tblListPost.dataSource = self
         tblListPost.delegate = self
         tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
+//        if let tabItems = tabBarController?.tabBar.items {
+//            // In this case we want to modify the badge number of the third tab:
+//            let tabItem = tabItems[2]
+//            tabItem.badgeValue = "1"
+//        }
         
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in
@@ -76,10 +82,9 @@ class HomeController: UIViewController {
                 let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvatarPost = (snapshot1.value as? String)!
-                    let post:Post = Post(id: snapshot.key,userPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: picture)
+                    let post:Post = Post(id: snapshot.key,userPost: userPost,nameuserPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: picture)
                     print("------ \(post)")
                     self.listPost.append(post)
-                    //self.getLikesForPosts()
                     self.tblListPost.reloadData()
                 })
             }
@@ -157,7 +162,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         print("Bên trong cell nha\(listPost)")
         cell.lblStar.text = String(listPost[indexPath.row].likes)
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
-        cell.lblUserName.text = listPost[indexPath.row].userPost
+        cell.lblUserName.text = listPost[indexPath.row].nameuserPost
         cell.lblContent.text = listPost[indexPath.row].content
         cell.lblComment.text = String(listPost[indexPath.row].comment) + " bình luận"
         var picArr:Array<String> = Array<String>()
@@ -180,8 +185,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectPost = listPost[indexPath.row]
-        print("++++++++++++\(selectPost)")
+        selectPostId = listPost[indexPath.row].id
         gotoScreenWithBack(idScreen: "scrPostDetail")
         tableView.deselectRow(at: indexPath, animated: true)
     }

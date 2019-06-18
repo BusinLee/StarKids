@@ -17,6 +17,7 @@
 		120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120FB684227D9BD7004E1B4E /* DetailInfoController.swift */; };
 		12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */; };
 		12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */; };
+		1210AF8622B934D100F12295 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1210AF8522B934D100F12295 /* Notice.swift */; };
 		1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */; };
 		121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D722634E5C00DE3A47 /* ListChatController.swift */; };
 		121216DA22635B2A00DE3A47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D922635B2A00DE3A47 /* User.swift */; };
@@ -26,6 +27,7 @@
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
 		12724B8022A80E07007A6A40 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12724B7F22A80E07007A6A40 /* Comment.swift */; };
 		127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */; };
+		128BCDCA22B7EE0200BB6BFC /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128BCDC922B7EE0200BB6BFC /* NoticeTableViewCell.swift */; };
 		12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C73226F640D002125BC /* MainNavigationController.swift */; };
 		12A88C76226F6834002125BC /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C75226F6834002125BC /* HomeController.swift */; };
 		12A88C7A226F6866002125BC /* MoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A88C79226F6866002125BC /* MoreController.swift */; };
@@ -52,6 +54,7 @@
 		120FB684227D9BD7004E1B4E /* DetailInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoController.swift; sourceTree = "<group>"; };
 		12106652226CBAA100236A6A /* ScreenChat1TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat1TableViewCell.swift; sourceTree = "<group>"; };
 		12106654226CBAC100236A6A /* ScreenChat2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenChat2TableViewCell.swift; sourceTree = "<group>"; };
+		1210AF8522B934D100F12295 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		1211964D228F102300EE5453 /* ScreenPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPostTableViewCell.swift; sourceTree = "<group>"; };
 		121216D722634E5C00DE3A47 /* ListChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatController.swift; sourceTree = "<group>"; };
 		121216D922635B2A00DE3A47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		12724B7F22A80E07007A6A40 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturePostCollectionViewCell.swift; sourceTree = "<group>"; };
+		128BCDC922B7EE0200BB6BFC /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
 		12A88C73226F640D002125BC /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		12A88C75226F6834002125BC /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		12A88C79226F6866002125BC /* MoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreController.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				127B5DC122A0290A007CC200 /* PicturePostCollectionViewCell.swift */,
 				122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */,
 				122263F022A6C2E700F251FE /* CommentViewCell.swift */,
+				128BCDC922B7EE0200BB6BFC /* NoticeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				121216D922635B2A00DE3A47 /* User.swift */,
 				120E87B9229028A200D528C7 /* Post.swift */,
 				12724B7F22A80E07007A6A40 /* Comment.swift */,
+				1210AF8522B934D100F12295 /* Notice.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -339,9 +345,11 @@
 				120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */,
 				120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */,
 				122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */,
+				1210AF8622B934D100F12295 /* Notice.swift in Sources */,
 				12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */,
 				12F81D6E22A56AEA00EF636F /* DetailPostController.swift in Sources */,
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
+				128BCDCA22B7EE0200BB6BFC /* NoticeTableViewCell.swift in Sources */,
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12A88C76226F6834002125BC /* HomeController.swift in Sources */,
 				1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */,
