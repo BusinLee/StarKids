@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 
 class MoreController: UIViewController {
-    let arrIcon:Array<String> = ["contact","tuition","form","menu","student","logout"]
-    let arrMenu:Array<String> = ["Liên lạc khác","Học phí","Đơn xin nghỉ học","Thực đơn","Thêm học sinh","Đăng xuất"]
+    let arrIcon:Array<String> = ["class", "contact","tuition","form","menu","student","teacher","logout"]
+    let arrMenu:Array<String> = ["Lớp học","Liên lạc khác","Học phí","Đơn xin nghỉ học","Thực đơn","Thêm học sinh","Thêm giáo viên","Đăng xuất"]
     @IBOutlet weak var tblListMenu: UITableView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var imgAvatar: UIImageView!
@@ -60,10 +60,17 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
+            self.gotoScreenWithBack(idScreen: "scrClass")
+            break
+        case 1:
             self.gotoScreenWithBack(idScreen: "scrListFriend")
             break
-        case 4:
+        case 5:
             self.gotoScreenWithBack(idScreen: "scrAddStudent")
+            break
+        case 6:
+            self.gotoScreenWithBack(idScreen: "scrAddTeacher")
+            break
         default:
             let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
             let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
