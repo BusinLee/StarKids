@@ -12,6 +12,7 @@ import UIKit
 struct Notice {
     var idNotice:String!
     var postId:String!
+    var userCmt:String!
     var nameUserComment:String!
     var linkAvaCmt:String!
     var seen:Bool!
@@ -21,6 +22,7 @@ struct Notice {
     init() {
         idNotice = ""
         postId = ""
+        userCmt = ""
         nameUserComment = ""
         linkAvaCmt = ""
         seen = false
@@ -28,10 +30,11 @@ struct Notice {
         time = ""
     }
     
-    init(idNotice:String, postId:String, nameUserComment:String, linkAvaCmt:String,  seen:Bool,day:String, time:String)
+    init(idNotice:String, postId:String, userCmt:String, nameUserComment:String, linkAvaCmt:String,  seen:Bool,day:String, time:String)
     {
         self.idNotice = idNotice
         self.postId = postId
+        self.userCmt = userCmt
         self.nameUserComment = nameUserComment
         self.linkAvaCmt = linkAvaCmt
         self.seen = seen

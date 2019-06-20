@@ -71,6 +71,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                 let firebaseAuth = Auth.auth()
                 do {
                     try firebaseAuth.signOut()
+                    noticeCount.set(nil, forKey: "noticeCount")
                     self.gotoScreen(idScreen: "scrLogin")
                 } catch let signOutError as NSError {
                     print ("Error signing out: %@", signOutError)

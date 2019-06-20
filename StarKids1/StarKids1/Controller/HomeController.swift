@@ -28,15 +28,12 @@ class HomeController: UIViewController {
         tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
-//        if let tabItems = tabBarController?.tabBar.items {
-//            // In this case we want to modify the badge number of the third tab:
-//            let tabItem = tabItems[2]
-//            tabItem.badgeValue = "1"
-//        }
-        if let tabItems = tabBarController?.tabBar.items {
-            // In this case we want to modify the badge number of the third tab:
-            let tabItem = tabItems[2]
-            tabItem.badgeValue = "1"
+        if (noticeCount.value(forKey: "noticeCount") != nil)
+        {
+            if let tabItems = self.tabBarController?.tabBar.items {
+                let tabItem = tabItems[2]
+                tabItem.badgeValue = String("\(noticeCount.value(forKey: "noticeCount")!)+")
+            }
         }
         
         let tableNameLike = ref.child("Likes")

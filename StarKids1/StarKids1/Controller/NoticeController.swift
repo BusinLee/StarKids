@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 
+let noticeCount = UserDefaults.standard
 class NoticeController: UIViewController {
 
 //    @IBAction func btnNotice(_ sender: Any) {
@@ -24,6 +25,7 @@ class NoticeController: UIViewController {
 //        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
 //    }
     var listNotice:Array<Notice> = Array<Notice>()
+    var flagNotice:Int = 0
     @IBOutlet weak var tblNotice: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +56,15 @@ class NoticeController: UIViewController {
                 tableNameUser.observe(.value, with: { (snapshot1) in
                     nameUser = (snapshot1.value as? String)!
                     
-                    let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time)
+                    let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time)
+                    if (!seen) {
+                        if let tabItems = self.tabBarController?.tabBar.items {
+                            self.flagNotice = self.flagNotice + 1
+                            noticeCount.set(self.flagNotice, forKey: "noticeCount")
+                            let tabItem = tabItems[2]
+                            tabItem.badgeValue = String(self.flagNotice)
+                        }
+                    }
                     self.listNotice.append(notice)
                     self.tblNotice.reloadData()
                 })
@@ -85,21 +95,36 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
     
         if (!listNotice[indexPath.row].seen)
         {
-            cell.contentView.backgroundColor = UIColor.clear
-            let whiteRoundedView : UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 82))
-            let color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
-            whiteRoundedView.layer.backgroundColor = color.cgColor
-            whiteRoundedView.layer.masksToBounds = true
-            cell.contentView.addSubview(whiteRoundedView)
-            cell.contentView.sendSubviewToBack(whiteRoundedView)
+            cell.contentView.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
             cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let tabItems = self.tabBarController?.tabBar.items {
+            self.flagNotice = self.flagNotice - 1
+            noticeCount.set(self.flagNotice, forKey: "noticeCount")
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = String(self.flagNotice)
+        }
+        
+        let notice:Dictionary<String, Any> = ["userComment":listNotice[indexPath.row].userCmt,"seen": true, "date":listNotice[indexPath.row].day, "time": listNotice[indexPath.row].time, "postId":listNotice[indexPath.row].postId]
+        let tableNameNotice = ref.child("Notices").child(currentUser.id).child(listNotice[indexPath.row].idNotice)
+        tableNameNotice.setValue(notice)
+        
+        let cell:NoticeTableViewCell = tableView.cellForRow(at: indexPath as IndexPath)! as! NoticeTableViewCell
+        cell.contentView.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
+        cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
+        
         selectPostId = listNotice[indexPath.row].postId
         gotoScreenWithBack(idScreen: "scrPostDetail")
-        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell:NoticeTableViewCell = tableView.cellForRow(at: indexPath as IndexPath)! as! NoticeTableViewCell
+        cell.contentView.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
+        cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
+        
     }
 }
