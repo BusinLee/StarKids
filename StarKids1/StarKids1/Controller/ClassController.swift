@@ -8,6 +8,7 @@
 
 import UIKit
 
+var selectedClass:String!
 class ClassController: UIViewController {
 
     @IBOutlet weak var tblClass: UITableView!
@@ -106,6 +107,7 @@ extension ClassController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        selectedClass = listClass[indexPath.row].idClass
+        gotoScreenWithBack(idScreen: "scrStudentList")
     }
 }

@@ -22,6 +22,8 @@
 		121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D722634E5C00DE3A47 /* ListChatController.swift */; };
 		121216DA22635B2A00DE3A47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121216D922635B2A00DE3A47 /* User.swift */; };
 		1213E9322270B21D000B7C1E /* ScreenMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */; };
+		121BF3E322BCBAE30029798F /* ListStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF3E222BCBAE30029798F /* ListStudentViewController.swift */; };
+		121BF3E522BCBE9A0029798F /* ListStudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF3E422BCBE9A0029798F /* ListStudentTableViewCell.swift */; };
 		122263EF22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */; };
 		122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263F022A6C2E700F251FE /* CommentViewCell.swift */; };
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
@@ -64,6 +66,8 @@
 		121216D722634E5C00DE3A47 /* ListChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatController.swift; sourceTree = "<group>"; };
 		121216D922635B2A00DE3A47 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1213E9312270B21D000B7C1E /* ScreenMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenMoreTableViewCell.swift; sourceTree = "<group>"; };
+		121BF3E222BCBAE30029798F /* ListStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudentViewController.swift; sourceTree = "<group>"; };
+		121BF3E422BCBE9A0029798F /* ListStudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudentTableViewCell.swift; sourceTree = "<group>"; };
 		122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPicPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		122263F022A6C2E700F251FE /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 				122263F022A6C2E700F251FE /* CommentViewCell.swift */,
 				128BCDC922B7EE0200BB6BFC /* NoticeTableViewCell.swift */,
 				122B808022BB7F5E00A06D55 /* ClassTableViewCell.swift */,
+				121BF3E422BCBE9A0029798F /* ListStudentTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				120ABB9E22AD5FBE001B72E3 /* CreatePostController.swift */,
 				122B807C22BB732900A06D55 /* NewTeacherController.swift */,
 				122B808222BB7FA300A06D55 /* ClassController.swift */,
+				121BF3E222BCBAE30029798F /* ListStudentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				12A88C7C226F68FD002125BC /* NoticeController.swift in Sources */,
 				122B807D22BB732900A06D55 /* NewTeacherController.swift in Sources */,
 				1202F66B225A323E00FA9666 /* NewStudentController.swift in Sources */,
+				121BF3E522BCBE9A0029798F /* ListStudentTableViewCell.swift in Sources */,
 				120D3FC4226B2A6A00F25B53 /* ListFriendController.swift in Sources */,
 				120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */,
 				120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */,
@@ -386,6 +393,7 @@
 				12724B8022A80E07007A6A40 /* Comment.swift in Sources */,
 				121216DA22635B2A00DE3A47 /* User.swift in Sources */,
 				121216D822634E5C00DE3A47 /* ListChatController.swift in Sources */,
+				121BF3E322BCBAE30029798F /* ListStudentViewController.swift in Sources */,
 				127B5DC222A0290A007CC200 /* PicturePostCollectionViewCell.swift in Sources */,
 				1213E9322270B21D000B7C1E /* ScreenMoreTableViewCell.swift in Sources */,
 			);
