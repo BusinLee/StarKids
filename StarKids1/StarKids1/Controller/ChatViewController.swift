@@ -25,11 +25,6 @@ class ChatViewController: UIViewController {
         tblChat.dataSource = self
         tblChat.delegate = self
         tblChat.allowsSelection = false;
-//        if let tabItems = tabBarController?.tabBar.items {
-//            // In this case we want to modify the badge number of the third tab:
-//            let tabItem = tabItems[1]
-//            tabItem.badgeValue = "2"
-//        }
         
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = visitor.fullName

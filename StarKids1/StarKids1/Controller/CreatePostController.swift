@@ -13,7 +13,6 @@ import BSImagePicker
 class CreatePostController: UIViewController {
 
     @IBOutlet weak var txtContent: UITextView!
-    @IBOutlet weak var collectionPic: UICollectionView!
     @IBOutlet weak var btnPicture: UIImageView!
     var rightButton:UIBarButtonItem!
     var selectedAssets = [PHAsset]()

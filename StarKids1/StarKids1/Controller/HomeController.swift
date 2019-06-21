@@ -28,6 +28,7 @@ class HomeController: UIViewController {
         tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
         
+        print("Role đây \(currentUser.role)")
         if (noticeCount.value(forKey: "noticeCount") != nil)
         {
             if let tabItems = self.tabBarController?.tabBar.items {
@@ -76,12 +77,12 @@ class HomeController: UIViewController {
                 })
                 
                 
-                let tableNameUser = ref.child("Users").child(userPost).child("fullName")
+                let tableNameUser = ref.child("Teachers").child(userPost).child("fullName")
                 tableNameUser.observe(.value, with: { (snapshot1) in
                     nameUser = (snapshot1.value as? String)!
                 })
                 
-                let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
+                let tableNameLinkAvatarPost = ref.child("Teachers").child(userPost).child("linkAvatar")
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvatarPost = (snapshot1.value as? String)!
                     let post:Post = Post(id: snapshot.key,userPost: userPost,nameuserPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: picture)

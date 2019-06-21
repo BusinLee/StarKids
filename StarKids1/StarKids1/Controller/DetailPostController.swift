@@ -71,12 +71,12 @@ class DetailPostController: UIViewController {
                     })
                     
                     
-                    let tableNameUser = ref.child("Users").child(userPost).child("fullName")
+                    let tableNameUser = ref.child("Teachers").child(userPost).child("fullName")
                     tableNameUser.observe(.value, with: { (snapshot1) in
                         nameUser = (snapshot1.value as? String)!
                     })
                     
-                    let tableNameLinkAvatarPost = ref.child("Users").child(userPost).child("linkAvatar")
+                    let tableNameLinkAvatarPost = ref.child("Teachers").child(userPost).child("linkAvatar")
                     tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                         linkAvatarPost = (snapshot1.value as? String)!
                         self.selectPost = Post(id: selectPostId,userPost: userPost,nameuserPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.like, comment: self.cmt, isLike: isLikeStr, pictures: picture)
@@ -101,7 +101,7 @@ class DetailPostController: UIViewController {
                 let time: String = (postDict?["time"])! as! String
                 let date: String = (postDict?["date"])! as! String
                 
-                let tableUsers = ref.child("Users").child(userId)
+                let tableUsers = ref.child("Students").child(userId)
                 tableUsers.observeSingleEvent(of: .value, with: { (snapshot1) in
                     let postDict1 = snapshot1.value as? [String: Any]
                     if (postDict1 != nil) {
@@ -116,7 +116,24 @@ class DetailPostController: UIViewController {
                         //self.lblComment.text = String(self.comments.count) + " bình luận"
                     }
                     else {
-                        print("Không có thông tin")
+                        let tableUsers = ref.child("Teachers").child(userId)
+                        tableUsers.observeSingleEvent(of: .value, with: { (snapshot1) in
+                            let postDict1 = snapshot1.value as? [String: Any]
+                            if (postDict1 != nil) {
+                                let nameComment = (postDict1?["fullName"]) as! String
+                                let linkAvatar = (postDict1?["linkAvatar"]) as! String
+                                
+                                print("vooooo3333")
+                                let comment:Comment = Comment(content: content,userId:userId, nameUser: nameComment, linkAvatar: linkAvatar, day: date, time: time)
+                                self.comments.append(comment)
+                                print("affffffff\(self.comments)")
+                                self.tblComment.reloadData()
+                                //self.lblComment.text = String(self.comments.count) + " bình luận"
+                            }
+                            else {
+                                print("Không có thông tin")
+                            }
+                        })
                     }
                 })
             }

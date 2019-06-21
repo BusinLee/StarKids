@@ -10,7 +10,7 @@ import UIKit
 
 class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-
+    
     @IBOutlet weak var imgAvatar: UIImageView!
     
     @IBOutlet weak var btnCancle: UIButton!
@@ -68,16 +68,16 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     var day:String = "01"
     var month:String = "01"
     var rightButton:UIBarButtonItem!
-    var gender:String = currentUser.gender
-    var className:String = currentUser.className
-    var teacherName:String = currentUser.teacherName
+    var gender:String = selectedStudent.gender
+    var className:String = selectedStudent.className
+    var teacherName:String = selectedStudent.teacherName
     var itemAtDefaultPosition: String?
     var defaultRowIndex:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setDefaultValueForComponet(user: currentUser)
+        
+        setDefaultValueForComponet(user: selectedStudent)
         
         imgData = UIImage(named: "camera")!.pngData()
         imgAvatar.layer.cornerRadius = 0.5 * imgAvatar.bounds.size.width
@@ -131,14 +131,14 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             } else {
                 print("Không có class")
             }
-            var defaultRowIndex1 = self.arrClasses.index(of: currentUser.className)
+            var defaultRowIndex1 = self.arrClasses.index(of: selectedStudent.className)
             if(defaultRowIndex1 == nil) { defaultRowIndex1 = 0 }
             self.pickerClass.selectRow(defaultRowIndex1!, inComponent: 0, animated: false)
         })
         
         var dayP:Int?
         var monthP:Int?
-        let daySplit = currentUser.birthDay.components(separatedBy: "/")
+        let daySplit = selectedStudent.birthDay.components(separatedBy: "/")
         let dayInt:Int = Int(daySplit[0])!
         let monthInt:Int = Int(daySplit[1])!
         day = daySplit[0]
@@ -168,7 +168,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         
         
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
-        navigationBar?.title = currentUser.fullName
+        navigationBar?.title = selectedStudent.fullName
         navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(btnXong))
         rightButton = (navigationBar?.rightBarButtonItem)!
         self.navigationItem.rightBarButtonItem = nil;
@@ -238,16 +238,16 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                         //---------self.lbValid.isHidden = false
                         alertActivity.dismiss(animated: true, completion: nil)
                     } else {
-                        let tableName = ref.child("Users")
-                        let userId = tableName.child(currentUser.id)
-                        let user:Dictionary<String,Any> = ["email":currentUser.email,"fullName":currentUser.fullName,"linkAvatar":currentUser.linkAvatar,"nickName":self.txtNickName.text!, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
+                        let tableName = ref.child("Students")
+                        let userId = tableName.child(selectedStudent.id)
+                        let user:Dictionary<String,Any> = ["email":selectedStudent.email,"fullName":selectedStudent.fullName,"linkAvatar":selectedStudent.linkAvatar,"nickName":self.txtNickName.text!, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
                         userId.setValue(user)
-                
+                        
                         tableName.observe(.childAdded, with: { (snapshot) -> Void in
                             let postDict = snapshot.value as? [String:AnyObject]
                             if (postDict != nil)
                             {
-                                if (snapshot.key == currentUser.id) {
+                                if (snapshot.key == selectedStudent.id) {
                                     let email:String = (postDict?["email"])! as! String
                                     let fullName:String = (postDict?["fullName"])! as! String
                                     let linkAvatar:String = (postDict?["linkAvatar"])! as! String
@@ -269,12 +269,12 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                     let note:String = (postDict?["note"])! as! String
                                     let ability:String = (postDict?["ability"])! as! String
                                     
-                                    currentUser = User(id: currentUser.id, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
-                                    let url:URL = URL(string: currentUser.linkAvatar)!
+                                    selectedStudent = Student(id: selectedStudent.id, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                    let url:URL = URL(string: selectedStudent.linkAvatar)!
                                     do
                                     {
                                         let data:Data = try Data(contentsOf: url)
-                                        currentUser.avatar = UIImage(data: data)
+                                        selectedStudent.avatar = UIImage(data: data)
                                     }
                                     catch
                                     {
@@ -284,8 +284,8 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                             }
                         })
                         
-                        self.setDefaultValueForComponet(user: currentUser)
-                        self.imgAvatar.image = currentUser.avatar
+                        self.setDefaultValueForComponet(user: selectedStudent)
+                        self.imgAvatar.image = selectedStudent.avatar
                         
                         alertActivity.dismiss(animated: true, completion: {
                             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Cập nhật thành công", preferredStyle: .alert)
@@ -300,11 +300,11 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                 self.hideGroupMoreTxt(hide: true)
                                 self.btnCancle.isHidden = true
                                 self.navigationItem.rightBarButtonItem = nil;
-                                self.setDefaultValueForComponet(user: currentUser)
+                                self.setDefaultValueForComponet(user: selectedStudent)
                             })
                             alert1.addAction(btnOk1)
                             self.present(alert1, animated: true, completion: nil)
-
+                            
                         })
                     }
                 }
@@ -340,7 +340,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         self.btnCancle.isHidden = false
         hideGroupBasicTxt(hide: false)
         hideGroupBasicLbl(hide: true)
-        if (currentUser.gender == "Nữ") {
+        if (selectedStudent.gender == "Nữ") {
             self.changeColorOfRadioButton(btnYellow: btnFemale, btnWhite: btnMale)
         }
     }
@@ -454,7 +454,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    func setDefaultValueForComponet(user:User) {
+    func setDefaultValueForComponet(user:Student) {
         var dayP:Int?
         var monthP:Int?
         let daySplit = user.birthDay.components(separatedBy: "/")
@@ -637,7 +637,7 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
         
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn thay đổi ảnh đại diện không?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel) { (UIAlertAction) in
-            self.imgAvatar.image = currentUser.avatar
+            self.imgAvatar.image = selectedStudent.avatar
         }
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
             let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
@@ -650,14 +650,14 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
             alertActivity.view.addConstraint(height);
             self.present(alertActivity, animated: true, completion: nil)
             
-            let url = currentUser.linkAvatar
+            let url = selectedStudent.linkAvatar
             let storageRefI = storage.reference(forURL: url!)
             storageRefI.delete { error in
                 if let error = error {
                     print(error)
                 } else {
                     
-                    let avatarRef = storageRef.child("avatars/\(currentUser.email!).jpg")
+                    let avatarRef = storageRef.child("avatars/\(selectedStudent.email!).jpg")
                     let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                         guard let metadata = metadata else {
                             print("Lỗi up avatar")
@@ -666,37 +666,29 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                         }
                         let size = metadata.size
                         avatarRef.downloadURL { (url, error) in
+
+                            ref.child("Students/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
                             
-                            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                            changeRequest?.photoURL = url
-                            changeRequest?.commitChanges { (error) in
-                                if (error == nil){
-                                    ref.child("Users/\(currentUser.id!)/linkAvatar").setValue(url!.absoluteString)
-                                    
-                                    currentUser = User(id: currentUser.id!, email: currentUser.email!, fullName: currentUser.fullName!, linkAvatar: url!.absoluteString, nickName: currentUser.nickName!, className: currentUser.className!, teacherName: currentUser.teacherName!, birthDay: currentUser.birthDay!, gender: currentUser.gender!, hobby: currentUser.hobby!, fatherName: currentUser.fatherName!, fatherPhone: currentUser.fatherPhone!, motherName: currentUser.motherName!, motherPhone: currentUser.motherPhone!, weight: currentUser.weight!, height: currentUser.height!, illness: currentUser.illness!, dayLeave: currentUser.dayLeave!, evaluation: currentUser.evaluation!, note: currentUser.note!, ability: currentUser.ability!)
-                                    let url:URL = URL(string: currentUser.linkAvatar)!
-                                    do
-                                    {
-                                        let data:Data = try Data(contentsOf: url)
-                                        currentUser.avatar = UIImage(data: data)
-                                        alertActivity.dismiss(animated: true, completion: {
-                                            let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Cập nhật thành công", preferredStyle: .alert)
-                                            let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil)
-                                            alert1.addAction(btnOk1)
-                                            self.present(alert1, animated: true, completion: nil)
-                                        })
-                                    }
-                                    catch
-                                    {
-                                        print("lỗi gán avatar current user")
-                                    }
-                                    self.setDefaultValueForComponet(user: currentUser)
-                                    self.imgAvatar.image = currentUser.avatar
-                                } else {
-                                    print("Lỗi update profile")
-                                    alertActivity.dismiss(animated: true, completion: nil)
-                                }
+                            selectedStudent = Student(id: selectedStudent.id!, email: selectedStudent.email!, fullName: selectedStudent.fullName!, linkAvatar: url!.absoluteString, nickName: selectedStudent.nickName!, className: selectedStudent.className!, teacherName: selectedStudent.teacherName!, birthDay: selectedStudent.birthDay!, gender: selectedStudent.gender!, hobby: selectedStudent.hobby!, fatherName: selectedStudent.fatherName!, fatherPhone: selectedStudent.fatherPhone!, motherName: selectedStudent.motherName!, motherPhone: selectedStudent.motherPhone!, weight: selectedStudent.weight!, height: selectedStudent.height!, illness: selectedStudent.illness!, dayLeave: selectedStudent.dayLeave!, evaluation: selectedStudent.evaluation!, note: selectedStudent.note!, ability: selectedStudent.ability!)
+                            
+                            let url:URL = URL(string: selectedStudent.linkAvatar)!
+                            do
+                            {
+                                let data:Data = try Data(contentsOf: url)
+                                selectedStudent.avatar = UIImage(data: data)
+                                alertActivity.dismiss(animated: true, completion: {
+                                    let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Cập nhật thành công", preferredStyle: .alert)
+                                    let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil)
+                                    alert1.addAction(btnOk1)
+                                    self.present(alert1, animated: true, completion: nil)
+                                })
                             }
+                            catch
+                            {
+                                print("lỗi gán avatar current user")
+                            }
+                            self.setDefaultValueForComponet(user: selectedStudent)
+                            self.imgAvatar.image = selectedStudent.avatar
                         }
                     }
                     uploadTask.resume()

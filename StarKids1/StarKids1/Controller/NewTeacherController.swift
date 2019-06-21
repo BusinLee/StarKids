@@ -57,7 +57,7 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
@@ -170,7 +170,7 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                 if let user = user {
                                                                     let uid = user.uid
                                                                     
-                                                                    let tableName = ref.child("Users")
+                                                                    let tableName = ref.child("Teachers")
                                                                     tableName.observe(.childAdded, with: { (snapshot) -> Void in
                                                                         let postDict = snapshot.value as? [String:AnyObject]
                                                                         if (postDict != nil)
@@ -179,25 +179,10 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                                 let email:String = (postDict?["email"])! as! String
                                                                                 let fullName:String = (postDict?["fullName"])! as! String
                                                                                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
-                                                                                let nickName:String = (postDict?["nickName"])! as! String
-                                                                                let className:String = (postDict?["className"])! as! String
-                                                                                let teacherName:String = (postDict?["teacherName"])! as! String
-                                                                                let birthDay:String = (postDict?["birthDay"])! as! String
-                                                                                let gender:String = (postDict?["gender"])! as! String
-                                                                                let hobby:String = (postDict?["hobby"])! as! String
-                                                                                let fatherName:String = (postDict?["fatherName"])! as! String
-                                                                                let fatherPhone:String = (postDict?["fatherPhone"])! as! String
-                                                                                let motherName:String = (postDict?["motherName"])! as! String
-                                                                                let motherPhone:String = (postDict?["motherPhone"])! as! String
-                                                                                let weight:Int = (postDict?["weight"])! as! Int
-                                                                                let height:Int = (postDict?["height"])! as! Int
-                                                                                let illness:String = (postDict?["illness"])! as! String
-                                                                                let dayLeave:Int = (postDict?["dayLeave"])! as! Int
-                                                                                let evaluation:String = (postDict?["evaluation"])! as! String
-                                                                                let note:String = (postDict?["note"])! as! String
-                                                                                let ability:String = (postDict?["ability"])! as! String
+                                                                                let phone:String = (postDict?["phone"])! as! String
                                                                                 
-                                                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                                                                
+                                                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", phone: phone ?? "nil", role: "admin")
                                                                                 let url:URL = URL(string: currentUser.linkAvatar)!
                                                                                 do
                                                                                 {

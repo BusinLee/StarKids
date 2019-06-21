@@ -47,12 +47,12 @@ class NoticeController: UIViewController {
                 var nameUser:String = ""
                 var linkAvaCmt:String = ""
                 
-                let tableNameLinkAvatarPost = ref.child("Users").child(userComment).child("linkAvatar")
+                let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvaCmt = (snapshot1.value as? String)!
                 })
                 
-                let tableNameUser = ref.child("Users").child(userComment).child("fullName")
+                let tableNameUser = ref.child("Students").child(userComment).child("fullName")
                 tableNameUser.observe(.value, with: { (snapshot1) in
                     nameUser = (snapshot1.value as? String)!
                     

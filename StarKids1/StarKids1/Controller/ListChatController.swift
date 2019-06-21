@@ -8,8 +8,6 @@
 
 import UIKit
 import Firebase
-//let ref = Database.database().reference()
-//var currentUser:User!
 
 class ListChatController: UIViewController {
     
@@ -20,7 +18,6 @@ class ListChatController: UIViewController {
         tblListChat.dataSource = self
         tblListChat.delegate = self
         
-        //current user
         let tableName = ref.child("ListChat").child(currentUser.id)
         tableName.observe(.childAdded, with: { (snapshot) -> Void in
             let postDict = snapshot.value as? [String:AnyObject]
@@ -30,7 +27,7 @@ class ListChatController: UIViewController {
                 let fullName:String = (postDict?["fullName"])! as! String
                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
                 
-                let user:User = User(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar, nickName: "", className: "", teacherName: "", birthDay: "", gender: "", hobby: "", fatherName: "", fatherPhone: "", motherName: "", motherPhone: "", weight: 0, height: 0, illness: "", dayLeave: 0, evaluation: "", note: "", ability: "")
+                let user:User = User(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar, phone:"", role: "")
                 self.arrUserChat.append(user)
                 self.tblListChat.reloadData()
             }

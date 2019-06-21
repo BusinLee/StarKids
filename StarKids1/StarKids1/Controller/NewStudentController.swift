@@ -32,14 +32,13 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var arrDate = [[Int]]()
     var arrClasses:Array<String> = Array<String>()
-    var arrTeacherName:Array<String> = Array<String>()
+    var arrClassId:Array<String> = Array<String>()
     var date:String = ""
     var day:String = "01"
     var month:String = "01"
     var imgData:Data!
     var gender:String = "Nam"
     var className:String = "Không có"
-    var teacherName:String = "Không có"
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,8 +83,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
             if (postDict != nil)
             {
                 let className:String = (postDict?["className"])! as! String
-                let teacherName:String = (postDict?["teacherName"])! as! String
-                self.arrTeacherName.append(teacherName)
+                self.arrClassId.append(snapshot.key)
                 self.arrClasses.append(className)
                 self.pickerClass.reloadAllComponents()
             } else {
@@ -188,11 +186,11 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                         changeRequest?.commitChanges { (error) in
                                             if (error == nil){
                                                 //Set rtdb for user
-                                                let tableName = ref.child("Users")
+                                                let tableName = ref.child("Students")
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
                                                 print("\(userId)")
                                                 let none:String = "không có"
-                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
+                                                let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
                                                 userId.setValue(user)
                                                 
                                                 //Logout
@@ -215,7 +213,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                 if let user = user {
                                                                     let uid = user.uid
                                                                     
-                                                                    let tableName = ref.child("Users")
+                                                                    let tableName = ref.child("Teachers")
                                                                     tableName.observe(.childAdded, with: { (snapshot) -> Void in
                                                                         let postDict = snapshot.value as? [String:AnyObject]
                                                                         if (postDict != nil)
@@ -224,25 +222,9 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                                                 let email:String = (postDict?["email"])! as! String
                                                                                 let fullName:String = (postDict?["fullName"])! as! String
                                                                                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
-                                                                                let nickName:String = (postDict?["nickName"])! as! String
-                                                                                let className:String = (postDict?["className"])! as! String
-                                                                                let teacherName:String = (postDict?["teacherName"])! as! String
-                                                                                let birthDay:String = (postDict?["birthDay"])! as! String
-                                                                                let gender:String = (postDict?["gender"])! as! String
-                                                                                let hobby:String = (postDict?["hobby"])! as! String
-                                                                                let fatherName:String = (postDict?["fatherName"])! as! String
-                                                                                let fatherPhone:String = (postDict?["fatherPhone"])! as! String
-                                                                                let motherName:String = (postDict?["motherName"])! as! String
-                                                                                let motherPhone:String = (postDict?["motherPhone"])! as! String
-                                                                                let weight:Int = (postDict?["weight"])! as! Int
-                                                                                let height:Int = (postDict?["height"])! as! Int
-                                                                                let illness:String = (postDict?["illness"])! as! String
-                                                                                let dayLeave:Int = (postDict?["dayLeave"])! as! Int
-                                                                                let evaluation:String = (postDict?["evaluation"])! as! String
-                                                                                let note:String = (postDict?["note"])! as! String
-                                                                                let ability:String = (postDict?["ability"])! as! String
+                                                                                let phone:String = (postDict?["phone"])! as! String
                                                                                 
-                                                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+                                                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", phone: phone ?? "nil", role: "admin")
                                                                                 let url:URL = URL(string: currentUser.linkAvatar)!
                                                                                 do
                                                                                 {
@@ -393,8 +375,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                 }
             }
         } else {
-            className = String(arrClasses[row])
-            teacherName = String(arrTeacherName[row])
+            className = String(arrClassId[row])
         }
     }
     

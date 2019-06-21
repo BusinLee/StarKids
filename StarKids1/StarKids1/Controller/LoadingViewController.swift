@@ -46,7 +46,7 @@ class LoadingViewController: UIViewController {
                     
                     let uid = user.uid
                     print("\(uid)")
-                    self.tableName = ref.child("Users")
+                    self.tableName = ref.child("Students")
                     self.tableName.observe(.childAdded, with: { (snapshot) -> Void in
                         print("vô trong rồi")
                         let postDict = snapshot.value as? [String:AnyObject]
@@ -58,27 +58,8 @@ class LoadingViewController: UIViewController {
                                 let email:String = (postDict?["email"])! as! String
                                 let fullName:String = (postDict?["fullName"])! as! String
                                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
-                                let nickName:String = (postDict?["nickName"])! as! String
-                                let className:String = (postDict?["className"])! as! String
-                                let teacherName:String = (postDict?["teacherName"])! as! String
-                                let birthDay:String = (postDict?["birthDay"])! as! String
-                                let gender:String = (postDict?["gender"])! as! String
-                                let hobby:String = (postDict?["hobby"])! as! String
-                                let fatherName:String = (postDict?["fatherName"])! as! String
-                                let fatherPhone:String = (postDict?["fatherPhone"])! as! String
-                                let motherName:String = (postDict?["motherName"])! as! String
-                                let motherPhone:String = (postDict?["motherPhone"])! as! String
-                                let weight:Int = (postDict?["weight"])! as! Int
-                                let height:Int = (postDict?["height"])! as! Int
-                                let illness:String = (postDict?["illness"])! as! String
-                                let dayLeave:Int = (postDict?["dayLeave"])! as! Int
-                                let evaluation:String = (postDict?["evaluation"])! as! String
-                                let note:String = (postDict?["note"])! as! String
-                                let ability:String = (postDict?["ability"])! as! String
                                 
-                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
-                                print("in\(currentUser)")
-                                print("\(currentUser)")
+                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", phone: "", role: "student")
                                 let url:URL = URL(string: currentUser.linkAvatar)!
                                 do
                                 {
@@ -92,6 +73,49 @@ class LoadingViewController: UIViewController {
                                     print("lỗi gán avatar current user")
                                 }
                                 
+                            }
+                            else {
+                                self.tableName = ref.child("Teachers")
+                                self.tableName.observe(.childAdded, with: { (snapshot1) -> Void in
+                                    print("vô trong rồi")
+                                    let postDict1 = snapshot1.value as? [String:AnyObject]
+                                    if (postDict1 != nil)
+                                    {
+                                        if (snapshot1.key == uid) {
+                                            
+                                            print("Kiểm tra lại tên attributes")
+                                            let email:String = (postDict1?["email"])! as! String
+                                            let fullName:String = (postDict1?["fullName"])! as! String
+                                            let linkAvatar:String = (postDict1?["linkAvatar"])! as! String
+                                            
+                                            if (email == "businlee@gmail.com")
+                                            {
+                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", phone: "", role: "admin")
+                                            }
+                                            else
+                                            {
+                                                currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", phone: "", role: "teacher")
+                                            }
+                                            let url:URL = URL(string: currentUser.linkAvatar)!
+                                            do
+                                            {
+                                                let data:Data = try Data(contentsOf: url)
+                                                currentUser.avatar = UIImage(data: data)
+                                                activity.stopAnimating()
+                                                self.gotoScreen(idScreen: "mainTabBarController")
+                                            }
+                                            catch
+                                            {
+                                                print("lỗi gán avatar current user")
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    else {
+                                        print("Nil rồi")
+                                    }
+                                })
                             }
                             
                         }
@@ -109,31 +133,3 @@ class LoadingViewController: UIViewController {
     }
     
 }
-//self.tableName = ref.child("Users").child(uid)
-//self.tableName.observeSingleEvent(of: .value, with: { (snapshot) in
-//    for child in snapshot.children {
-//        let snap = child as! DataSnapshot
-//        let email:String = snap.value(forKey: "email") as! String
-//        let fullName:String = snap.value(forKey: "fullName") as! String
-//        let linkAvatar:String = snap.value(forKey: "linkAvatar") as! String
-//        let nickName:String = snap.value(forKey: "nickName") as! String
-//        let className:String = snap.value(forKey: "className") as! String
-//        let teacherName:String = snap.value(forKey: "teacherName") as! String
-//        let birthDay:String = snap.value(forKey: "birthDay") as! String
-//        let gender:String = snap.value(forKey: "gender") as! String
-//        let hobby:String = snap.value(forKey: "hobby") as! String
-//        let fatherName:String = snap.value(forKey: "fatherName") as! String
-//        let fatherPhone:String = snap.value(forKey: "fatherPhone") as! String
-//        let motherName:String = snap.value(forKey: "motherName") as! String
-//        let motherPhone:String = snap.value(forKey: "motherPhone") as! String
-//        let weight:Int = snap.value(forKey: "weight") as! Int
-//        let height:Int = snap.value(forKey: "height") as! Int
-//        let illness:String = snap.value(forKey: "illness") as! String
-//        let dayLeave:Int = snap.value(forKey: "dayLeave") as! Int
-//        let evaluation:String = snap.value(forKey: "evaluation") as! String
-//        let note:String = snap.value(forKey: "note") as! String
-//        let ability:String = snap.value(forKey: "ability") as! String
-//        currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
-//        print("in\(currentUser)")
-//    }
-//})
