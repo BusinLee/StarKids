@@ -12,16 +12,16 @@ let ref = Database.database().reference()
 var currentUser:User!
 
 class LoadingViewController: UIViewController {
-    
+
     @IBOutlet weak var imgLogo: UIImageView!
-    
+
     var tableName:DatabaseReference!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isLogin();
+        
     }
-    
     func isLogin()
     {
         let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
@@ -29,20 +29,20 @@ class LoadingViewController: UIViewController {
         activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         self.view.addSubview(activity)
         activity.startAnimating()
-        
+
         UIView.animate(withDuration: 0.5, animations: {
             self.imgLogo.frame.origin.y += 70
         })
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.1, options: [.autoreverse, .repeat], animations: {
             self.imgLogo.frame.origin.y -= 70
         })
-        
+
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
                 let user = Auth.auth().currentUser
                 if let user = user {
-                    
+
                     let uid = user.uid
                     print("\(uid)")
                     self.tableName = ref.child("Students")
@@ -52,7 +52,7 @@ class LoadingViewController: UIViewController {
                         if (postDict != nil)
                         {
                             if (snapshot.key == uid) {
-                                
+
                                 print("Kiểm tra lại tên attributes")
                                 let email:String = (postDict?["email"])! as! String
                                 let fullName:String = (postDict?["fullName"])! as! String
@@ -74,7 +74,7 @@ class LoadingViewController: UIViewController {
                                 let evaluation:String = (postDict?["evaluation"])! as! String
                                 let note:String = (postDict?["note"])! as! String
                                 let ability:String = (postDict?["ability"])! as! String
-                                
+
                                 currentUser = User(id: uid, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
                                 print("in\(currentUser)")
                                 print("\(currentUser)")
@@ -90,9 +90,9 @@ class LoadingViewController: UIViewController {
                                 {
                                     print("lỗi gán avatar current user")
                                 }
-                                
+
                             }
-                            
+
                         }
                         else {
                             print("Nil rồi")

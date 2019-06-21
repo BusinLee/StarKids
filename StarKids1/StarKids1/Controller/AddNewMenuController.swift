@@ -109,11 +109,11 @@ class AddNewMenuController: UIViewController {
             let imageName = NSUUID().uuidString
             let storeImage = storageRef.child("Food_Images").child(imageName)
             let imgData = imgView.image?.pngData()
-            let metaData = StorageMetadata()
-            metaData.contentType = "image/png"
-            storeImage.putData(imgData!, metadata: metaData) { (metadata, error) in
+            //let metaData = StorageMetadata()
+            //metaData.contentType = "image/png"
+            storeImage.putData(imgData!, metadata: nil) { (metadata, error) in
                 if error == nil{
-                    storageRef.downloadURL(completion: { (url, error) in
+                    storeImage.downloadURL(completion: { (url, error) in
                         if url == nil
                         {
                             self.urlArr.append("not get download url")
@@ -141,10 +141,10 @@ class AddNewMenuController: UIViewController {
                     "MainDish2": txtMainDish2.text! as String,
                     "SauteDish": txtSauteDish.text! as String,
                     "Soup": txtSoup.text! as String,
-//                    "urlDish1": urlArr[0],
-//                    "urlDish2": urlArr[1],
-//                    "urlSaute": urlArr[2],
-//                    "urlSoup": urlArr[3]
+                    "imgDish1": urlArr[0],
+                    "imgDish2": urlArr[1],
+                    "imgSaute": urlArr[2],
+                    "imgSoup": urlArr[3]
             ] as [String : Any]
         ref.child("Menu").childByAutoId().setValue(Menu)
         let SuccessAlert = UIAlertController(title: "Xác Nhận", message: "Tạo thực đơn thành công.", preferredStyle: UIAlertController.Style.alert)

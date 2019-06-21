@@ -55,7 +55,8 @@ class ViewController: UIViewController {
                 defaultUser.set(self!.txtPassword.text!, forKey: "password")
                 activity.stopAnimating()
                 alertActivity.dismiss(animated: true, completion: nil)
-                self!.gotoScreen(idScreen: "scrLoading")
+                //"scrLoading"
+                self!.gotoScreen(idScreen: "scrListMenu")
             }
             else
             {
@@ -74,7 +75,8 @@ class ViewController: UIViewController {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
-                self.gotoScreen(idScreen: "mainTabBarController")
+                // "mainTabBarController"
+                self.gotoScreen(idScreen:"scrListMenu")
             } else {
                 print("Chua dang nhap")
             }

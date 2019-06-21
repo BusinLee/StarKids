@@ -30,6 +30,8 @@
 		12DB3DF42247D1F2005F96DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF32247D1F2005F96DD /* Assets.xcassets */; };
 		12DB3DF72247D1F2005F96DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF52247D1F2005F96DD /* LaunchScreen.storyboard */; };
 		12DB3DFF2247D2C6005F96DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DFE2247D2C6005F96DD /* GoogleService-Info.plist */; };
+		540F269622AD043500995247 /* ViewListMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F269522AD043500995247 /* ViewListMenuController.swift */; };
+		540F269822AD047400995247 /* ViewDetailMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F269722AD047400995247 /* ViewDetailMenuController.swift */; };
 		54BFCA312296CA5500FE3C37 /* AddNewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */; };
 		E1686EB935A6867DFE5F4C15 /* Pods_StarKids1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		12DB3DF82247D1F2005F96DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12DB3DFE2247D2C6005F96DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; name = "Pods-StarKids1.release.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.release.xcconfig"; sourceTree = "<group>"; };
+		540F269522AD043500995247 /* ViewListMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewListMenuController.swift; sourceTree = "<group>"; };
+		540F269722AD047400995247 /* ViewDetailMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDetailMenuController.swift; sourceTree = "<group>"; };
 		54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMenuController.swift; sourceTree = "<group>"; };
 		99F6A324D014F43A41E40D88 /* Pods-StarKids1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.debug.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.debug.xcconfig"; sourceTree = "<group>"; };
 		C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarKids1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +111,8 @@
 				12275E90227579BA001DBCAF /* LoadingViewController.swift */,
 				120FB684227D9BD7004E1B4E /* DetailInfoController.swift */,
 				54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */,
+				540F269522AD043500995247 /* ViewListMenuController.swift */,
+				540F269722AD047400995247 /* ViewDetailMenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -316,7 +322,9 @@
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12A88C76226F6834002125BC /* HomeController.swift in Sources */,
 				12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */,
+				540F269622AD043500995247 /* ViewListMenuController.swift in Sources */,
 				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,
+				540F269822AD047400995247 /* ViewDetailMenuController.swift in Sources */,
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
 				12A88C7A226F6866002125BC /* MoreController.swift in Sources */,
 				54BFCA312296CA5500FE3C37 /* AddNewMenuController.swift in Sources */,
