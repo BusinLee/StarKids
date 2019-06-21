@@ -42,6 +42,26 @@ class ListFriendController: UIViewController {
                 print("Không có user")
             }
         })
+        
+        let tableNameTeachers = ref.child("Teachers")
+        tableNameTeachers.observe(.childAdded, with: { (snapshot1) in
+            let postDict1 = snapshot1.value as? [String: AnyObject]
+            if (postDict1 != nil) {
+                let email:String = (postDict1?["email"])! as! String
+                let fullName:String = (postDict1?["fullName"])! as! String
+                let linkAvatar:String = (postDict1?["linkAvatar"])! as! String
+                
+                let user:User = User(id: snapshot1.key, email: email, fullName: fullName, linkAvatar: linkAvatar, phone: "", role: "")
+                if (user.id != currentUser.id)
+                {
+                    self.listFriend.append(user)
+                }
+                self.tblListFriend.reloadData()
+            }
+            else {
+                print("Không có user")
+            }
+        })
     }
     
 }

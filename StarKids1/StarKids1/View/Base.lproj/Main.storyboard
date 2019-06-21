@@ -25,7 +25,6 @@
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nhập tài khoản..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G9q-gc-8cP">
                                 <rect key="frame" x="16" y="237" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.81172281503677368" green="0.81231743097305298" blue="0.82740306854248047" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -266,51 +265,59 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ev0-yv-jIe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="tuM-J6-WGy">
+                                <rect key="frame" x="3" y="67" width="41" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Star Kids" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR9-Rc-SZA">
+                                <rect key="frame" x="99" y="77" width="123" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.99783831830000003" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T9n-Ob-sqE">
                                 <rect key="frame" x="49" y="64" width="271" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Thêm bài viết mới..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5r2-Dm-VAU">
-                                        <rect key="frame" x="8" y="8" width="255" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Thêm bài viết mới..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2g-0m-Rsw">
+                                        <rect key="frame" x="8" y="9" width="255" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="cw8-Ic-mdt" appends="YES" id="HJP-7X-jPb"/>
+                                            <outletCollection property="gestureRecognizers" destination="B3J-az-QQ5" appends="YES" id="bA0-wp-SVl"/>
                                         </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99783831830000003" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="oyW-Xc-jTI" appends="YES" id="ryg-if-l5I"/>
+                                    <outletCollection property="gestureRecognizers" destination="Q1f-0X-ZB5" appends="YES" id="jmq-zj-rnC"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="tuM-J6-WGy">
-                                <rect key="frame" x="3" y="67" width="41" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93720912933349609" green="0.93794280290603638" blue="0.95681291818618774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="QHn-r2-CzB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Trang chủ" id="RMb-ag-XQM"/>
                     <connections>
                         <outlet property="imgUserAvatar" destination="tuM-J6-WGy" id="qkk-uQ-EaX"/>
+                        <outlet property="lblNameSchool" destination="DR9-Rc-SZA" id="Qi6-Jb-NDF"/>
                         <outlet property="tblListPost" destination="sfl-4l-UAm" id="vba-uA-VRd"/>
+                        <outlet property="viewPost" destination="T9n-Ob-sqE" id="PJ1-yw-CGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X8V-Zg-HCz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="oyW-Xc-jTI">
+                <tapGestureRecognizer id="Q1f-0X-ZB5">
                     <connections>
-                        <action selector="tap_View:" destination="GDT-f0-pqv" id="g6N-gh-n6M"/>
+                        <action selector="tap_View:" destination="GDT-f0-pqv" id="0hu-LX-CFP"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="cw8-Ic-mdt">
+                <tapGestureRecognizer id="B3J-az-QQ5">
                     <connections>
-                        <action selector="tap_txtPost:" destination="GDT-f0-pqv" id="uEa-j3-fTr"/>
+                        <action selector="tap_txtPost:" destination="GDT-f0-pqv" id="21c-4k-V13"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1737,7 +1744,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CLZ-zn-SjK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CLZ-zn-SjK">
                                 <rect key="frame" x="0.0" y="43" width="320" height="467"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1749,32 +1756,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="75.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="cuW-Pq-00G">
-                                                    <rect key="frame" x="15" y="11" width="56" height="59"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="cuW-Pq-00G" secondAttribute="height" multiplier="1:1" id="W1G-wI-JOE"/>
-                                                    </constraints>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="1ch-T0-9oz">
+                                                    <rect key="frame" x="15" y="11" width="54" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bH-0t-jua">
-                                                    <rect key="frame" x="79" y="30" width="42" height="21"/>
-                                                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lê Mỹ Thiên Thanh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te4-Sz-9QG">
+                                                    <rect key="frame" x="77" y="28" width="238" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="cuW-Pq-00G" firstAttribute="top" secondItem="pQ5-k8-A0B" secondAttribute="topMargin" constant="5" id="EBO-nZ-xUK"/>
-                                                <constraint firstItem="7bH-0t-jua" firstAttribute="centerY" secondItem="pQ5-k8-A0B" secondAttribute="centerY" id="T9q-bV-Rbb"/>
-                                                <constraint firstItem="7bH-0t-jua" firstAttribute="leading" secondItem="cuW-Pq-00G" secondAttribute="trailing" constant="20" id="Zw2-h6-Xu6"/>
-                                                <constraint firstItem="cuW-Pq-00G" firstAttribute="leading" secondItem="pQ5-k8-A0B" secondAttribute="leadingMargin" constant="5" id="d2B-41-DyJ"/>
-                                                <constraint firstItem="cuW-Pq-00G" firstAttribute="centerY" secondItem="pQ5-k8-A0B" secondAttribute="centerY" id="exy-r1-Fb5"/>
-                                                <constraint firstItem="cuW-Pq-00G" firstAttribute="top" secondItem="pQ5-k8-A0B" secondAttribute="top" constant="5" id="p8G-Pj-eov"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imageAvatar" destination="cuW-Pq-00G" id="mgh-Of-Tl5"/>
-                                            <outlet property="lblName" destination="7bH-0t-jua" id="dTE-pM-Dxe"/>
+                                            <outlet property="imageAvatar" destination="1ch-T0-9oz" id="Jw3-ns-bdp"/>
+                                            <outlet property="lblName" destination="te4-Sz-9QG" id="6bG-lQ-xs4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

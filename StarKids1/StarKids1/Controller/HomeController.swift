@@ -13,6 +13,8 @@ class HomeController: UIViewController {
     
     @IBOutlet weak var tblListPost: UITableView!
     @IBOutlet weak var imgUserAvatar: UIImageView!
+    @IBOutlet weak var viewPost: UIView!
+    @IBOutlet weak var lblNameSchool: UILabel!
     
     var listPost:Array<Post> = Array<Post>()
     var flagLike:Array<Int> = Array<Int>()
@@ -27,6 +29,12 @@ class HomeController: UIViewController {
         tblListPost.delegate = self
         tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);
         imgUserAvatar.loadAvatar(link:currentUser.linkAvatar)
+        
+        if (currentUser.role == "student")
+        {
+            viewPost.isHidden = true
+            imgUserAvatar.isHidden = true
+        }
         
         print("Role đây \(currentUser.role)")
         if (noticeCount.value(forKey: "noticeCount") != nil)
