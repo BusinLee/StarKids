@@ -5,7 +5,6 @@
 //  Created by Thanh Lê on 4/27/19.
 //  Copyright © 2019 Thanh Le. All rights reserved.
 //
-
 import UIKit
 import Firebase
 
@@ -13,16 +12,16 @@ let ref = Database.database().reference()
 var currentUser:User!
 
 class LoadingViewController: UIViewController {
-    
+
     @IBOutlet weak var imgLogo: UIImageView!
-    
+
     var tableName:DatabaseReference!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isLogin();
+        
     }
-    
     func isLogin()
     {
         let activity:UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
@@ -30,20 +29,20 @@ class LoadingViewController: UIViewController {
         activity.color = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
         self.view.addSubview(activity)
         activity.startAnimating()
-        
+
         UIView.animate(withDuration: 0.5, animations: {
             self.imgLogo.frame.origin.y += 70
         })
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.1, options: [.autoreverse, .repeat], animations: {
             self.imgLogo.frame.origin.y -= 70
         })
-        
+
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
                 let user = Auth.auth().currentUser
                 if let user = user {
-                    
+
                     let uid = user.uid
                     print("\(uid)")
                     self.tableName = ref.child("Students")
@@ -53,7 +52,7 @@ class LoadingViewController: UIViewController {
                         if (postDict != nil)
                         {
                             if (snapshot.key == uid) {
-                                
+
                                 print("Kiểm tra lại tên attributes")
                                 let email:String = (postDict?["email"])! as! String
                                 let fullName:String = (postDict?["fullName"])! as! String
@@ -72,7 +71,7 @@ class LoadingViewController: UIViewController {
                                 {
                                     print("lỗi gán avatar current user")
                                 }
-                                
+
                             }
                             else {
                                 self.tableName = ref.child("Teachers")

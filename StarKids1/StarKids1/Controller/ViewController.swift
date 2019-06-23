@@ -5,13 +5,12 @@
 //  Created by Thanh Lê on 3/24/19.
 //  Copyright © 2019 Thanh Le. All rights reserved.
 //
-
 import UIKit
 import Firebase
 
 let defaultUser = UserDefaults.standard
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var btnLogIn: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -20,12 +19,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         //Log out
-//        let firebaseAuth = Auth.auth()
-//        do {
-//            try firebaseAuth.signOut()
-//        } catch let signOutError as NSError {
-//            print ("Error signing out: %@", signOutError)
-//        }
+        //        let firebaseAuth = Auth.auth()
+        //        do {
+        //            try firebaseAuth.signOut()
+        //        } catch let signOutError as NSError {
+        //            print ("Error signing out: %@", signOutError)
+        //        }
         
         btnLogIn.layer.cornerRadius = 5
         
@@ -35,7 +34,7 @@ class ViewController: UIViewController {
         
         //isLogin();
     }
-
+    
     @IBAction func btn_LogIn(_ sender: Any) {
         
         let alertActivity:UIAlertController = UIAlertController(title: "", message: "Đang xử lý", preferredStyle: .alert)
@@ -47,7 +46,7 @@ class ViewController: UIViewController {
         let height:NSLayoutConstraint = NSLayoutConstraint(item: alertActivity.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.15)
         alertActivity.view.addConstraint(height);
         self.present(alertActivity, animated: true, completion: nil)
-
+        
         Auth.auth().signIn(withEmail: txtEmail.text!, password: txtPassword.text!) { [weak self] user, error in
             guard let strongSelf = self else { return }
             
@@ -56,7 +55,8 @@ class ViewController: UIViewController {
                 defaultUser.set(self!.txtPassword.text!, forKey: "password")
                 activity.stopAnimating()
                 alertActivity.dismiss(animated: true, completion: nil)
-                self!.gotoScreen(idScreen: "scrLoading")
+                //"scrLoading"
+                self!.gotoScreen(idScreen: "scrListMenu")
             }
             else
             {
@@ -75,7 +75,8 @@ class ViewController: UIViewController {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if (user != nil)
             {
-                self.gotoScreen(idScreen: "mainTabBarController")
+                // "mainTabBarController"
+                self.gotoScreen(idScreen:"scrListMenu")
             } else {
                 print("Chua dang nhap")
             }

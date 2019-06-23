@@ -58,6 +58,9 @@
 		12E4EBD922BE3C4700289E92 /* AddClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4EBD822BE3C4700289E92 /* AddClassViewController.swift */; };
 		12E4EBDB22BE3C7B00289E92 /* AddLeaveRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */; };
 		12F81D6E22A56AEA00EF636F /* DetailPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F81D6D22A56AEA00EF636F /* DetailPostController.swift */; };
+		540F269622AD043500995247 /* ViewListMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F269522AD043500995247 /* ViewListMenuController.swift */; };
+		540F269822AD047400995247 /* ViewDetailMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540F269722AD047400995247 /* ViewDetailMenuController.swift */; };
+		54BFCA312296CA5500FE3C37 /* AddNewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */; };
 		E1686EB935A6867DFE5F4C15 /* Pods_StarKids1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +119,10 @@
 		12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLeaveRequestViewController.swift; sourceTree = "<group>"; };
 		12F81D6D22A56AEA00EF636F /* DetailPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostController.swift; sourceTree = "<group>"; };
 		360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.release.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.release.xcconfig"; sourceTree = "<group>"; };
+		360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; includeInIndex = 1; name = "Pods-StarKids1.release.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.release.xcconfig"; sourceTree = "<group>"; };
+		540F269522AD043500995247 /* ViewListMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewListMenuController.swift; sourceTree = "<group>"; };
+		540F269722AD047400995247 /* ViewDetailMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDetailMenuController.swift; sourceTree = "<group>"; };
+		54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMenuController.swift; sourceTree = "<group>"; };
 		99F6A324D014F43A41E40D88 /* Pods-StarKids1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.debug.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.debug.xcconfig"; sourceTree = "<group>"; };
 		C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarKids1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -181,6 +188,9 @@
 				122BDEA322BFBCEC00188C2C /* ListTuitionViewController.swift */,
 				1276D52A22BF88E1009F287D /* DetailLeaveRequestViewController.swift */,
 				122BDEA722BFC00100188C2C /* DetailTuitionViewController.swift */,
+				54BFCA302296CA5500FE3C37 /* AddNewMenuController.swift */,
+				540F269522AD043500995247 /* ViewListMenuController.swift */,
+				540F269722AD047400995247 /* ViewDetailMenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -427,8 +437,12 @@
 				120E87BA229028A200D528C7 /* Post.swift in Sources */,
 				1276D52522BF8267009F287D /* LeaveRequestTableViewCell.swift in Sources */,
 				122B808722BBD37F00A06D55 /* Student.swift in Sources */,
+				540F269622AD043500995247 /* ViewListMenuController.swift in Sources */,
+				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,
+				540F269822AD047400995247 /* ViewDetailMenuController.swift in Sources */,
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
 				12A88C7A226F6866002125BC /* MoreController.swift in Sources */,
+				54BFCA312296CA5500FE3C37 /* AddNewMenuController.swift in Sources */,
 				12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */,
 				122BDEA622BFBDAC00188C2C /* TuitionTableViewCell.swift in Sources */,
 				120FB685227D9BD7004E1B4E /* DetailInfoController.swift in Sources */,
@@ -586,8 +600,9 @@
 			baseConfigurationReference = 99F6A324D014F43A41E40D88 /* Pods-StarKids1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4LV6SB7C2M;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StarKids1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -595,6 +610,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Thanh-Le.StarKids1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -605,8 +621,9 @@
 			baseConfigurationReference = 360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4LV6SB7C2M;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = StarKids1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -614,6 +631,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Thanh-Le.StarKids1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
