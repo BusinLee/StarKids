@@ -138,6 +138,8 @@ class LeaveRequestViewController: UIViewController {
                 }
             }
         }
+        let navigationBar = self.navigationController?.visibleViewController?.navigationItem
+        navigationBar?.title = "Đơn xin nghỉ học"
     }
 
 }
