@@ -68,7 +68,7 @@ class LeaveRequestViewController: UIViewController {
                     })
                 }
                 else {
-                    print ("Không có lớp học")
+                    print ("Không có lớp")
                 }
             }
         }
