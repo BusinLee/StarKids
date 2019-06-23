@@ -40,7 +40,7 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
             }
             arrDate.append(row)
         }
-        txtReason.text = "Nội dung bài viết..."
+        txtReason.text = "Lí do nghỉ học..."
         txtReason.textColor = UIColor.lightGray
         txtReason.delegate = self
         
@@ -70,6 +70,11 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     @objc func btnXong(sender: AnyObject) {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        let day = formatter.string(from: date)
+        
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn nộp đơn xin nghỉ học?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
@@ -88,7 +93,7 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
                     } else {
                         if (self.setDate())
                         {
-                            let leaveRequest:Dictionary<String,String> = ["parent":self.parents, "studentId": currentUser.id, "fromDay": self.dateF, "toDay": self.dateT, "reason": self.txtReason.text!]
+                            let leaveRequest:Dictionary<String,String> = ["currentDay":day, "parent":self.parents, "studentId": currentUser.id, "fromDay": self.dateF, "toDay": self.dateT, "reason": self.txtReason.text!]
                             let tableNameLeave = ref.child("LeaveRequests")
                             tableNameLeave.childByAutoId().setValue(leaveRequest)
                             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Nộp đơn thành công", preferredStyle: .alert)

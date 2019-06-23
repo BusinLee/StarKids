@@ -184,7 +184,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                 self.gotoScreenWithBack(idScreen: "scrAddTuition")
                 break
             case 3:
-                self.gotoScreenWithBack(idScreen: "scrAddLeave")
+                self.gotoScreenWithBack(idScreen: "scrLeaveRequest")
                 break
             case 4:
                 break
@@ -214,35 +214,70 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
             tableView.deselectRow(at: indexPath, animated: true)
         }
         else {
-            switch indexPath.row {
-            case 0:
-                self.gotoScreenWithBack(idScreen: "scrListFriend")
-                break
-            case 1:
-                break
-            case 2:
-                self.gotoScreenWithBack(idScreen: "scrAddLeave")
-                break
-            case 3:
-                break
-            default:
-                let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
-                let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
-                let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-                    let firebaseAuth = Auth.auth()
-                    do {
-                        try firebaseAuth.signOut()
-                        noticeCount.set(nil, forKey: "noticeCount")
-                        self.gotoScreen(idScreen: "scrLogin")
-                    } catch let signOutError as NSError {
-                        print ("Error signing out: %@", signOutError)
+            if (currentUser.role == "teacher")
+            {
+                switch indexPath.row {
+                case 0:
+                    self.gotoScreenWithBack(idScreen: "scrListFriend")
+                    break
+                case 1:
+                    break
+                case 2:
+                    self.gotoScreenWithBack(idScreen: "scrLeaveRequest")
+                    break
+                case 3:
+                    break
+                default:
+                    let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
+                    let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+                    let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                        let firebaseAuth = Auth.auth()
+                        do {
+                            try firebaseAuth.signOut()
+                            noticeCount.set(nil, forKey: "noticeCount")
+                            self.gotoScreen(idScreen: "scrLogin")
+                        } catch let signOutError as NSError {
+                            print ("Error signing out: %@", signOutError)
+                        }
                     }
+                    alert.addAction(btnOk)
+                    alert.addAction(btnCancel)
+                    present(alert, animated: true, completion: nil)
                 }
-                alert.addAction(btnOk)
-                alert.addAction(btnCancel)
-                present(alert, animated: true, completion: nil)
+                tableView.deselectRow(at: indexPath, animated: true)
             }
-            tableView.deselectRow(at: indexPath, animated: true)
+            else
+            {
+                switch indexPath.row {
+                case 0:
+                    self.gotoScreenWithBack(idScreen: "scrListFriend")
+                    break
+                case 1:
+                    break
+                case 2:
+                    self.gotoScreenWithBack(idScreen: "scrAddLeave")
+                    break
+                case 3:
+                    break
+                default:
+                    let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
+                    let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+                    let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+                        let firebaseAuth = Auth.auth()
+                        do {
+                            try firebaseAuth.signOut()
+                            noticeCount.set(nil, forKey: "noticeCount")
+                            self.gotoScreen(idScreen: "scrLogin")
+                        } catch let signOutError as NSError {
+                            print ("Error signing out: %@", signOutError)
+                        }
+                    }
+                    alert.addAction(btnOk)
+                    alert.addAction(btnCancel)
+                    present(alert, animated: true, completion: nil)
+                }
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
         }
     }
 }
