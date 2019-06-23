@@ -269,11 +269,7 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if pickerView.tag == 1 {
-            return arrDate.count
-        } else {
-            return 1
-        }
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {

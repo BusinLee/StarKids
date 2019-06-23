@@ -31,7 +31,7 @@ class MoreController: UIViewController {
         imgAvatar.image = currentUser.avatar
         
         if (currentUser.role == "admin") {
-            tblListMenu.frame = CGRect(x: 0, y: 173, width: 320, height: 346)
+            tblListMenu.frame = CGRect(x: 0, y: 173, width: 320, height: 360)
         }
     }
     
@@ -175,13 +175,16 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
         if (currentUser.role == "admin") {
             switch indexPath.row {
             case 0:
+                self.gotoScreenWithBack(idScreen: "scrAddClass")
                 break
             case 1:
                 self.gotoScreenWithBack(idScreen: "scrListFriend")
                 break
             case 2:
+                self.gotoScreenWithBack(idScreen: "scrAddTuition")
                 break
             case 3:
+                self.gotoScreenWithBack(idScreen: "scrAddLeave")
                 break
             case 4:
                 break
@@ -218,6 +221,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
             case 1:
                 break
             case 2:
+                self.gotoScreenWithBack(idScreen: "scrAddLeave")
                 break
             case 3:
                 break

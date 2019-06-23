@@ -26,6 +26,7 @@
 		121BF3E522BCBE9A0029798F /* ListStudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF3E422BCBE9A0029798F /* ListStudentTableViewCell.swift */; };
 		122263EF22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */; };
 		122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263F022A6C2E700F251FE /* CommentViewCell.swift */; };
+		1224048022BF5054003F3445 /* AddTuitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224047F22BF5054003F3445 /* AddTuitionViewController.swift */; };
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
 		122B807D22BB732900A06D55 /* NewTeacherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B807C22BB732900A06D55 /* NewTeacherController.swift */; };
 		122B808122BB7F5E00A06D55 /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B808022BB7F5E00A06D55 /* ClassTableViewCell.swift */; };
@@ -46,6 +47,8 @@
 		12DB3DF42247D1F2005F96DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF32247D1F2005F96DD /* Assets.xcassets */; };
 		12DB3DF72247D1F2005F96DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF52247D1F2005F96DD /* LaunchScreen.storyboard */; };
 		12DB3DFF2247D2C6005F96DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DFE2247D2C6005F96DD /* GoogleService-Info.plist */; };
+		12E4EBD922BE3C4700289E92 /* AddClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4EBD822BE3C4700289E92 /* AddClassViewController.swift */; };
+		12E4EBDB22BE3C7B00289E92 /* AddLeaveRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */; };
 		12F81D6E22A56AEA00EF636F /* DetailPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F81D6D22A56AEA00EF636F /* DetailPostController.swift */; };
 		E1686EB935A6867DFE5F4C15 /* Pods_StarKids1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +73,7 @@
 		121BF3E422BCBE9A0029798F /* ListStudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStudentTableViewCell.swift; sourceTree = "<group>"; };
 		122263EE22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPicPostCollectionViewCell.swift; sourceTree = "<group>"; };
 		122263F022A6C2E700F251FE /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
+		1224047F22BF5054003F3445 /* AddTuitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTuitionViewController.swift; sourceTree = "<group>"; };
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		122B807C22BB732900A06D55 /* NewTeacherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeacherController.swift; sourceTree = "<group>"; };
 		122B808022BB7F5E00A06D55 /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 		12DB3DF62247D1F2005F96DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12DB3DF82247D1F2005F96DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12DB3DFE2247D2C6005F96DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		12E4EBD822BE3C4700289E92 /* AddClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassViewController.swift; sourceTree = "<group>"; };
+		12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLeaveRequestViewController.swift; sourceTree = "<group>"; };
 		12F81D6D22A56AEA00EF636F /* DetailPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostController.swift; sourceTree = "<group>"; };
 		360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.release.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.release.xcconfig"; sourceTree = "<group>"; };
 		99F6A324D014F43A41E40D88 /* Pods-StarKids1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.debug.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +156,9 @@
 				122B807C22BB732900A06D55 /* NewTeacherController.swift */,
 				122B808222BB7FA300A06D55 /* ClassController.swift */,
 				121BF3E222BCBAE30029798F /* ListStudentViewController.swift */,
+				12E4EBD822BE3C4700289E92 /* AddClassViewController.swift */,
+				12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */,
+				1224047F22BF5054003F3445 /* AddTuitionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -370,17 +379,20 @@
 				122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */,
 				122B808122BB7F5E00A06D55 /* ClassTableViewCell.swift in Sources */,
 				1210AF8622B934D100F12295 /* Notice.swift in Sources */,
+				1224048022BF5054003F3445 /* AddTuitionViewController.swift in Sources */,
 				12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */,
 				122B808322BB7FA300A06D55 /* ClassController.swift in Sources */,
 				12F81D6E22A56AEA00EF636F /* DetailPostController.swift in Sources */,
 				122B808522BB806800A06D55 /* Class.swift in Sources */,
 				12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */,
 				128BCDCA22B7EE0200BB6BFC /* NoticeTableViewCell.swift in Sources */,
+				12E4EBD922BE3C4700289E92 /* AddClassViewController.swift in Sources */,
 				120D3FC6226B33BF00F25B53 /* ScreenListFriendTableViewCell.swift in Sources */,
 				12A88C76226F6834002125BC /* HomeController.swift in Sources */,
 				1211964E228F102300EE5453 /* ScreenPostTableViewCell.swift in Sources */,
 				12A88C74226F640D002125BC /* MainNavigationController.swift in Sources */,
 				122263EF22A6C1BA00F251FE /* DetailPicPostCollectionViewCell.swift in Sources */,
+				12E4EBDB22BE3C7B00289E92 /* AddLeaveRequestViewController.swift in Sources */,
 				120ABB9F22AD5FBE001B72E3 /* CreatePostController.swift in Sources */,
 				12106653226CBAA200236A6A /* ScreenChat1TableViewCell.swift in Sources */,
 				120E87BA229028A200D528C7 /* Post.swift in Sources */,
