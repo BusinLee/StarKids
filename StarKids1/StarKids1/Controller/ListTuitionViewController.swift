@@ -60,7 +60,7 @@ extension ListTuitionViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:TuitionTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TuitionTableViewCell
-        cell.lblTitle.text = "Học phí \(listTuition[indexPath.row].month) \(listTuition[indexPath.row].year)"
+        cell.lblTitle.text = "Học phí \(listTuition[indexPath.row].month!) \(listTuition[indexPath.row].year!)"
         cell.lblSum.text = listTuition[indexPath.row].sum
         cell.lblDay.text = listTuition[indexPath.row].date
         return cell

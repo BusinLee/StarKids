@@ -20,13 +20,16 @@ class DetailTuitionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        lblTitle.text = "Học phí \(selectedTuition.month) \(selectedTuition.year)"
+        lblTitle.text = "Học phí \(selectedTuition.month!) \(selectedTuition.year!)"
         lblStudy.text = selectedTuition.study
         lblSupport.text = selectedTuition.support
         lblCamp.text = selectedTuition.camp
         lblVerhical.text = selectedTuition.verhical
         lblExtra.text = selectedTuition.extra
         lblSum.text = selectedTuition.sum
+        
+        let navigationBar = self.navigationController?.visibleViewController?.navigationItem
+        navigationBar?.title = "Học phí"
     }
     
 }
