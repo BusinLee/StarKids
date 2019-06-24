@@ -28,6 +28,7 @@
 		122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122263F022A6C2E700F251FE /* CommentViewCell.swift */; };
 		1224048022BF5054003F3445 /* AddTuitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224047F22BF5054003F3445 /* AddTuitionViewController.swift */; };
 		12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12275E90227579BA001DBCAF /* LoadingViewController.swift */; };
+		122842BF22C115B500C2A79A /* AddMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122842BE22C115B500C2A79A /* AddMenuViewController.swift */; };
 		122B807D22BB732900A06D55 /* NewTeacherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B807C22BB732900A06D55 /* NewTeacherController.swift */; };
 		122B808122BB7F5E00A06D55 /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B808022BB7F5E00A06D55 /* ClassTableViewCell.swift */; };
 		122B808322BB7FA300A06D55 /* ClassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122B808222BB7FA300A06D55 /* ClassController.swift */; };
@@ -83,6 +84,7 @@
 		122263F022A6C2E700F251FE /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
 		1224047F22BF5054003F3445 /* AddTuitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTuitionViewController.swift; sourceTree = "<group>"; };
 		12275E90227579BA001DBCAF /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		122842BE22C115B500C2A79A /* AddMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuViewController.swift; sourceTree = "<group>"; };
 		122B807C22BB732900A06D55 /* NewTeacherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTeacherController.swift; sourceTree = "<group>"; };
 		122B808022BB7F5E00A06D55 /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		122B808222BB7FA300A06D55 /* ClassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				122BDEA322BFBCEC00188C2C /* ListTuitionViewController.swift */,
 				1276D52A22BF88E1009F287D /* DetailLeaveRequestViewController.swift */,
 				122BDEA722BFC00100188C2C /* DetailTuitionViewController.swift */,
+				122842BE22C115B500C2A79A /* AddMenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				1276D52522BF8267009F287D /* LeaveRequestTableViewCell.swift in Sources */,
 				122B808722BBD37F00A06D55 /* Student.swift in Sources */,
 				12A88C7E226F69C4002125BC /* MainTabBarController.swift in Sources */,
+				122842BF22C115B500C2A79A /* AddMenuViewController.swift in Sources */,
 				12A88C7A226F6866002125BC /* MoreController.swift in Sources */,
 				12106655226CBAC100236A6A /* ScreenChat2TableViewCell.swift in Sources */,
 				122BDEA622BFBDAC00188C2C /* TuitionTableViewCell.swift in Sources */,
