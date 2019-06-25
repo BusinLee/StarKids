@@ -72,7 +72,6 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         monday = getMonday(myDate: now)
         friday = Calendar.current.date(byAdding: .day, value: 4, to: monday)!
         lblTitle.text = "Thực đơn " + df.string(from: monday) + "-" + df.string(from: friday)
-        
         lblMonMain1.delegate = self
         lblMonMain2.delegate = self
         lblMonFry.delegate = self
