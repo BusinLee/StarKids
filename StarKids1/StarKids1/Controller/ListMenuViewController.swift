@@ -26,7 +26,7 @@ class ListMenuViewController: UIViewController {
             let postDict = snapshot.value as? [String:AnyObject]
             if (postDict != nil) {
                 let str = snapshot.key.replacingOccurrences(of: "_", with: "/", options: NSString.CompareOptions.literal, range:nil)
-                self.listMenuStr.append("Thực đơn từ \(str)")
+                self.listMenuStr.append("\(str)")
                 self.tblListMenu.reloadData()
             }
             else {
@@ -34,7 +34,7 @@ class ListMenuViewController: UIViewController {
             }
         }
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
-        navigationBar?.title = "Danh sách thực đơn"
+        navigationBar?.title = "Thực đơn"
     }
 }
 extension ListMenuViewController : UITableViewDelegate, UITableViewDataSource
@@ -49,12 +49,12 @@ extension ListMenuViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:MenuTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuTableViewCell
-        cell.lblDay.text = listMenuStr[indexPath.row]
+        cell.lblDay.text = "Thực đơn từ " + listMenuStr[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedDayMenu = listMenuStr[indexPath.row]
+        selectedDayMenu = listMenuStr[indexPath.row].replacingOccurrences(of: "/", with: "_", options: NSString.CompareOptions.literal, range:nil)
         gotoScreenWithBack(idScreen: "scrDayOfWeek")
         tableView.deselectRow(at: indexPath, animated: true)
     }

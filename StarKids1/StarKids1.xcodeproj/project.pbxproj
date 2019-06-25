@@ -53,6 +53,8 @@
 		12CE38BF22C2278400C1AC43 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE38BE22C2278400C1AC43 /* MenuTableViewCell.swift */; };
 		12CE38C322C236D600C1AC43 /* DayOfWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE38C222C236D600C1AC43 /* DayOfWeekViewController.swift */; };
 		12CE38C522C2386D00C1AC43 /* ListMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE38C422C2386D00C1AC43 /* ListMenuViewController.swift */; };
+		12CE38C722C269A100C1AC43 /* DetailMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE38C622C269A100C1AC43 /* DetailMenuViewController.swift */; };
+		12CE38C922C26BD000C1AC43 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE38C822C26BD000C1AC43 /* Menu.swift */; };
 		12DB3DED2247D1E2005F96DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DB3DEC2247D1E2005F96DD /* AppDelegate.swift */; };
 		12DB3DEF2247D1E2005F96DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DB3DEE2247D1E2005F96DD /* ViewController.swift */; };
 		12DB3DF22247D1E2005F96DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12DB3DF02247D1E2005F96DD /* Main.storyboard */; };
@@ -112,6 +114,8 @@
 		12CE38BE22C2278400C1AC43 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		12CE38C222C236D600C1AC43 /* DayOfWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeekViewController.swift; sourceTree = "<group>"; };
 		12CE38C422C2386D00C1AC43 /* ListMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMenuViewController.swift; sourceTree = "<group>"; };
+		12CE38C622C269A100C1AC43 /* DetailMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMenuViewController.swift; sourceTree = "<group>"; };
+		12CE38C822C26BD000C1AC43 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		12DB3DE92247D1E2005F96DD /* StarKids1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarKids1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DB3DEC2247D1E2005F96DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12DB3DEE2247D1E2005F96DD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				122842BE22C115B500C2A79A /* AddMenuViewController.swift */,
 				12CE38C222C236D600C1AC43 /* DayOfWeekViewController.swift */,
 				12CE38C422C2386D00C1AC43 /* ListMenuViewController.swift */,
+				12CE38C622C269A100C1AC43 /* DetailMenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 				122B808622BBD37F00A06D55 /* Student.swift */,
 				1276D52822BF82BE009F287D /* LeaveRequest.swift */,
 				122BDEA922BFC16800188C2C /* Tuition.swift */,
+				12CE38C822C26BD000C1AC43 /* Menu.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -413,9 +419,11 @@
 				120D3FCA226B7EF600F25B53 /* ChatViewController.swift in Sources */,
 				120C3B91226E11300090C405 /* ScreenListChatTableViewCell.swift in Sources */,
 				122263F122A6C2E700F251FE /* CommentViewCell.swift in Sources */,
+				12CE38C722C269A100C1AC43 /* DetailMenuViewController.swift in Sources */,
 				122B808122BB7F5E00A06D55 /* ClassTableViewCell.swift in Sources */,
 				12CE38BF22C2278400C1AC43 /* MenuTableViewCell.swift in Sources */,
 				1210AF8622B934D100F12295 /* Notice.swift in Sources */,
+				12CE38C922C26BD000C1AC43 /* Menu.swift in Sources */,
 				1224048022BF5054003F3445 /* AddTuitionViewController.swift in Sources */,
 				12CE38C322C236D600C1AC43 /* DayOfWeekViewController.swift in Sources */,
 				12275E91227579BA001DBCAF /* LoadingViewController.swift in Sources */,
