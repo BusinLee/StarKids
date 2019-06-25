@@ -132,5 +132,6 @@ extension ListStudentViewController : UITableViewDelegate, UITableViewDataSource
                 }
             }
         })
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

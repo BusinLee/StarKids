@@ -69,5 +69,6 @@ extension ListTuitionViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTuition = listTuition[indexPath.row]
         gotoScreenWithBack(idScreen: "scrDetailTuition")
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

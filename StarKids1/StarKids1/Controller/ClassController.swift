@@ -74,5 +74,6 @@ extension ClassController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedClass = listClass[indexPath.row].idClass
         gotoScreenWithBack(idScreen: "scrStudentList")
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

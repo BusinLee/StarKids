@@ -185,7 +185,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         let info:NSDictionary = notification.userInfo! as NSDictionary
         let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let keyboardY =  self.view.frame.size.height - keyboardSize.height
-        let editTextY:CGFloat! = self.activeTextField?.frame.origin.y
+        let editTextY:CGFloat! = (self.activeTextField?.frame.origin.y)! - 500
         if editTextY > keyboardY - 60 {
             UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
                 self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextY! - (keyboardY - 60)), width: self.view.bounds.width, height: self.view.bounds.height)
@@ -200,16 +200,6 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func btnXong(sender: AnyObject) {

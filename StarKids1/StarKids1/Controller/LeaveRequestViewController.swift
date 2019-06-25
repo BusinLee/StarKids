@@ -164,5 +164,6 @@ extension LeaveRequestViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedLeaveRequest = listLeave[indexPath.row]
         gotoScreenWithBack(idScreen: "scrDetailLeave")
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
