@@ -228,6 +228,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                     self.gotoScreenWithBack(idScreen: "scrLeaveRequest")
                     break
                 case 3:
+                    self.gotoScreenWithBack(idScreen: "scrMenuList")
                     break
                 default:
                     let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
@@ -261,6 +262,7 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                     self.gotoScreenWithBack(idScreen: "scrAddLeave")
                     break
                 case 3:
+                    self.gotoScreenWithBack(idScreen: "scrMenuList")
                     break
                 default:
                     let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn đăng xuất?", preferredStyle: .alert)
