@@ -45,7 +45,6 @@ class ChatViewController: UIViewController {
                 } else
                 {
                     self.arruserChat.append(visitor)
-                    print("Visitor \(visitor.avatar)")
                 }
                 self.arrtxtChat.append(postDict?["message"] as! String)
                 self.tblChat.reloadData()

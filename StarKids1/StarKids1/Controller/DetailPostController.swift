@@ -95,7 +95,6 @@ class DetailPostController: UIViewController {
             let postDict = snapshot.value as? [String:AnyObject]
             if (postDict != nil)
             {
-                print("vooooo")
                 let content :String = (postDict?["content"])! as! String
                 let userId: String = (postDict?["userId"])! as! String
                 let time: String = (postDict?["time"])! as! String
@@ -108,12 +107,9 @@ class DetailPostController: UIViewController {
                         let nameComment = (postDict1?["fullName"]) as! String
                         let linkAvatar = (postDict1?["linkAvatar"]) as! String
                         
-                        print("vooooo3333")
                         let comment:Comment = Comment(content: content,userId:userId, nameUser: nameComment, linkAvatar: linkAvatar, day: date, time: time)
                         self.comments.append(comment)
-                        print("affffffff\(self.comments)")
                         self.tblComment.reloadData()
-                        //self.lblComment.text = String(self.comments.count) + " bình luận"
                     }
                     else {
                         let tableUsers = ref.child("Teachers").child(userId)
@@ -123,10 +119,8 @@ class DetailPostController: UIViewController {
                                 let nameComment = (postDict1?["fullName"]) as! String
                                 let linkAvatar = (postDict1?["linkAvatar"]) as! String
                                 
-                                print("vooooo3333")
                                 let comment:Comment = Comment(content: content,userId:userId, nameUser: nameComment, linkAvatar: linkAvatar, day: date, time: time)
                                 self.comments.append(comment)
-                                print("affffffff\(self.comments)")
                                 self.tblComment.reloadData()
                                 //self.lblComment.text = String(self.comments.count) + " bình luận"
                             }
@@ -226,12 +220,10 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (selectPostId == selectPost.id)
         {
-            print("Đang ở đây")
             return comments.count + 1
         }
         else
         {
-            print("Đang ở đây này \(comments.count)")
             return 0
         }
     }
@@ -266,7 +258,6 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
         {
             tableView.rowHeight = 99
             let cell:CommentViewCell = tableView.dequeueReusableCell(withIdentifier: "CellComment", for: indexPath) as! CommentViewCell
-            print("cell \(indexPath.row)")
             cell.imgAvatarComment.loadAvatar(link: comments[indexPath.row-1].linkAvatar)
             cell.lblNameComment.text = comments[indexPath.row-1].nameUser
             cell.lblContent.text = comments[indexPath.row-1].content
@@ -298,7 +289,6 @@ extension DetailPostController:UICollectionViewDelegate, UICollectionViewDataSou
                 print("Không load được hình từ bài post")
             } else {
                 cell.imgPicturePost.image = UIImage(data: data!)
-                print("Vao collectionpost")
             }
         }
         

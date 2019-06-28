@@ -11,19 +11,6 @@ import UserNotifications
 
 let noticeCount = UserDefaults.standard
 class NoticeController: UIViewController {
-
-//    @IBAction func btnNotice(_ sender: Any) {
-//        let content = UNMutableNotificationContent()
-//        content.title = "The 5 seconds are up!"
-//        content.subtitle = "They are up now!"
-//        content.body = "The 5 seconds are really up!"
-//        content.badge = 1
-//
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-//        let request = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
-//
-//        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-//    }
     var listNotice:Array<Notice> = Array<Notice>()
     var flagNotice:Int = 0
     @IBOutlet weak var tblNotice: UITableView!

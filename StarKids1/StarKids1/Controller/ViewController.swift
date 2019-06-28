@@ -19,14 +19,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Log out
-//        let firebaseAuth = Auth.auth()
-//        do {
-//            try firebaseAuth.signOut()
-//        } catch let signOutError as NSError {
-//            print ("Error signing out: %@", signOutError)
-//        }
-        
         btnLogIn.layer.cornerRadius = 5
         
         let tap = UITapGestureRecognizer(target: self.view, action: Selector("endEditing:"))

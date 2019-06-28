@@ -166,14 +166,12 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                         //-------self.lbValid.isHidden = true
                         let email:String = self.txtEmail.text!
                         let password:String = self.date
-                        print("Đăng nhập....")
                         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                             if (error == nil)
                             {
                                 let avatarRef = storageRef.child("avatars/\(email).jpg")
                                 let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                                     guard let metadata = metadata else {
-                                        print("Lỗi up avatar")
                                         alertActivity.dismiss(animated: true, completion: nil)
                                         return
                                     }
@@ -188,7 +186,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                 //Set rtdb for user
                                                 let tableName = ref.child("Students")
                                                 let userId = tableName.child((Auth.auth().currentUser?.uid)!)
-                                                print("\(userId)")
                                                 let none:String = "không có"
                                                 let user:Dictionary<String,Any> = ["email":self.txtEmail.text!,"fullName":self.txtFullName.text!,"linkAvatar":url!.absoluteString,"nickName":none, "className":self.className, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":none, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":none,"evaluation":none,"note":none,"ability":none,"weight":20,"height":100,"dayLeave":0]
                                                 userId.setValue(user)
@@ -269,7 +266,6 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                 }
                                                 /////////
                                             } else {
-                                                print("Lỗi update profile")
                                                 alertActivity.dismiss(animated: true, completion: nil)
                                             }
                                         }

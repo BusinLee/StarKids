@@ -29,7 +29,6 @@ class ListFriendController: UIViewController {
         tableName.observe(.childAdded, with: { (snapshot) in
             let postDict = snapshot.value as? [String: AnyObject]
             if (postDict != nil) {
-                print("++++++++ \(postDict)")
                 let email:String = (postDict?["email"])! as! String
                 let fullName:String = (postDict?["fullName"])! as! String
                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String

@@ -36,7 +36,6 @@ class HomeController: UIViewController {
             imgUserAvatar.isHidden = true
         }
         
-        print("Role đây \(currentUser.role)")
         if (noticeCount.value(forKey: "noticeCount") != nil)
         {
             if let tabItems = self.tabBarController?.tabBar.items {
@@ -48,13 +47,11 @@ class HomeController: UIViewController {
         let tableNameLike = ref.child("Likes")
         tableNameLike.observe(.childAdded, with: { (snapshot1) in
             self.flagLike.append(Int(snapshot1.childrenCount) - 1)
-            print("likecountSnap \(self.flagLike)")
         })
         
         let tableNameComment = ref.child("Comments")
         tableNameComment.observe(.childAdded, with: { (snapshot1) in
             self.flagComment.append(Int(snapshot1.childrenCount) - 1)
-            print("commentcountSnap \(self.flagComment)")
         })
         
         let tableName = ref.child("Posts")
@@ -94,7 +91,6 @@ class HomeController: UIViewController {
                 tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
                     linkAvatarPost = (snapshot1.value as? String)!
                     let post:Post = Post(id: snapshot.key,userPost: userPost,nameuserPost: nameUser,linkAvatarPost: linkAvatarPost, date: date, time: time, content: content, likes: self.flagLike[self.listPost.count], comment: self.flagComment[self.listPost.count], isLike: isLikeStr, pictures: picture)
-                    print("------ \(post)")
                     self.listPost.append(post)
                     self.tblListPost.reloadData()
                 })
@@ -147,8 +143,6 @@ class HomeController: UIViewController {
             cell.lblStar.setNeedsDisplay()
             listPost[sender.tag].likes = listPost[sender.tag].likes + 1
             listPost[sender.tag].isLike = refRandom.key
-            
-            //self.tblListPost.reloadData()
         }
     }
     
@@ -162,7 +156,6 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Bên trong số cell nha\(listPost.count)")
         return listPost.count
     }
     
@@ -170,7 +163,6 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
         let cell:ScreenPostTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ScreenPostTableViewCell
         cell.lblStar.layer.cornerRadius = 0.5 * cell.lblStar.bounds.size.width
         cell.lblStar.clipsToBounds = true
-        print("Bên trong cell nha\(listPost)")
         cell.lblStar.text = String(listPost[indexPath.row].likes)
         cell.lblTimePost.text = listPost[indexPath.row].date + "  " + listPost[indexPath.row].time
         cell.lblUserName.text = listPost[indexPath.row].nameuserPost
@@ -208,7 +200,7 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var picArr:Array<String> = Array<String>()
         picArr = listPost[collectionView.tag].pictures.components(separatedBy: ";")
-        print("Số cell của ảnh trong post \(picArr.count)")
+        
         return picArr.count
     }
     

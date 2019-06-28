@@ -125,14 +125,12 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
                         //-------self.lbValid.isHidden = true
                         let email:String = self.txtEmail.text!
                         let password:String = self.date
-                        print("Đăng nhập....")
                         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                             if (error == nil)
                             {
                                 let avatarRef = storageRef.child("avatars/\(email).jpg")
                                 let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                                     guard let metadata = metadata else {
-                                        print("Lỗi up avatar")
                                         alertActivity.dismiss(animated: true, completion: nil)
                                         return
                                     }
@@ -223,7 +221,6 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
                                                 }
                                                 /////////
                                             } else {
-                                                print("Lỗi update profile")
                                                 alertActivity.dismiss(animated: true, completion: nil)
                                             }
                                         }
@@ -233,7 +230,6 @@ class NewTeacherController: UIViewController, UIPickerViewDelegate, UIPickerView
                             }
                             else
                             {
-                                print("Lỗi đăng ký!")
                                 alertActivity.dismiss(animated: true, completion: nil)
                             }
                         }

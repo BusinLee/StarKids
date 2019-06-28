@@ -108,7 +108,6 @@ class CreatePostController: UIViewController {
         
         let tableName = ref.child("Posts")
         let refRandom = tableName.childByAutoId()
-        print("Lấy trước \(refRandom.key)")
         
         let randomChild = refRandom.key
         
@@ -120,21 +119,17 @@ class CreatePostController: UIViewController {
         var pictureArr:String! = ""
         for i in 0..<dataImg.count
         {
-            print("vo for roi")
             var pictureName:String = "\(randomChild!)/\(i).jpg"
             let avatarRef = storageRef.child("posts/\(pictureName)")
             pictureArr = pictureArr + pictureName + ";"
             let uploadTask = avatarRef.putData(self.dataImg[i], metadata: nil) { metadata, error in
                 guard let metadata = metadata else {
-                    print("Lỗi up avatar")
                     return
                 }
-                print("posts/\(randomChild!)/\(i).jpg")
                 
                 if (i == (self.dataImg.count - 1)){
                     tableComment.child("temp").setValue(comment)
                     tableLike.child("temp").setValue(like)
-                    print("mảng hình/\(pictureArr)")
                     let post:Dictionary<String,String> = ["content":self.txtContent.text!, "date":day,"time":"\(hour):\(minute)", "userPost":currentUser.id, "picture":
                         String(pictureArr.dropLast())]
                     refRandom.setValue(post)
@@ -161,7 +156,6 @@ class CreatePostController: UIViewController {
                 })
                 let data = thumbnail.jpegData(compressionQuality: 0.7)
                 let newImage = UIImage(data: data!)
-                print("picture đây \(i)")
                 self.photoArray.append(newImage! as UIImage)
                 self.dataImg.append(data!)
                 self.uiimgView[i].image = newImage
@@ -200,7 +194,6 @@ extension CreatePostController:UITextViewDelegate, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PicturePostCell", for: indexPath) as! PicturePostCollectionViewCell
-        print("cell đây \(indexPath.row)")
         cell.imgPicturePost.image = photoArray[indexPath.row]
         return cell
     }

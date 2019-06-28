@@ -68,13 +68,11 @@ extension ListStudentViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tableName = ref.child("Students")
         tableName.observe(.childAdded, with: { (snapshot) -> Void in
-            print("vô trong rồi")
             let postDict = snapshot.value as? [String:AnyObject]
             if (postDict != nil)
             {
                 if (snapshot.key == self.listStudent[indexPath.row].id) {
-                    
-                    print("Kiểm tra lại tên attributes")
+                
                     let email:String = (postDict?["email"])! as! String
                     let fullName:String = (postDict?["fullName"])! as! String
                     let linkAvatar:String = (postDict?["linkAvatar"])! as! String
@@ -102,7 +100,6 @@ extension ListStudentViewController : UITableViewDelegate, UITableViewDataSource
                         if (postDict1 != nil) {
                             if (snapshot1.key == classId)
                             {
-                                print("Lấy info class rồi")
                                 let className:String = (postDict1?["className"])! as! String
                                 let teacherId:String = (postDict1?["teacherName"])! as! String
                                 

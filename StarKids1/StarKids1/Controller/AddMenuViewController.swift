@@ -67,7 +67,6 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         df.dateFormat = "dd/MM/yyyy"
         
         let now = Date()
-        print(df.string(from: now))
         
         monday = getMonday(myDate: now)
         friday = Calendar.current.date(byAdding: .day, value: 4, to: monday)!
@@ -214,15 +213,8 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
             
             let uploadTask = avatarRef.putData(arrImage[i], metadata: nil) { metadata, error in
                 guard metadata != nil else {
-                    print("Lỗi up avatar")
                     return
                 }
-//                avatarRef.downloadURL { (url, error) in
-//                    print("Vaooooooo")
-//                    print("\(url)")
-//                   // arrImageURL.append(url!.absoluteString)
-//                }
-//                print("Vaooooooo1111")
                 if (i == 3)
                 {
                     let menu:Dictionary<String,String> = ["main1":self.lblMonMain1.text!, "linkMain1" : arrImageName[0],"main2":self.lblMonMain2.text!, "linkMain2" : arrImageName[1], "fry":self.lblMonFry.text!, "linkFry" : arrImageName[2], "soup":self.lblMonSoup.text!, "linkSoup" : arrImageName[3]]

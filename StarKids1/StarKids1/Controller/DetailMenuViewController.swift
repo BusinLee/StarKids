@@ -54,15 +54,12 @@ class DetailMenuViewController: UIViewController {
         navigationBar?.title = titleScr
     }
     
-    func setImage (img:UIImageView, nameImg:String) {
-        print("menus/\(selectedMenu.id!)/\(selectedMenu.day!)/\(nameImg)")
-        let pictureRef = storageRef.child("menus/\(selectedMenu.id!)/\(selectedMenu.day!)/\(nameImg).jpg")
+    func setImage (img:UIImageView, nameImg:String) {        let pictureRef = storageRef.child("menus/\(selectedMenu.id!)/\(selectedMenu.day!)/\(nameImg).jpg")
         pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Không load được hình menu")
             } else {
                 img.image = UIImage(data: data!)
-                print("Vao collectionpost")
             }
         }
     }

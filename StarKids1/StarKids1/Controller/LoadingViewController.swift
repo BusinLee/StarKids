@@ -45,16 +45,12 @@ class LoadingViewController: UIViewController {
                 if let user = user {
                     
                     let uid = user.uid
-                    print("\(uid)")
                     self.tableName = ref.child("Students")
                     self.tableName.observe(.childAdded, with: { (snapshot) -> Void in
-                        print("vô trong rồi")
                         let postDict = snapshot.value as? [String:AnyObject]
                         if (postDict != nil)
                         {
                             if (snapshot.key == uid) {
-                                
-                                print("Kiểm tra lại tên attributes")
                                 let email:String = (postDict?["email"])! as! String
                                 let fullName:String = (postDict?["fullName"])! as! String
                                 let linkAvatar:String = (postDict?["linkAvatar"])! as! String
@@ -77,13 +73,10 @@ class LoadingViewController: UIViewController {
                             else {
                                 self.tableName = ref.child("Teachers")
                                 self.tableName.observe(.childAdded, with: { (snapshot1) -> Void in
-                                    print("vô trong rồi")
                                     let postDict1 = snapshot1.value as? [String:AnyObject]
                                     if (postDict1 != nil)
                                     {
                                         if (snapshot1.key == uid) {
-                                            
-                                            print("Kiểm tra lại tên attributes")
                                             let email:String = (postDict1?["email"])! as! String
                                             let fullName:String = (postDict1?["fullName"])! as! String
                                             let linkAvatar:String = (postDict1?["linkAvatar"])! as! String
@@ -126,7 +119,6 @@ class LoadingViewController: UIViewController {
                 }
             } else {
                 activity.stopAnimating()
-                print("Chua dang nhap")
                 self.gotoScreen(idScreen: "scrLogin")
             }
         }

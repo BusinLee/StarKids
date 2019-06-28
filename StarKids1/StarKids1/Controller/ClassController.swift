@@ -46,11 +46,6 @@ class ClassController: UIViewController {
         navigationBar?.title = "Lớp học"
         
     }
-    
-    
-    @objc func buttonAction(sender: UIButton!) {
-        print("Button tapped")
-    }
 }
 
 extension ClassController : UITableViewDelegate, UITableViewDataSource

@@ -150,7 +150,6 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         let monthInt:Int = Int(daySplit[1])!
         day = daySplit[0]
         month = daySplit[1]
-        print("\(monthInt)")
         for i in 0...1 {
             var row = [Int]()
             for j in 0...30 {
@@ -657,7 +656,6 @@ extension DetailInfoController : UIImagePickerControllerDelegate, UINavigationCo
                     let avatarRef = storageRef.child("avatars/\(selectedStudent.email!).jpg")
                     let uploadTask = avatarRef.putData(self.imgData, metadata: nil) { metadata, error in
                         guard let metadata = metadata else {
-                            print("Lỗi up avatar")
                             alertActivity.dismiss(animated: true, completion: nil)
                             return
                         }
