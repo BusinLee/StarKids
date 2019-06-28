@@ -14,6 +14,8 @@ class CreatePostController: UIViewController {
 
     @IBOutlet weak var txtContent: UITextView!
     @IBOutlet weak var btnPicture: UIImageView!
+    @IBOutlet weak var imgAvatar: UIImageView!
+    @IBOutlet weak var lblUser: UILabel!
     var rightButton:UIBarButtonItem!
     var selectedAssets = [PHAsset]()
     var photoArray:Array<UIImage> = Array<UIImage>()
@@ -34,6 +36,9 @@ class CreatePostController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imgAvatar.image = currentUser.avatar
+        lblUser.text = currentUser.fullName
 
         uiimgView.append(img0)
         uiimgView.append(img1)

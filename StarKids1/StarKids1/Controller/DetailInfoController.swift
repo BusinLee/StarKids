@@ -76,7 +76,14 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        if (currentUser.role == "student")
+        {
+            btnEditMore.isHidden = true
+            btnEditBasic.isHidden = true
+            btnEditHeath.isHidden = true
+            btnEditStudy.isHidden = true
+        }
         setDefaultValueForComponet(user: selectedStudent)
         
         imgData = UIImage(named: "camera")!.pngData()

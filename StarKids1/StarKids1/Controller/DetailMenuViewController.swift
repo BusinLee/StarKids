@@ -18,6 +18,8 @@ class DetailMenuViewController: UIViewController {
     @IBOutlet weak var imgMain2: UIImageView!
     @IBOutlet weak var imgFry: UIImageView!
     @IBOutlet weak var imgSoup: UIImageView!
+    
+    var titleScr:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,8 +33,25 @@ class DetailMenuViewController: UIViewController {
         setImage(img: imgFry, nameImg: selectedMenu.imgFry!)
         setImage(img: imgSoup, nameImg: selectedMenu.imgSoup!)
         
+        switch(selectedMenu.day) {
+        case "Monday":
+            titleScr = "Thứ 2"
+            break
+        case "Tuesday":
+            titleScr = "Thứ 3"
+            break
+        case "Wednesday":
+            titleScr = "Thứ 4"
+            break
+        case "Thusday":
+            titleScr = "Thứ 5"
+            break
+        default:
+            titleScr = "Thứ 6"
+            break
+        }
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
-        navigationBar?.title = selectedMenu.day
+        navigationBar?.title = titleScr
     }
     
     func setImage (img:UIImageView, nameImg:String) {

@@ -375,7 +375,7 @@ class NewStudentController: UIViewController, UIPickerViewDelegate, UIPickerView
                 }
             }
         } else {
-            className = String(arrClassId[row])
+            className = arrClassId[row]
         }
     }
     
