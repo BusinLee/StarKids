@@ -75,6 +75,10 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
         formatter.dateFormat = "dd/MM/yyyy"
         let day = formatter.string(from: date)
         
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
         let alert = UIAlertController(title: "Xác nhận", message: "Bạn muốn nộp đơn xin nghỉ học?", preferredStyle: .alert)
         let btnCancel:UIAlertAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
@@ -94,10 +98,26 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
                         if (self.setDate())
                         {
                             let leaveRequest:Dictionary<String,String> = ["currentDay":day, "parent":self.parents, "studentId": currentUser.id, "fromDay": self.dateF, "toDay": self.dateT, "reason": self.txtReason.text!]
-                            let tableNameLeave = ref.child("LeaveRequests")
-                            tableNameLeave.childByAutoId().setValue(leaveRequest)
+                            let tableNameLeave = ref.child("LeaveRequests").childByAutoId()
+                            let randomChild = tableNameLeave.key
+                            tableNameLeave.setValue(leaveRequest)
+                            
+                            let tableNameClass = ref.child("Students").child(currentUser.id).child("className")
+                            tableNameClass.observe(.value, with: { (snapshot2) in
+                                let classId = (snapshot2.value as? String)!
+                                
+                                let tableNameClass = ref.child("Classes").child(classId).child("teacherName")
+                                tableNameClass.observe(.value, with: { (snapshot) in
+                                    let teacherId = (snapshot.value as? String)!
+                                    
+                                    let notice:Dictionary<String, Any> = ["userComment": currentUser.id,"seen": false, "date":day, "time": "\(hour)"+":"+"\(minute)","postId": randomChild, "content": "đơn xin nghỉ học"]
+                                    let tableNameNotice = ref.child("Notices").child(teacherId)
+                                    tableNameNotice.childByAutoId().setValue(notice)
+                                })
+                            })
                             
                             
+                            /////////////
                             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Nộp đơn thành công", preferredStyle: .alert)
                             let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
                                 self.txtReason.text = ""

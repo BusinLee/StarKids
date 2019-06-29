@@ -171,8 +171,8 @@ class DetailPostController: UIViewController {
         let tableNameComments = ref.child("Comments").child(selectPost.id)
         tableNameComments.childByAutoId().setValue(comment)
         txtComment.text = ""
-        if (currentUser.id != selectPost.userPost) {
-            let notice:Dictionary<String, Any> = ["userComment":currentUser.id,"seen": false, "date":day, "time": "\(hour)"+":"+"\(minute)","postId":selectPost.id]
+        if (currentUser.id != selectPost.userPost && currentUser.role == "student") {
+            let notice:Dictionary<String, Any> = ["userComment":currentUser.id,"seen": false, "date":day, "time": "\(hour)"+":"+"\(minute)","postId":selectPost.id, "content": "bình luận"]
             let tableNameNotice = ref.child("Notices").child(selectPost.userPost)
             tableNameNotice.childByAutoId().setValue(notice)
         }

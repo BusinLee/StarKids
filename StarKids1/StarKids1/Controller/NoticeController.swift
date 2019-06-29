@@ -26,44 +26,100 @@ class NoticeController: UIViewController {
         
         tblNotice.dataSource = self
         tblNotice.delegate = self
-        let tableName = ref.child("Notices").child(currentUser.id)
-        tableName.observe(.childAdded) { (snapshot) in
-            let postDict = snapshot.value as? [String:AnyObject]
-            if (postDict != nil) {
-                let userComment:String = (postDict?["userComment"])! as! String
-                let seen:Bool = (postDict?["seen"])! as! Bool
-                let date:String = (postDict?["date"])! as! String
-                let time:String = (postDict?["time"])! as! String
-                let postId:String = (postDict?["postId"])! as! String
-                var nameUser:String = ""
-                var linkAvaCmt:String = ""
-                
-                let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
-                tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
-                    linkAvaCmt = (snapshot1.value as? String)!
-                })
-                
-                let tableNameUser = ref.child("Students").child(userComment).child("fullName")
-                tableNameUser.observe(.value, with: { (snapshot1) in
-                    nameUser = (snapshot1.value as? String)!
-                    
-                    let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time, content: "", userSeen: "", idContent: "")
-                    if (!seen) {
-                        if let tabItems = self.tabBarController?.tabBar.items {
-                            self.flagNotice = self.flagNotice + 1
-                            noticeCount.set(self.flagNotice, forKey: "noticeCount")
-                            let tabItem = tabItems[2]
-                            tabItem.badgeValue = String(self.flagNotice)
+        
+        if (currentUser.role == "admin")
+        {
+            let tableNameTeacher = ref.child("Teachers")
+            tableNameTeacher.observe(.childAdded) { (snapshot7) in
+                let postDict7 = snapshot7.value as? [String:AnyObject]
+                if (postDict7 != nil)
+                {
+                    let tableName = ref.child("Notices").child(snapshot7.key)
+                    tableName.observe(.childAdded) { (snapshot) in
+                        let postDict = snapshot.value as? [String:AnyObject]
+                        if (postDict != nil) {
+                            let userComment:String = (postDict?["userComment"])! as! String
+                            let seen:Bool = (postDict?["seen"])! as! Bool
+                            let date:String = (postDict?["date"])! as! String
+                            let time:String = (postDict?["time"])! as! String
+                            let postId:String = (postDict?["postId"])! as! String
+                            let content:String = (postDict?["content"])! as! String
+                            var nameUser:String = ""
+                            var linkAvaCmt:String = ""
+                            
+                            let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
+                            tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
+                                linkAvaCmt = (snapshot1.value as? String)!
+                            })
+                            
+                            let tableNameUser = ref.child("Students").child(userComment).child("fullName")
+                            tableNameUser.observe(.value, with: { (snapshot1) in
+                                nameUser = (snapshot1.value as? String)!
+                                
+                                let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time, content: content, userSeen: "", idContent: "")
+                                if (!seen) {
+                                    if let tabItems = self.tabBarController?.tabBar.items {
+                                        self.flagNotice = self.flagNotice + 1
+                                        noticeCount.set(self.flagNotice, forKey: "noticeCount")
+                                        let tabItem = tabItems[2]
+                                        tabItem.badgeValue = String(self.flagNotice)
+                                    }
+                                }
+                                self.listNotice.append(notice)
+                                self.tblNotice.reloadData()
+                            })
+                            
+                        }
+                        else {
+                            print("Không có thông báo!")
                         }
                     }
-                    self.listNotice.append(notice)
-                    self.tblNotice.reloadData()
-                })
-                
+                }
             }
-            else {
-                print("Không có thông báo!")
+        }
+        else
+        {
+            let tableName = ref.child("Notices").child(currentUser.id)
+            tableName.observe(.childAdded) { (snapshot) in
+                let postDict = snapshot.value as? [String:AnyObject]
+                if (postDict != nil) {
+                    let userComment:String = (postDict?["userComment"])! as! String
+                    let seen:Bool = (postDict?["seen"])! as! Bool
+                    let date:String = (postDict?["date"])! as! String
+                    let time:String = (postDict?["time"])! as! String
+                    let postId:String = (postDict?["postId"])! as! String
+                    let content:String = (postDict?["content"])! as! String
+                    var nameUser:String = ""
+                    var linkAvaCmt:String = ""
+                    
+                    let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
+                    tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
+                        linkAvaCmt = (snapshot1.value as? String)!
+                    })
+                    
+                    let tableNameUser = ref.child("Students").child(userComment).child("fullName")
+                    tableNameUser.observe(.value, with: { (snapshot1) in
+                        nameUser = (snapshot1.value as? String)!
+                        
+                        let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time, content: content, userSeen: "", idContent: "")
+                        if (!seen) {
+                            if let tabItems = self.tabBarController?.tabBar.items {
+                                self.flagNotice = self.flagNotice + 1
+                                noticeCount.set(self.flagNotice, forKey: "noticeCount")
+                                let tabItem = tabItems[2]
+                                tabItem.badgeValue = String(self.flagNotice)
+                            }
+                        }
+                        self.listNotice.append(notice)
+                        self.tblNotice.reloadData()
+                    })
+                    
+                }
+                else {
+                    print("Không có thông báo!")
+                }
             }
+            
         }
         
         if (currentUser.role != "admin")
@@ -125,18 +181,24 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:NoticeTableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NoticeTableViewCell
-        if (listNotice[indexPath.row].content == "")
+        if (listNotice[indexPath.row].postId != "")
         {
-        cell.imgUserCmt.loadAvatar(link: listNotice[indexPath.row].linkAvaCmt)
-        cell.lblContent.text = listNotice[indexPath.row].nameUserComment + " đã bình luận bài viết của bạn"
-        cell.lblTime.text = listNotice[indexPath.row].day + "  " + listNotice[indexPath.row].time
+            cell.imgUserCmt.loadAvatar(link: listNotice[indexPath.row].linkAvaCmt)
+            if (listNotice[indexPath.row].content == "bình luận")
+            {
+                cell.lblContent.text = listNotice[indexPath.row].nameUserComment + " đã bình luận bài viết của bạn"
+            }
+            else
+            {
+                cell.lblContent.text = listNotice[indexPath.row].nameUserComment + " đã nộp đơn xin nghỉ học mới"
+            }
+            cell.lblTime.text = listNotice[indexPath.row].day + "  " + listNotice[indexPath.row].time
             
             if (!listNotice[indexPath.row].seen)
             {
                 cell.contentView.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
                 cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
             }
-        
         }
         else
         {
@@ -155,7 +217,7 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let seenArr = listNotice[indexPath.row].userSeen.components(separatedBy: ";")
-        if (listNotice[indexPath.row].content == "")
+        if (listNotice[indexPath.row].postId != "")
         {
             if (!listNotice[indexPath.row].seen)
             {
@@ -170,7 +232,7 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
                     }
                 }
                 
-                let notice:Dictionary<String, Any> = ["userComment":listNotice[indexPath.row].userCmt,"seen": true, "date":listNotice[indexPath.row].day, "time": listNotice[indexPath.row].time, "postId":listNotice[indexPath.row].postId]
+                let notice:Dictionary<String, Any> = ["userComment":listNotice[indexPath.row].userCmt,"seen": true, "date":listNotice[indexPath.row].day, "time": listNotice[indexPath.row].time, "postId":listNotice[indexPath.row].postId, "content": listNotice[indexPath.row].content]
                 let tableNameNotice = ref.child("Notices").child(currentUser.id).child(listNotice[indexPath.row].idNotice)
                 tableNameNotice.setValue(notice)
                 
@@ -182,8 +244,59 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
             cell.contentView.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
             cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(255)/255, green: CGFloat(255)/255, blue: CGFloat(255)/255, alpha: 1.0)
             
-            selectPostId = listNotice[indexPath.row].postId
-            gotoScreenWithBack(idScreen: "scrPostDetail")
+            if (listNotice[indexPath.row].content == "bình luận")
+            {
+                selectPostId = listNotice[indexPath.row].postId
+                gotoScreenWithBack(idScreen: "scrPostDetail")
+            }
+            else
+            {
+                let tableName = ref.child("LeaveRequests")
+                tableName.observe(.childAdded) { (snapshot) in
+                    let postDict = snapshot.value as? [String:AnyObject]
+                    if (postDict != nil) {
+                        if (snapshot.key == self.listNotice[indexPath.row].postId)
+                        {
+                            let currentDay:String = (postDict?["currentDay"])! as! String
+                            let fromDay:String = (postDict?["fromDay"])! as! String
+                            let parentt:String = (postDict?["parent"])! as! String
+                            let reason:String = (postDict?["reason"])! as! String
+                            let studentId:String = (postDict?["studentId"])! as! String
+                            let toDay:String = (postDict?["toDay"])! as! String
+                            var fullName:String = ""
+                            var linkAvatar:String = ""
+                            var parentName:String = ""
+                            var classId:String = ""
+                            var className:String = ""
+                            let tableUsers = ref.child("Students").child(studentId)
+                            tableUsers.observeSingleEvent(of: .value, with: { (snapshot1) in
+                                let postDict1 = snapshot1.value as? [String: Any]
+                                if (postDict1 != nil) {
+                                    fullName = (postDict1?["fullName"]) as! String
+                                    linkAvatar = (postDict1?["linkAvatar"]) as! String
+                                    classId = (postDict1?["className"]) as! String
+                                    if (parentt == "ba")
+                                    {
+                                        parentName = (postDict1?["fatherName"]) as! String
+                                    }
+                                    else
+                                    {
+                                        parentName = (postDict1?["motherName"]) as! String
+                                    }
+                                    
+                                    let tableNameClass = ref.child("Classes").child(classId).child("className")
+                                    tableNameClass.observe(.value, with: { (snapshot2) in
+                                        className = (snapshot2.value as? String)!
+                                        
+                                        selectedLeaveRequest = LeaveRequest(id: snapshot.key, currentDay: currentDay, fromDay: fromDay, toDay: toDay, reason: reason, fullName: fullName, parent: parentName, linkAvatar: linkAvatar, className: className)
+                                        self.gotoScreenWithBack(idScreen: "scrDetailLeave")
+                                    })
+                                }
+                            })
+                        }
+                    }
+                }
+            }
         }
         else
         {
