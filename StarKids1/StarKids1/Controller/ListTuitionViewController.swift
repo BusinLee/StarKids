@@ -20,7 +20,7 @@ class ListTuitionViewController: UIViewController {
         
         tblListTuition.delegate = self
         tblListTuition.dataSource = self
-
+        
         let tableName = ref.child("Tuitions")
         tableName.observe(.childAdded) { (snapshot) in
             let postDict = snapshot.value as? [String:AnyObject]
@@ -44,9 +44,15 @@ class ListTuitionViewController: UIViewController {
         }
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = "Học phí"
+        if(currentUser.role == "admin")
+        {
+            navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Thêm", style: .done, target: self, action: #selector(btnXong))
+        }
     }
     
-
+    @objc func btnXong(sender: AnyObject) {
+        self.gotoScreenWithBack(idScreen: "scrAddTuition")
+    }
 }
 extension ListTuitionViewController : UITableViewDelegate, UITableViewDataSource
 {

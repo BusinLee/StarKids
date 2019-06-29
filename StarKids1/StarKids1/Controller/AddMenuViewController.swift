@@ -113,7 +113,7 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         let editTextY:CGFloat! = (self.activeTextField?.frame.origin.y)! - 1000
         if editTextY > keyboardY - 60 {
             UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextY! - (keyboardY - 60)), width: self.view.bounds.width, height: self.view.bounds.height)
+                self.view.frame = CGRect(x: 0, y: self.view.frame.origin.y - (editTextY! - (keyboardY - 40)), width: self.view.bounds.width, height: self.view.bounds.height)
             }, completion: nil)
         }
     }
@@ -185,6 +185,15 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         arrImageName.append("imgFriFry.jpg")
         arrImageName.append("imgFriSoup.jpg")
         
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        let day = formatter.string(from: date)
+        
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
         var arrImageURL:Array<String> = Array<String> ()
         var avatarRef = storageRef.child("menus/")
         let temp = df.string(from: monday) + "-" + df.string(from: friday)
@@ -239,7 +248,11 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
                 {
                     let menu:Dictionary<String,String> = ["main1":self.lblFriMain1.text!, "linkMain1" : arrImageName[16],"main2":self.lblFriMain2.text!, "linkMain2" : arrImageName[17], "fry":self.lblFriFry.text!, "linkFry" : arrImageName[18], "soup":self.lblFriSoup.text!, "linkSoup" : arrImageName[19]]
                     tableName.child("Friday").setValue(menu)
-
+                    
+                    let notice:Dictionary<String, Any> = ["userSeen":"", "date":day, "time": "\(hour)"+":"+"\(minute)","idContent": str, "content": "thực đơn"]
+                    let tableNameNotice = ref.child("NoticesMore")
+                    tableNameNotice.childByAutoId().setValue(notice)
+                    
                     alertActivity.dismiss(animated: true, completion: nil)
                     //self.gotoScreen(idScreen: "mainTabBarController")
                     let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Tạo menu thành công", preferredStyle: .alert)
@@ -481,7 +494,7 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: myDate)
         comps.weekday = 2 // Monday
         let mondayInWeek = cal.date(from: comps)!
-        let mondayNextWeek = Calendar.current.date(byAdding: .day, value: 7, to: mondayInWeek)
+        let mondayNextWeek = Calendar.current.date(byAdding: .day, value: -7, to: mondayInWeek)
         return mondayNextWeek!
     }
 }

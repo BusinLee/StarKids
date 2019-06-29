@@ -18,6 +18,9 @@ struct Notice {
     var seen:Bool!
     var day:String!
     var time:String!
+    var content:String!
+    var userSeen:String!
+    var idContent:String!
     
     init() {
         idNotice = ""
@@ -28,9 +31,12 @@ struct Notice {
         seen = false
         day = ""
         time = ""
+        content = ""
+        userSeen = ""
+        idContent = ""
     }
     
-    init(idNotice:String, postId:String, userCmt:String, nameUserComment:String, linkAvaCmt:String,  seen:Bool,day:String, time:String)
+    init(idNotice:String, postId:String, userCmt:String, nameUserComment:String, linkAvaCmt:String,  seen:Bool,day:String, time:String, content:String, userSeen: String, idContent: String)
     {
         self.idNotice = idNotice
         self.postId = postId
@@ -40,5 +46,8 @@ struct Notice {
         self.seen = seen
         self.day = day
         self.time = time
+        self.content = content
+        self.userSeen = userSeen
+        self.idContent = idContent
     }
 }

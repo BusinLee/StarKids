@@ -19,6 +19,7 @@ class LoadingViewController: UIViewController {
     var tableName:DatabaseReference!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         isLogin();
     }

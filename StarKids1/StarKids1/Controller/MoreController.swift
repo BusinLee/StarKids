@@ -177,13 +177,13 @@ extension MoreController: UITableViewDataSource, UITableViewDelegate
                 self.gotoScreenWithBack(idScreen: "scrListFriend")
                 break
             case 2:
-                self.gotoScreenWithBack(idScreen: "scrAddTuition")
+                self.gotoScreenWithBack(idScreen: "scrTuition")
                 break
             case 3:
                 self.gotoScreenWithBack(idScreen: "scrLeaveRequest")
                 break
             case 4:
-            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+                self.gotoScreenWithBack(idScreen: "scrMenuList")
                 break
             case 5:
                 self.gotoScreenWithBack(idScreen: "scrAddStudent")

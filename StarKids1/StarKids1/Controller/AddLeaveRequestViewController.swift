@@ -96,6 +96,8 @@ class AddLeaveRequestViewController: UIViewController, UIPickerViewDelegate, UIP
                             let leaveRequest:Dictionary<String,String> = ["currentDay":day, "parent":self.parents, "studentId": currentUser.id, "fromDay": self.dateF, "toDay": self.dateT, "reason": self.txtReason.text!]
                             let tableNameLeave = ref.child("LeaveRequests")
                             tableNameLeave.childByAutoId().setValue(leaveRequest)
+                            
+                            
                             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Nộp đơn thành công", preferredStyle: .alert)
                             let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
                                 self.txtReason.text = ""

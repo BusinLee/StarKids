@@ -74,6 +74,10 @@ class AddTuitionViewController: UIViewController {
         formatter.dateFormat = "dd/MM/yyyy"
         let day = formatter.string(from: date)
         
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
         if (self.txtStudy.text == "")
         {
             self.txtStudy.text = "0"
@@ -100,9 +104,14 @@ class AddTuitionViewController: UIViewController {
         let btnOk:UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
             
             let tuition:Dictionary<String,String> = ["date":day, "sum":self.lblSum.text!, "month": self.monthTuition, "year": self.yearTuition, "study": self.txtStudy.text!, "support": self.txtSupport.text!, "verhical": self.txtVerhical.text!, "extra": self.txtExtra.text!, "camp": self.txtCamp.text!]
-            let tableName = ref.child("Tuitions")
-            tableName.childByAutoId().setValue(tuition)
+            let tableName = ref.child("Tuitions").childByAutoId()
+            let randomChild = tableName.key
+            tableName.setValue(tuition)
 
+            
+            let notice:Dictionary<String, Any> = ["userSeen":"", "date":day, "time": "\(hour)"+":"+"\(minute)","idContent": randomChild, "content": "học phí"]
+            let tableNameNotice = ref.child("NoticesMore")
+            tableNameNotice.childByAutoId().setValue(notice)
             //////////
             let alert1:UIAlertController = UIAlertController(title: "Thông báo", message: "Thêm thành công", preferredStyle: .alert)
             let btnOk1:UIAlertAction = UIKit.UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
@@ -115,6 +124,7 @@ class AddTuitionViewController: UIViewController {
         alert.addAction(btnCancel)
         present(alert, animated: true, completion: nil)
     }
+    
 }
 extension AddTuitionViewController:UITextFieldDelegate
 {

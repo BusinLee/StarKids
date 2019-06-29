@@ -35,6 +35,14 @@ class ListMenuViewController: UIViewController {
         }
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = "Thực đơn"
+        if(currentUser.role == "admin")
+        {
+            navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Thêm", style: .done, target: self, action: #selector(btnXong))
+        }
+    }
+    
+    @objc func btnXong(sender: AnyObject) {
+        self.gotoScreenWithBack(idScreen: "scrAddMenu")
     }
 }
 extension ListMenuViewController : UITableViewDelegate, UITableViewDataSource
