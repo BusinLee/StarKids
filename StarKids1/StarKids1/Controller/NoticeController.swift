@@ -47,27 +47,31 @@ class NoticeController: UIViewController {
                             var nameUser:String = ""
                             var linkAvaCmt:String = ""
                             
-                            let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
-                            tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
-                                linkAvaCmt = (snapshot1.value as? String)!
-                            })
-                            
-                            let tableNameUser = ref.child("Students").child(userComment).child("fullName")
-                            tableNameUser.observe(.value, with: { (snapshot1) in
-                                nameUser = (snapshot1.value as? String)!
+                            if (content != "bình luận")
+                            {
+                                let tableNameLinkAvatarPost = ref.child("Students").child(userComment).child("linkAvatar")
+                                tableNameLinkAvatarPost.observe(.value, with: { (snapshot1) in
+                                    linkAvaCmt = (snapshot1.value as? String)!
+                                })
                                 
-                                let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time, content: content, userSeen: "", idContent: "")
-                                if (!seen) {
-                                    if let tabItems = self.tabBarController?.tabBar.items {
-                                        self.flagNotice = self.flagNotice + 1
-                                        noticeCount.set(self.flagNotice, forKey: "noticeCount")
-                                        let tabItem = tabItems[2]
-                                        tabItem.badgeValue = String(self.flagNotice)
+                                let tableNameUser = ref.child("Students").child(userComment).child("fullName")
+                                tableNameUser.observe(.value, with: { (snapshot1) in
+                                    nameUser = (snapshot1.value as? String)!
+                                    
+                                    let notice:Notice = Notice(idNotice: snapshot.key, postId: postId, userCmt: userComment, nameUserComment: nameUser,linkAvaCmt: linkAvaCmt, seen: seen, day: date, time: time, content: content, userSeen: "", idContent: "")
+                                    if (!seen) {
+                                        if let tabItems = self.tabBarController?.tabBar.items {
+                                            self.flagNotice = self.flagNotice + 1
+                                            noticeCount.set(self.flagNotice, forKey: "noticeCount")
+                                            let tabItem = tabItems[2]
+                                            tabItem.badgeValue = String(self.flagNotice)
+                                        }
                                     }
-                                }
-                                self.listNotice.append(notice)
-                                self.tblNotice.reloadData()
-                            })
+                                    self.listNotice.append(notice)
+                                    self.tblNotice.reloadData()
+                                })
+                                
+                            }
                             
                         }
                         else {
