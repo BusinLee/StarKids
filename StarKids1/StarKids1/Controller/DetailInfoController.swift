@@ -64,19 +64,19 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
     var activeTextField:UITextField!
     var arrDate = [[Int]]()
     var arrClasses:Array<String> = Array<String>()
-    var arrTeacherName:Array<String> = Array<String>()
+    var arrClassId:Array<String> = Array<String>()
     var day:String = "01"
     var month:String = "01"
     var rightButton:UIBarButtonItem!
     var gender:String = selectedStudent.gender
-    var className:String = selectedStudent.className
+    var classNameId:String = selectedClassId
     var teacherName:String = selectedStudent.teacherName
     var itemAtDefaultPosition: String?
     var defaultRowIndex:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         if (currentUser.role == "student")
         {
             btnEditMore.isHidden = true
@@ -131,9 +131,8 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
             if (postDict != nil)
             {
                 let className:String = (postDict?["className"])! as! String
-                let teacherName:String = (postDict?["teacherName"])! as! String
-                self.arrTeacherName.append(teacherName)
                 self.arrClasses.append(className)
+                self.arrClassId.append(snapshot.key)
                 self.pickerClass.reloadAllComponents()
             } else {
                 print("Không có class")
@@ -236,7 +235,8 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                     } else {
                         let tableName = ref.child("Students")
                         let userId = tableName.child(selectedStudent.id)
-                        let user:Dictionary<String,Any> = ["email":selectedStudent.email,"fullName":selectedStudent.fullName,"linkAvatar":selectedStudent.linkAvatar,"nickName":self.txtNickName.text!, "className":self.className, "teacherName":self.teacherName, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
+                        let user:Dictionary<String,Any> = ["email":selectedStudent.email,"fullName":selectedStudent.fullName,"linkAvatar":selectedStudent.linkAvatar,"nickName":self.txtNickName.text!, "className":self.classNameId, "birthDay":self.day+"/"+self.month+"/"+self.txtBirthYear.text!, "gender":self.gender, "hobby":self.txtHobby.text!, "fatherName":self.txtFatherName.text!, "fatherPhone":self.txtFatherPhone.text!, "motherName":self.txtMotherName.text!, "motherPhone":self.txtMotherPhone.text!, "illness":self.txtIllness.text!,"evaluation":self.txtEvaluation.text!,"note":self.txtNote.text!,"ability":self.txtAbility.text!,"weight":Int(self.txtWeight.text!),"height":Int(self.txtHeight.text!),"dayLeave":Int(self.txtLeaveDay.text!)]
+                        
                         userId.setValue(user)
                         
                         tableName.observe(.childAdded, with: { (snapshot) -> Void in
@@ -248,8 +248,8 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                     let fullName:String = (postDict?["fullName"])! as! String
                                     let linkAvatar:String = (postDict?["linkAvatar"])! as! String
                                     let nickName:String = (postDict?["nickName"])! as! String
-                                    let className:String = (postDict?["className"])! as! String
-                                    let teacherName:String = (postDict?["teacherName"])! as! String
+                                    let classId:String = (postDict?["className"])! as! String
+                                    
                                     let birthDay:String = (postDict?["birthDay"])! as! String
                                     let gender:String = (postDict?["gender"])! as! String
                                     let hobby:String = (postDict?["hobby"])! as! String
@@ -265,16 +265,48 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                                     let note:String = (postDict?["note"])! as! String
                                     let ability:String = (postDict?["ability"])! as! String
                                     
-                                    selectedStudent = Student(id: selectedStudent.id, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName: teacherName ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
-                                    let url:URL = URL(string: selectedStudent.linkAvatar)!
-                                    do
-                                    {
-                                        let data:Data = try Data(contentsOf: url)
-                                        selectedStudent.avatar = UIImage(data: data)
-                                    }
-                                    catch
-                                    {
-                                        print("lỗi gán avatar current user")
+//                                    selectedStudent = Student(id: selectedStudent.id, email: email ?? "nil", fullName: fullName ?? "nil", linkAvatar: linkAvatar ?? "nil", nickName: nickName ?? "nil", className: className ?? "nil", teacherName:  ?? "nil", birthDay: birthDay ?? "nil", gender: gender ?? "nil", hobby: hobby ?? "nil", fatherName: fatherName ?? "nil", fatherPhone: fatherPhone ?? "nil", motherName: motherName ?? "nil", motherPhone: motherPhone ?? "nil", weight: weight ?? 0, height: height ?? 0, illness: illness ?? "nil", dayLeave: dayLeave ?? 0, evaluation: evaluation ?? "nil", note: note ?? "nil", ability: ability ?? "nil")
+//                                    let url:URL = URL(string: selectedStudent.linkAvatar)!
+//                                    do
+//                                    {
+//                                        let data:Data = try Data(contentsOf: url)
+//                                        selectedStudent.avatar = UIImage(data: data)
+//                                    }
+//                                    catch
+//                                    {
+//                                        print("lỗi gán avatar current user")
+//                                    }
+                                    let tableNameClass = ref.child("Classes")
+                                    tableNameClass.observe(.childAdded) { (snapshot1) in
+                                        let postDict1 = snapshot1.value as? [String:AnyObject]
+                                        if (postDict1 != nil) {
+                                            if (snapshot1.key == classId)
+                                            {
+                                                let className:String = (postDict1?["className"])! as! String
+                                                let teacherId:String = (postDict1?["teacherName"])! as! String
+                                                
+                                                
+                                                let tableNameTeacher = ref.child("Teachers").child(teacherId).child("fullName")
+                                                tableNameTeacher.observe(.value, with: { (snapshot2) in
+                                                    let teacher = (snapshot2.value as? String)!
+                                                    
+                                                    selectedStudent = Student(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar, nickName: nickName, className: className, teacherName: teacher, birthDay: birthDay, gender: gender, hobby: hobby, fatherName: fatherName, fatherPhone: fatherPhone, motherName: motherName, motherPhone: motherPhone, weight: weight, height: height, illness: illness, dayLeave: dayLeave, evaluation: evaluation, note: note, ability: ability)
+                                                    let url:URL = URL(string: selectedStudent.linkAvatar)!
+                                                    do
+                                                    {
+                                                        let data:Data = try Data(contentsOf: url)
+                                                        selectedStudent.avatar = UIImage(data: data)
+                                                    }
+                                                    catch
+                                                    {
+                                                        print("lỗi gán avatar current user")
+                                                    }
+                                                })
+                                            }
+                                        }
+                                        else {
+                                            print ("Không có lớp học")
+                                        }
                                     }
                                 }
                             }
@@ -445,8 +477,7 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
                 }
             }
         } else {
-            className = String(arrClasses[row])
-            teacherName = String(arrTeacherName[row])
+            classNameId = arrClassId[row]
         }
     }
     
@@ -478,7 +509,8 @@ class DetailInfoController: UIViewController,  UIPickerViewDelegate, UIPickerVie
         if (arrClasses.count != 0) {
             for i in 0...arrClasses.count {
                 if (arrClasses[i] == user.className) {
-                    className = user.className
+                    //classNameId = user.className
+                    classNameId = selectedClassId
                     pickerClass.selectRow(i, inComponent: 0, animated: false)
                     break
                 }

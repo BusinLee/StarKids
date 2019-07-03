@@ -128,6 +128,7 @@
 		12E4EBDA22BE3C7B00289E92 /* AddLeaveRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLeaveRequestViewController.swift; sourceTree = "<group>"; };
 		12F81D6D22A56AEA00EF636F /* DetailPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostController.swift; sourceTree = "<group>"; };
 		360DC72F9F392663DCDC82D8 /* Pods-StarKids1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.release.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.release.xcconfig"; sourceTree = "<group>"; };
+		94865B6822CCFA440000F03A /* StarKids1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StarKids1.entitlements; sourceTree = "<group>"; };
 		99F6A324D014F43A41E40D88 /* Pods-StarKids1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarKids1.debug.xcconfig"; path = "Target Support Files/Pods-StarKids1/Pods-StarKids1.debug.xcconfig"; sourceTree = "<group>"; };
 		C5D9429C9B3F7BB7BCCC0E97 /* Pods_StarKids1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarKids1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -239,6 +240,7 @@
 		12DB3DEB2247D1E2005F96DD /* StarKids1 */ = {
 			isa = PBXGroup;
 			children = (
+				94865B6822CCFA440000F03A /* StarKids1.entitlements */,
 				1202F669225A2FF100FA9666 /* Model */,
 				1202F668225A2FDE00FA9666 /* Controller */,
 				1202F667225A2FD500FA9666 /* View */,
@@ -302,6 +304,11 @@
 				TargetAttributes = {
 					12DB3DE82247D1E2005F96DD = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

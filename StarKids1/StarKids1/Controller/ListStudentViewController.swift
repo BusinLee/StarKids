@@ -107,6 +107,7 @@ extension ListStudentViewController : UITableViewDelegate, UITableViewDataSource
                                 tableNameTeacher.observe(.value, with: { (snapshot2) in
                                     let teacher = (snapshot2.value as? String)!
                                     
+                                    selectedClassId = classId
                                     selectedStudent = Student(id: snapshot.key, email: email, fullName: fullName, linkAvatar: linkAvatar, nickName: nickName, className: className, teacherName: teacher, birthDay: birthDay, gender: gender, hobby: hobby, fatherName: fatherName, fatherPhone: fatherPhone, motherName: motherName, motherPhone: motherPhone, weight: weight, height: height, illness: illness, dayLeave: dayLeave, evaluation: evaluation, note: note, ability: ability)
                                     let url:URL = URL(string: selectedStudent.linkAvatar)!
                                     do
