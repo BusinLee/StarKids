@@ -38,6 +38,10 @@ class ListMenuViewController: UIViewController {
         if(currentUser.role == "admin")
         {
             navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Thêm", style: .done, target: self, action: #selector(btnXong))
+            if (trackDayMenu != "none")
+            {
+                self.navigationItem.rightBarButtonItem = nil;
+            }
         }
     }
     

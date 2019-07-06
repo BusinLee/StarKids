@@ -24,6 +24,13 @@ class MoreController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        trackDayMenu = "none"
+        monMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        tueMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        wedMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        thuMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        friMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        
         tblListMenu.dataSource = self
         tblListMenu.delegate = self
         tblListMenu.alwaysBounceVertical = false
@@ -134,6 +141,14 @@ class MoreController: UIViewController {
         tblListMenu.dataSource = self
         tblListMenu.delegate = self
         tblListMenu.alwaysBounceVertical = false
+        
+        trackDayMenu = "none"
+        
+        monMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        tueMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        wedMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        thuMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
+        friMenu = Menu(id: "", day: "", main1: "", main2: "", fry: "", soup: "", imgMain1: "", imgMain2: "", imgFry: "", imgSoup: "")
         
         lblName.text = currentUser.fullName
         imgAvatar.image = currentUser.avatar

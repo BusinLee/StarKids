@@ -52,6 +52,36 @@ class DetailMenuViewController: UIViewController {
         }
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = titleScr
+        navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Chọn", style: .done, target: self, action: #selector(btnXong))
+        if (trackDayMenu == "none")
+        {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    }
+    
+    @objc func btnXong(sender: AnyObject) {
+        switch trackDayMenu {
+        case "monday":
+            monMenu = selectedMenu
+            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+            break
+        case "tuesday":
+            tueMenu = selectedMenu
+            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+            break
+        case "wednesday":
+            wedMenu = selectedMenu
+            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+            break
+        case "thusday":
+            thuMenu = selectedMenu
+            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+            break
+        default:
+            friMenu = selectedMenu
+            self.gotoScreenWithBack(idScreen: "scrAddMenu")
+            break
+        }
     }
     
     func setImage (img:UIImageView, nameImg:String) {        let pictureRef = storageRef.child("menus/\(selectedMenu.id!)/\(selectedMenu.day!)/\(nameImg).jpg")

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAR-cU-1D0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAR-cU-1D0">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1075,6 +1075,50 @@
                                                 <rect key="frame" x="0.0" y="8" width="320" height="1573"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Dj-Ae-Jpa">
+                                                <rect key="frame" x="256" y="83" width="46" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Chọn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btn_Mon:" destination="dnu-GL-jgn" eventType="touchUpInside" id="bWJ-ZL-h1o"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXz-oV-Mj0">
+                                                <rect key="frame" x="256" y="375" width="46" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Chọn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btn_Tue:" destination="dnu-GL-jgn" eventType="touchUpInside" id="txO-AN-qh7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKk-Pz-Ahu">
+                                                <rect key="frame" x="256" y="661" width="46" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Chọn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btn_Wed:" destination="dnu-GL-jgn" eventType="touchUpInside" id="Bc4-5L-h6F"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIK-Vw-OjU">
+                                                <rect key="frame" x="256" y="953" width="46" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Chọn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btn_Thu:" destination="dnu-GL-jgn" eventType="touchUpInside" id="lXF-WX-PfA"/>
+                                                </connections>
+                                            </button>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-QX-G3q">
                                                 <rect key="frame" x="256" y="126" width="46" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1635,6 +1679,17 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ya2-fd-97t">
+                                                <rect key="frame" x="258" y="1235" width="46" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Chọn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btn_Fri:" destination="dnu-GL-jgn" eventType="touchUpInside" id="kte-uJ-fXP"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2617,7 +2672,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="IBV-wp-ukX">
-                                                    <rect key="frame" x="9" y="16" width="200" height="200"/>
+                                                    <rect key="frame" x="9" y="16" width="100" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="34" id="C09-IQ-BfJ"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="lJO-F8-kZD"/>
@@ -2625,7 +2680,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mln-q8-0V6">
-                                                    <rect key="frame" x="214" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="114" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2654,13 +2709,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytc-i6-oMN">
-                                                    <rect key="frame" x="215" y="13" width="42" height="20"/>
+                                                    <rect key="frame" x="217" y="13" width="42" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J7G-pa-oHm">
-                                                    <rect key="frame" x="265" y="12" width="35" height="35"/>
+                                                    <rect key="frame" x="267" y="12" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="J7G-pa-oHm" secondAttribute="height" multiplier="1:1" id="CmR-3U-vhC"/>
                                                         <constraint firstAttribute="width" constant="35" id="Ew7-zm-2hY"/>
@@ -4080,16 +4135,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="460.79998779296875" height="288"/>
-        <image name="camera" width="200" height="200"/>
-        <image name="card" width="308" height="308"/>
-        <image name="edit" width="36" height="36"/>
-        <image name="home_icon" width="36" height="36"/>
-        <image name="logo" width="500" height="500"/>
-        <image name="mail_icon" width="36" height="36"/>
-        <image name="more_icon" width="36" height="36"/>
-        <image name="notice_icon" width="36" height="36"/>
-        <image name="send" width="428.65115356445312" height="428.65115356445312"/>
-        <image name="star" width="48" height="48"/>
+        <image name="background" width="960" height="600"/>
+        <image name="camera" width="100" height="100"/>
+        <image name="card" width="154" height="154"/>
+        <image name="edit" width="18" height="18"/>
+        <image name="home_icon" width="18" height="18"/>
+        <image name="logo" width="250" height="250"/>
+        <image name="mail_icon" width="18" height="18"/>
+        <image name="more_icon" width="18" height="18"/>
+        <image name="notice_icon" width="18" height="18"/>
+        <image name="send" width="512" height="512"/>
+        <image name="star" width="32" height="32"/>
     </resources>
 </document>

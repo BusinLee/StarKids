@@ -25,6 +25,9 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        trackDayMenu = "none"
+        
         tblListPost.dataSource = self
         tblListPost.delegate = self
         tblListPost.transform = CGAffineTransform (scaleX: 1,y: -1);

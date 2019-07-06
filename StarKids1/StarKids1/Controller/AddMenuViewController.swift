@@ -8,6 +8,12 @@
 
 import UIKit
 
+var trackDayMenu:String!
+var monMenu:Menu!
+var tueMenu:Menu!
+var wedMenu:Menu!
+var thuMenu:Menu!
+var friMenu:Menu!
 class AddMenuViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var lblTitle: UILabel!
@@ -92,6 +98,32 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         lblFriFry.delegate = self
         lblFriSoup.delegate = self
         
+//        if (trackDayMenu != "none")
+//        {
+//            getExistMenu(day: trackDayMenu)
+//        }
+        
+        if (monMenu.id != "")
+        {
+            getExistMenu(day: "monday")
+        }
+        if (tueMenu.id != "")
+        {
+            getExistMenu(day: "tuesday")
+        }
+        if (wedMenu.id != "")
+        {
+            getExistMenu(day: "wednesday")
+        }
+        if (thuMenu.id != "")
+        {
+            getExistMenu(day: "thusday")
+        }
+        if (friMenu.id != "")
+        {
+            getExistMenu(day: "friday")
+        }
+        
         let navigationBar = self.navigationController?.visibleViewController?.navigationItem
         navigationBar?.title = "Thực đơn"
         navigationBar?.rightBarButtonItem = UIBarButtonItem(title: "Xong", style: .done, target: self, action: #selector(btnXong))
@@ -125,6 +157,31 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
+    }
+    
+    @IBAction func btn_Mon(_ sender: Any) {
+        trackDayMenu = "monday"
+        self.gotoScreenWithBack(idScreen: "scrMenuList")
+    }
+    
+    @IBAction func btn_Tue(_ sender: Any) {
+        trackDayMenu = "tuesday"
+        self.gotoScreenWithBack(idScreen: "scrMenuList")
+    }
+    
+    @IBAction func btn_Wed(_ sender: Any) {
+        trackDayMenu = "wednesday"
+        self.gotoScreenWithBack(idScreen: "scrMenuList")
+    }
+    
+    @IBAction func btn_Thu(_ sender: Any) {
+        trackDayMenu = "thusday"
+        self.gotoScreenWithBack(idScreen: "scrMenuList")
+    }
+    
+    @IBAction func btn_Fri(_ sender: Any) {
+        trackDayMenu = "friday"
+        self.gotoScreenWithBack(idScreen: "scrMenuList")
     }
     
     @objc func btnXong(sender: AnyObject) {
@@ -494,8 +551,132 @@ class AddMenuViewController: UIViewController, UITextFieldDelegate{
         var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: myDate)
         comps.weekday = 2 // Monday
         let mondayInWeek = cal.date(from: comps)!
-        let mondayNextWeek = Calendar.current.date(byAdding: .day, value: -7, to: mondayInWeek)
+        let mondayNextWeek = Calendar.current.date(byAdding: .day, value: 7, to: mondayInWeek)
         return mondayNextWeek!
+    }
+    
+    func getExistMenu(day:String)
+    {
+        //trackDayMenu = "none"
+        switch day {
+        case "monday":
+            lblMonMain1.text = monMenu.main1
+            lblMonMain2.text = monMenu.main2
+            lblMonFry.text = monMenu.fry
+            lblMonSoup.text = monMenu.soup
+            setImage(img: imgMonMain1, nameImg: monMenu.imgMain1!, selectMenu: monMenu)
+            setImage(img: imgMonMain2, nameImg: monMenu.imgMain2!, selectMenu: monMenu)
+            setImage(img: imgMonFry, nameImg: monMenu.imgFry!, selectMenu: monMenu)
+            setImage(img: imgMonSoup, nameImg: monMenu.imgSoup!, selectMenu: monMenu)
+            break
+        case "tuesday":
+            lblTueMain1.text = tueMenu.main1
+            lblTueMain2.text = tueMenu.main2
+            lblTueFry.text = tueMenu.fry
+            lblTueSoup.text = tueMenu.soup
+            setImage(img: imgTueMain1, nameImg: tueMenu.imgMain1!, selectMenu: tueMenu)
+            setImage(img: imgTueMain2, nameImg: tueMenu.imgMain2!, selectMenu: tueMenu)
+            setImage(img: imgTueFry, nameImg: tueMenu.imgFry!, selectMenu: tueMenu)
+            setImage(img: imgTueSoup, nameImg: tueMenu.imgSoup!, selectMenu: tueMenu)
+            break
+        case "wednesday":
+            lblWedMain1.text = wedMenu.main1
+            lblWedMain2.text = wedMenu.main2
+            lblWedFry.text = wedMenu.fry
+            lblWedSoup.text = wedMenu.soup
+            setImage(img: imgWedMain1, nameImg: wedMenu.imgMain1!, selectMenu: wedMenu)
+            setImage(img: imgWedMain2, nameImg: wedMenu.imgMain2!, selectMenu: wedMenu)
+            setImage(img: imgWedFry, nameImg: wedMenu.imgFry!, selectMenu: wedMenu)
+            setImage(img: imgWedSoup, nameImg: wedMenu.imgSoup!, selectMenu: wedMenu)
+            break
+        case "thusday":
+            lblThuMain1.text = thuMenu.main1
+            lblThuMain2.text = thuMenu.main2
+            lblThuFry.text = thuMenu.fry
+            lblThuSoup.text = thuMenu.soup
+            setImage(img: imgThuMain1, nameImg: thuMenu.imgMain1!, selectMenu: thuMenu)
+            setImage(img: imgThuMain2, nameImg: thuMenu.imgMain2!, selectMenu: thuMenu)
+            setImage(img: imgThuFry, nameImg: thuMenu.imgFry!, selectMenu: thuMenu)
+            setImage(img: imgThuSoup, nameImg: thuMenu.imgSoup!, selectMenu: thuMenu)
+            break
+        default:
+            lblFriMain1.text =  friMenu.main1
+            lblFriMain2.text = friMenu.main2
+            lblFriFry.text = friMenu.fry
+            lblFriSoup.text = friMenu.soup
+            setImage(img: imgFriMain1, nameImg: friMenu.imgMain1!, selectMenu:  friMenu)
+            setImage(img: imgFriMain2, nameImg: friMenu.imgMain2!, selectMenu: friMenu)
+            setImage(img: imgFriFry, nameImg: friMenu.imgFry!, selectMenu: friMenu)
+            setImage(img: imgFriSoup, nameImg: friMenu.imgSoup!, selectMenu: friMenu)
+            break
+        }
+    }
+//    func getExistMenu(day:String)
+//    {
+//        //trackDayMenu = "none"
+//        switch day {
+//        case "monday":
+//            lblMonMain1.text = selectedMenu.main1
+//            lblMonMain2.text = selectedMenu.main2
+//            lblMonFry.text = selectedMenu.fry
+//            lblMonSoup.text = selectedMenu.soup
+//            setImage(img: imgMonMain1, nameImg: selectedMenu.imgMain1!)
+//            setImage(img: imgMonMain2, nameImg: selectedMenu.imgMain2!)
+//            setImage(img: imgMonFry, nameImg: selectedMenu.imgFry!)
+//            setImage(img: imgMonSoup, nameImg: selectedMenu.imgSoup!)
+//            break
+//        case "tuesday":
+//            lblTueMain1.text = selectedMenu.main1
+//            lblTueMain2.text = selectedMenu.main2
+//            lblTueFry.text = selectedMenu.fry
+//            lblTueSoup.text = selectedMenu.soup
+//            setImage(img: imgTueMain1, nameImg: selectedMenu.imgMain1!)
+//            setImage(img: imgTueMain2, nameImg: selectedMenu.imgMain2!)
+//            setImage(img: imgTueFry, nameImg: selectedMenu.imgFry!)
+//            setImage(img: imgTueSoup, nameImg: selectedMenu.imgSoup!)
+//            break
+//        case "wednesday":
+//            lblWedMain1.text = selectedMenu.main1
+//            lblWedMain2.text = selectedMenu.main2
+//            lblWedFry.text = selectedMenu.fry
+//            lblWedSoup.text = selectedMenu.soup
+//            setImage(img: imgWedMain1, nameImg: selectedMenu.imgMain1!)
+//            setImage(img: imgWedMain2, nameImg: selectedMenu.imgMain2!)
+//            setImage(img: imgWedFry, nameImg: selectedMenu.imgFry!)
+//            setImage(img: imgWedSoup, nameImg: selectedMenu.imgSoup!)
+//            break
+//        case "thusday":
+//            lblThuMain1.text = selectedMenu.main1
+//            lblThuMain2.text = selectedMenu.main2
+//            lblThuFry.text = selectedMenu.fry
+//            lblThuSoup.text = selectedMenu.soup
+//            setImage(img: imgThuMain1, nameImg: selectedMenu.imgMain1!)
+//            setImage(img: imgThuMain2, nameImg: selectedMenu.imgMain2!)
+//            setImage(img: imgThuFry, nameImg: selectedMenu.imgFry!)
+//            setImage(img: imgThuSoup, nameImg: selectedMenu.imgSoup!)
+//            break
+//        default:
+//            lblFriMain1.text = selectedMenu.main1
+//            lblFriMain2.text = selectedMenu.main2
+//            lblFriFry.text = selectedMenu.fry
+//            lblFriSoup.text = selectedMenu.soup
+//            setImage(img: imgFriMain1, nameImg: selectedMenu.imgMain1!)
+//            setImage(img: imgFriMain2, nameImg: selectedMenu.imgMain2!)
+//            setImage(img: imgFriFry, nameImg: selectedMenu.imgFry!)
+//            setImage(img: imgFriSoup, nameImg: selectedMenu.imgSoup!)
+//            break
+//        }
+//    }
+    
+    func setImage (img:UIImageView, nameImg:String, selectMenu:Menu) {
+        let pictureRef = storageRef.child("menus/\(selectMenu.id!)/\(selectMenu.day!)/\(nameImg).jpg")
+        pictureRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("Không load được hình menu")
+            } else {
+                img.image = UIImage(data: data!)
+            }
+        }
     }
 }
 extension AddMenuViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate
