@@ -26,6 +26,7 @@ class NoticeController: UIViewController {
         
         tblNotice.dataSource = self
         tblNotice.delegate = self
+        tblNotice.transform = CGAffineTransform (scaleX: 1,y: -1);
         
         if (currentUser.role == "admin")
         {
@@ -216,6 +217,7 @@ extension NoticeController : UITableViewDataSource, UITableViewDelegate
                 cell.lblContent.backgroundColor = UIColor.init(displayP3Red: CGFloat(254)/255, green: CGFloat(227)/255, blue: CGFloat(78)/255, alpha: 1.0)
             }
         }
+        cell.contentView.transform = CGAffineTransform (scaleX: 1,y: -1);
         return cell
     }
     
